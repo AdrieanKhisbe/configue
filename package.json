@@ -4,7 +4,7 @@
   "engines": {
     "node": ">=4.0.0"
   },
-  "repository": "git://github.com/AdrieanKhisbe/hapi-configue",
+  "repository": "https://github.com/AdrieanKhisbe/hapi-configue",
   "main": "lib/configue.js",
   "contributors": [
     {
