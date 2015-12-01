@@ -6,7 +6,7 @@
   },
   "main": "lib/configue.js",
   "scripts": {
-    "test": "./node_modules/.bin/lab -v -P test -L -t 80",
+    "test": "lab -a code -P spec -L -t 100",
     "cov": "lab -s -r lcov | coveralls"
   },
   "peerDependencies": {
