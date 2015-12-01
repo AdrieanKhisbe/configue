@@ -8,7 +8,7 @@ Hapi Configue Plugin
 ***Config plugin for [Hapi](http://hapijs.com/).***
 
 Configue is a wrapper on [nconf](https://github.com/indexzero/nconf) node hierarchical
-plugin tool. It defines a standard forkflow to load a config from environment variable,
+plugin tool. It defines a standard workflow to load a config from environment variable,
 command line arguments, files, that you can easily configure and extend.
 
 # Usage
