@@ -38,11 +38,13 @@ describe('Request', () => {
 
             expect(err).to.not.exist();
 
-            server.route({method: 'GET', path: '/', handler: function(request, reply){
-                expect(request.configue).to.exist();
-                expect(request.configue).to.be.a.function();
-                return done();
-            }});
+            server.route({
+                method: 'GET', path: '/', handler: function (request, reply) {
+                    expect(request.configue).to.exist();
+                    expect(request.configue).to.be.a.function();
+                    return done();
+                }
+            });
 
             server.inject('/');
         });
