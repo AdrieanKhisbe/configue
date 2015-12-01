@@ -1,13 +1,17 @@
 language: node_js
-sudo: false
+
 node_js:
   - 4
   - 5
+
+script:
+  - npm test
+  - npm run cov
+
 cache:
   directories:
       - node_modules
-after_script:
-  - npm run cov
+
 notifications:
   webhooks:
     urls:
