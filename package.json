@@ -5,10 +5,18 @@
     "node": ">=4.0.0"
   },
   "main": "lib/configue.js",
+  "scripts": {
+    "test": "./node_modules/.bin/lab -v -P test -L -t 80",
+    "cov": "lab -s -r lcov | coveralls"
+  },
   "peerDependencies": {
     "hapi": "11.x.x"
   },
   "dependencies": {
     "joi": "^7.0.0"
+  },
+  "devDependencies": {
+    "code": "^2.0.1",
+    "lab": "^7.3.0"
   }
 }
