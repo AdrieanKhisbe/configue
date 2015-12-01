@@ -6,6 +6,16 @@
   },
   "repositery": "git://github.com/AdrieanKhisbe/hapi-configue",
   "main": "lib/configue.js",
+  "contributors": [{
+    "name": "Adriean Khisbe",
+    "email": "adriean.khisbe@live.fr"
+  },{
+    "name": "Maxime Lequain",
+    "email": "maxime.lequain@gmail.com"
+  }],
+  "publishConfig": {
+    "registry": "http://registry.npmjs.org/"
+  },
   "scripts": {
     "test": "lab -a code -P spec -t 60",
     "cov": "lab -s -r lcov | coveralls"

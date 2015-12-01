@@ -1,6 +1,7 @@
 Hapi Configue Plugin
 ====================
 
+[![NPM Version](https://img.shields.io/npm/v/hapi-configue.svg)](https://npmjs.org/package/hapi-configue)
 [![Build Status](https://travis-ci.org/AdrieanKhisbe/hapi-configue.svg)](https://travis-ci.org/AdrieanKhisbe/hapi-configue)
 [![Coverage Status](https://coveralls.io/repos/AdrieanKhisbe/hapi-config/badge.svg?branch=master&service=github)](https://coveralls.io/github/AdrieanKhisbe/hapi-config?branch=master)
 
