@@ -1,0 +1,14 @@
+{
+  "name": "hapi-configue",
+  "version": "0.0.1",
+  "engines": {
+    "node": ">=4.0.0"
+  },
+  "main": "lib/configue.js",
+  "peerDependencies": {
+    "hapi": "11.x.x"
+  },
+  "dependencies": {
+    "joi": "^7.0.0"
+  }
+}
