@@ -4,6 +4,7 @@
   "engines": {
     "node": ">=4.0.0"
   },
+  "repositery": "git://github.com/AdrieanKhisbe/hapi-configue",
   "main": "lib/configue.js",
   "scripts": {
     "test": "lab -a code -P spec -t 60",
