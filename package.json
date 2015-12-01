@@ -13,7 +13,8 @@
     "hapi": "11.x.x"
   },
   "dependencies": {
-    "joi": "^7.0.0"
+    "joi": "^7.0.0",
+    "nconf": "^0.8.2"
   },
   "devDependencies": {
     "code": "^2.0.1",
