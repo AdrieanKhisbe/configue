@@ -9,15 +9,13 @@
     "test": "lab -a code -P spec -t 60",
     "cov": "lab -s -r lcov | coveralls"
   },
-  "peerDependencies": {
-    "hapi": "11.x.x"
-  },
   "dependencies": {
     "joi": "^7.0.0",
     "nconf": "^0.8.2"
   },
   "devDependencies": {
     "code": "^2.0.1",
+    "hapi": "11.x.x",
     "lab": "^7.3.0"
   },
   "license": "BSD-3-Clause"
