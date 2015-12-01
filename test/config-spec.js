@@ -21,7 +21,8 @@ describe('Register', () => {
             expect(err).to.not.exist();
 
             expect(server.configue).to.exist();
-           // expect(server.configue).to.be.a.function();
+            expect(server.configue).to.be.a.function();
+            return done();
         });
 
     });
@@ -37,14 +38,13 @@ describe('Request', () => {
 
             expect(err).to.not.exist();
 
-            server.route({method: 'GET', path: '/', handler: function(request, reply){}});
+            server.route({method: 'GET', path: '/', handler: function(request, reply){
+                expect(request.configue).to.exist();
+                expect(request.configue).to.be.a.function();
+                return done();
+            }});
 
-            server.inject('/', (res) => {
-                expect(res.configue).to.exist();
-                expect(res.configue).to.be.a.function();
-
-                done();
-            });
+            server.inject('/');
         });
     });
 });
