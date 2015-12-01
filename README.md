@@ -5,7 +5,7 @@ Hapi Configue Plugin
 [![Build Status](https://travis-ci.org/AdrieanKhisbe/hapi-configue.svg)](https://travis-ci.org/AdrieanKhisbe/hapi-configue)
 [![Coverage Status](https://coveralls.io/repos/AdrieanKhisbe/hapi-config/badge.svg?branch=master&service=github)](https://coveralls.io/github/AdrieanKhisbe/hapi-config?branch=master)
 
-Config plugin for [Hapi](http://hapijs.com/).
+***Config plugin for [Hapi](http://hapijs.com/).***
 
 Configue is a wrapper on [nconf](https://github.com/indexzero/nconf) node hierarchical
 plugin tool. It defines a standard forkflow to load a config from environment variable,
