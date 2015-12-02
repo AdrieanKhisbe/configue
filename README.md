@@ -34,7 +34,32 @@ server.register({register: Configue}, (err) => {
 
 ## Usage with customization of the configuration workflow
 
-**TODO**
+```js
+const server = new Hapi.Server();
+server.connection();
+server.register({
+    register: Configue,
+    options: {
+        disable: {
+            argv: true
+        },
+        files: [
+            {file: 'path/to/config.json'},
+            {file: 'path/to/config2.json'}
+        ]
+    }
+}, (err) => {
+    if(err) return console.log("Error loading plugins");
+
+    server.route({
+        method: 'GET', path: '/', handler: function (request, reply) {
+            reply(request.configue('mykey'))
+        }
+    });
+
+    server.start();
+});
+```
 
 # Steps
 
