@@ -47,6 +47,35 @@ who=Human node index.js
 
 ## Usage with customization of the configuration workflow
 
+### Files
+
+The files key can contain a single object or an array of objects containing a file key containing the path to the config file. The object can also reference a nconf plugin tasked with the formatting using the key format.
+
+```js
+const server = new Hapi.Server();
+server.connection();
+server.register({
+    register: Configue,
+    options: {
+        files: [
+            {file: 'path/to/config.json'},
+            {
+                file: 'path/to/config2.yaml',
+                format: require('nconf-yaml')
+            }
+        ]
+    }
+}, (err) => {
+    // Your code here
+});
+```
+
+## Steps
+
+The plugin loads the various configurations in order using predefined steps. It starts by parsing argv then goes through the env and the files options and finishes by loading a basic default config.
+
+The argv and env steps can be skipped using the disable object in options
+
 ```js
 const server = new Hapi.Server();
 server.connection();
@@ -55,28 +84,12 @@ server.register({
     options: {
         disable: {
             argv: true
-        },
-        files: [
-            {file: 'path/to/config.json'},
-            {file: 'path/to/config2.json'}
-        ]
+        }
     }
 }, (err) => {
-    if(err) return console.log("Error loading plugins");
-
-    server.route({
-        method: 'GET', path: '/', handler: function (request, reply) {
-            reply(request.configue('mykey'))
-        }
-    });
-
-    server.start();
+    // Your code here
 });
 ```
-
-# Steps
-
-**TODO**
 
 # Installation
 
