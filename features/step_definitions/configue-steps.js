@@ -13,7 +13,7 @@ module.exports = function () {
         process.argv = ARGV.concat(args);
         callback();
     });
-    
+
     this.Given(/^I pass have as ENV var (\w+) with value (.*)$/, function (name, value, callback) {
         process.env[name] = eval(value);
         callback();
