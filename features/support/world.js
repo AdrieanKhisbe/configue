@@ -11,11 +11,6 @@ function World() {
         self.server.register({register: plugin, options: options || {}}, done);
     };
 
-    this.getConfig = function (key) {
-        console.log(key)
-        console.log(self.server)
-        return self.server['configue'](key);
-    }
 }
 
 module.exports = function () {
