@@ -94,7 +94,7 @@ server.register({
 
 ## Disabling Steps
 
-The argv and env steps can be skipped using the `disable` object in `options`
+The argv and env steps can be skipped using the `disable` object in `options`.
 
 ```js
 const server = new Hapi.Server();
@@ -104,6 +104,35 @@ server.register({
     options: {
         disable: {
             argv: true
+        }
+    }
+}, (err) => {
+    // Your code here
+});
+```
+
+## Step hooks
+
+Every step has a post hook available. Those can be defined using the `postHooks` key and accept either a function or an array of functions that take `nconf` as a parameter.
+
+```js
+const server = new Hapi.Server();
+server.connection();
+server.register({
+    register: Configue,
+    options: {
+        postHooks: {
+            argv: function postArgv(nconf){
+                //Your code here
+            },
+            files: [
+                function postFile1(nconf){
+                    //Your code here
+                },
+                function postFile2(nconf){
+                    //Your code here
+                }
+            ]
         }
     }
 }, (err) => {
