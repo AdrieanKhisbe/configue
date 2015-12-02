@@ -21,7 +21,7 @@
   },
   "scripts": {
     "test": "lab -a code -P spec -t 60",
-    "cov": "lab -s -r lcov | coveralls"
+    "cov": "lab -P spec -r lcov | coveralls"
   },
   "dependencies": {
     "hoek": "^3.0.4",
