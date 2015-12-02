@@ -14,3 +14,9 @@ Feature: Configue Plugin default workflow
     When I try to access the "who"
     Then I should see have for associated value: "Me"
 
+  Scenario: Loading Plugin with some env variable
+    Given I pass have as ENV var who with value "Me"
+    And I load Configue
+    When I try to access the "who"
+    Then I should see have for associated value: "Me"
+

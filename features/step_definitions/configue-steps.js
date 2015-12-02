@@ -13,6 +13,12 @@ module.exports = function () {
         callback();
     });
 
+
+    this.Given(/^I pass have as ENV var (\w+) with value (.*)$/, function (name, value, callback) {
+        process.env[name] = eval(value);
+        callback();
+    });
+
     this.When(/^I try to access the "([^"]*)"$/, function (key, callback) {
         this.res = this.server.configue(key);
         callback();
