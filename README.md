@@ -17,19 +17,32 @@ command line arguments, files, that you can easily configure and extend.
 ## Basic usage without customization
 
 ```js
-const server = new Hapi.Server();
-server.connection();
 server.register({register: Configue}, (err) => {
-    if(err) return console.log("Error loading plugins");
+    if (err) return console.log("Error loading plugins");
+
+    const who = server.configue('who') || "World";
 
     server.route({
         method: 'GET', path: '/', handler: function (request, reply) {
-            reply(request.configue('mykey'))
+            reply("Hello " + who);
         }
     });
 
-    server.start();
+    server.start(function () {
+        console.log('Server running at:', server.info.uri);
+        console.log('With "who" as ' + who)
+    });
 });
+```
+
+You can specify the `who` configue in different manners.
+Here are some:
+
+```sh
+node index.js --who=Woman
+# configue through Env
+export who=Man ; node index.js
+who=Human node index.js
 ```
 
 ## Usage with customization of the configuration workflow
