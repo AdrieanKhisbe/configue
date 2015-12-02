@@ -11,12 +11,25 @@ const expect = Code.expect;
 const Hapi = require('hapi');
 const Configue = require('../');
 
+function testWithServer(body){
+    const server = new Hapi.Server();
+    server.connection();
+    server.register({register: Configue}, body);
+}
+
+function testWithServerAndOptions(body, options){
+    const server = new Hapi.Server();
+    server.connection();
+    server.register({register: Configue, options: options}, body);
+}
+
+
+
+
+
 describe('Register', () => {
     it('expose configue handler', (done) => {
-        const server = new Hapi.Server();
-        server.connection();
-
-        server.register({register: Configue}, (err) => {
+        testWithServer((err) => {
 
             expect(err).to.not.exist();
 
@@ -24,27 +37,21 @@ describe('Register', () => {
             expect(server.configue).to.be.a.function();
             return done();
         });
-
     });
 
     it('detect wrong option item', (done) => {
-        const server = new Hapi.Server();
-        server.connection();
-        server.register({register: Configue, options: {'this':'is-junk'}}, (err) => {
+        testWithServerAndOptions({'this':'is-junk'}, (err) => {
             expect(err).to.exist();
             done();
         });
-
     });
 });
+
 
 describe('Request', () => {
 
     it('has access to configue', (done) => {
-
-        const server = new Hapi.Server();
-        server.connection();
-        server.register({register: Configue}, (err) => {
+        testWithServer((err) => {
 
             expect(err).to.not.exist();
 
@@ -59,5 +66,16 @@ describe('Request', () => {
             server.inject('/');
         });
     });
+});
+
+
+describe('Disable', () => {
+
+});
+
+
+describe('Post Hooks', () => {
+
+    
 });
 
