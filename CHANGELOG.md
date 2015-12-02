@@ -4,6 +4,8 @@ All notable changes to *hapi-configue* will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][unreleased]
+### Added
+- Joi validation of options
 
 ## [0.2.0] - 2015-12-02
 ### Added

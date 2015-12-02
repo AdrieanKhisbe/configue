@@ -26,6 +26,15 @@ describe('Register', () => {
         });
 
     });
+
+    it('detect wrong option item', (done) => {
+        const server = new Hapi.Server();
+        server.connection();
+        server.register({register: Configue, options: {'this':'is-junk'}}, (err) => {
+            expect(err).to.exist();
+        });
+
+    });
 });
 
 describe('Request', () => {
