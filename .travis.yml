@@ -4,6 +4,10 @@ node_js:
   - 4
   - 5
 
+script:
+  - npm test
+  - npm run features
+
 after_script: "npm run cov"
 
 cache:
