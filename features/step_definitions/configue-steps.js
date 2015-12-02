@@ -1,7 +1,8 @@
+"use strict";
 const Code = require('code');
 const expect = Code.expect;
 
-
+const ARGV = process.argv;
 module.exports = function () {
     this.Given(/^I load Configue(?: with option "(\s+)")?$/, function (option, callback) {
         //TODO: use jsonic
@@ -9,11 +10,10 @@ module.exports = function () {
     });
 
     this.Given(/^I pass as arguments '([^']+)'$/, function (args, callback) {
-        process.argv.push(args);
+        process.argv = ARGV.concat(args);
         callback();
     });
-
-
+    
     this.Given(/^I pass have as ENV var (\w+) with value (.*)$/, function (name, value, callback) {
         process.env[name] = eval(value);
         callback();
@@ -33,4 +33,9 @@ module.exports = function () {
         expect(this.res).to.not.exist();
         callback();
     });
+
+    this.After(function (scenario) {
+        process.argv = ARGV;
+    });
+
 };

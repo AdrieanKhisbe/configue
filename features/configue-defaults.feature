@@ -21,9 +21,9 @@ Feature: Configue Plugin default workflow
     Then I should see have for associated value: "Me"
 
   Scenario: Args value overide env var
-    Given I pass as arguments '--who=Me'
+    Given I pass as arguments '--who=His'
       And I pass have as ENV var who with value "Yours"
       And I load Configue
     When I try to access the "who"
-    Then I should see have for associated value: "Me"
+    Then I should see have for associated value: "His"
 
