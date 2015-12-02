@@ -17,6 +17,9 @@ command line arguments, files, that you can easily configure and extend.
 ## Basic usage without customization
 
 ```js
+const Hapi = require('hapi');
+const Configue = require('hapi-configue');
+
 const server = new Hapi.Server();
 server.connection();
 server.register({register: Configue}, (err) => {

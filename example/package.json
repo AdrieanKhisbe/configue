@@ -1,0 +1,20 @@
+{
+  "name": "hapi-configue-example",
+  "version": "0.1.0",
+  "description": "Example for hapi-configue plugin",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "mocha"
+  },
+  "keywords": [
+    "hapi",
+    "config"
+  ],
+  "author": "Adriean Khisbe <adriean.khisbe@live.fr> (https://github.com/AdrieanKhisbe/)",
+  "license": "ISC",
+  "dependencies": {
+    "hapi": "^11.1.2",
+    "hapi-configue": "^0.1.0"
+  }
+}
