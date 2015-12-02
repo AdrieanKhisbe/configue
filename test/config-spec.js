@@ -101,11 +101,34 @@ describe('Post Hooks', () => {
         process.argv.push('--when=later');
         process.env.who = 'me';
         server.register({register: Configue, options: configueOptions}, (err) => {
-
             if (err) return console.log('Error loading plugins');
 
             expect(server.configue('who')).to.equal('ME FIRST!');
             expect(server.configue('when')).to.equal('NOW');
+            done();
+        });
+    });
+
+    it('enable to insert hook arrays, that are run in order', (done)=> {
+        const server = new Hapi.Server();
+        server.connection();
+
+        process.env['x'] = 3;
+        const configueOptions = {
+            postHooks: {
+                env: [function (nconf) {
+                    const tmp =  nconf.get('x');
+                    nconf.set('x', tmp * 10)
+                }, function (nconf) {
+                    const tmp =  nconf.get('x');
+                    nconf.set('x', tmp + 12)
+                }]
+            }
+        };
+        server.register({register: Configue, options: configueOptions}, (err) => {
+            if (err) return console.log('Error loading plugins');
+
+            expect(server.configue('x')).to.equal(42);
             done();
         });
     });
