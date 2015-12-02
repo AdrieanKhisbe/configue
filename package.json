@@ -24,6 +24,7 @@
     "cov": "lab -s -r lcov | coveralls"
   },
   "dependencies": {
+    "hoek": "^3.0.4",
     "joi": "^7.0.0",
     "lodash": "^3.10.1",
     "nconf": "^0.8.2"

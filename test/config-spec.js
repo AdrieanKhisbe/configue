@@ -32,6 +32,7 @@ describe('Register', () => {
         server.connection();
         server.register({register: Configue, options: {'this':'is-junk'}}, (err) => {
             expect(err).to.exist();
+            done();
         });
 
     });
