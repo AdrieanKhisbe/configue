@@ -4,7 +4,7 @@
   "description": "Example for hapi-configue plugin",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "node basic.js",
     "test": "mocha"
   },
   "keywords": [
@@ -15,6 +15,8 @@
   "license": "ISC",
   "dependencies": {
     "hapi": "^11.1.2",
-    "hapi-configue": "^0.1.0"
+    "hapi-configue": "^0.1.0",
+    "nconf": "^0.8.2",
+    "nconf-yaml": "^1.0.1"
   }
 }

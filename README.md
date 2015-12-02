@@ -59,13 +59,13 @@ You can specify the `who` configue in different manners.
 Here are some:
 
 ```sh
-node index.js --who=Woman
+node basic.js --who=Woman
 # configue through Env
-export who=Man ; node index.js
-who=Human node index.js
+export who=Man ; node basic.js
+who=Human node basic.js
 ```
 
-The full example is available in the [`example`](./example/index.js) folder.
+The full example is available in the [`example`](./example/basic.js) folder.
 
 ## Usage with customization of the configuration workflow
 
