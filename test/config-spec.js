@@ -11,26 +11,13 @@ const expect = Code.expect;
 const Hapi = require('hapi');
 const Configue = require('../');
 
-function testWithServer(body){
-    const server = new Hapi.Server();
-    server.connection();
-    server.register({register: Configue}, body);
-}
-
-function testWithServerAndOptions(body, options){
-    const server = new Hapi.Server();
-    server.connection();
-    server.register({register: Configue, options: options}, body);
-}
-
-
-
-
 
 describe('Register', () => {
     it('expose configue handler', (done) => {
-        testWithServer((err) => {
+        const server = new Hapi.Server();
+        server.connection();
 
+        server.register({register: Configue}, (err) => {
             expect(err).to.not.exist();
 
             expect(server.configue).to.exist();
@@ -40,7 +27,9 @@ describe('Register', () => {
     });
 
     it('detect wrong option item', (done) => {
-        testWithServerAndOptions({'this':'is-junk'}, (err) => {
+        const server = new Hapi.Server();
+        server.connection();
+        server.register({register: Configue, options: {'this': 'is-junk'}}, (err) => {
             expect(err).to.exist();
             done();
         });
@@ -51,7 +40,10 @@ describe('Register', () => {
 describe('Request', () => {
 
     it('has access to configue', (done) => {
-        testWithServer((err) => {
+        const server = new Hapi.Server();
+        server.connection();
+
+        server.register({register: Configue}, (err) => {
 
             expect(err).to.not.exist();
 
@@ -71,11 +63,51 @@ describe('Request', () => {
 
 describe('Disable', () => {
 
+    it('enable to disable argv', (done) => {
+        const server = new Hapi.Server();
+        server.connection();
+
+        const configueOptions = { disable: {argv: true}};
+        process.argv.push('--who=YO');
+        process.env.who = 'NO';
+        // RISKY!!!!
+
+        server.register({register: Configue, options: configueOptions}, (err) => {
+            if (err) return console.log('Error loading plugins');
+
+            expect(server.configue('who')).to.equal('NO');
+            done();
+        });
+    })
+
+
 });
 
 
 describe('Post Hooks', () => {
 
-    
+    it('enable to insert hook', (done)=> {
+        const server = new Hapi.Server();
+        server.connection();
+
+        const configueOptions = {
+            postHooks: {
+                argv: function postArgv(nconf) {
+                    nconf.set('who', 'ME FIRST!');
+                    nconf.set('when', 'NOW');
+                }
+            }
+        };
+        process.argv.push('--when=later');
+        process.env.who = 'me';
+        server.register({register: Configue, options: configueOptions}, (err) => {
+
+            if (err) return console.log('Error loading plugins');
+
+            expect(server.configue('who')).to.equal('ME FIRST!');
+            expect(server.configue('when')).to.equal('NOW');
+            done();
+        });
+    });
 });
 

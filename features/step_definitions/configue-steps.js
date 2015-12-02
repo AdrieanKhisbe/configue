@@ -9,7 +9,7 @@ module.exports = function () {
     });
 
     this.Given(/^I pass as arguments '([^']+)'$/, function (args, callback) {
-        process.argv = [process.argv[0], process.argv[1], args];
+        process.argv.push(args);
         callback();
     });
 
