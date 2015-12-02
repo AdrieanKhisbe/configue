@@ -113,7 +113,9 @@ server.register({
 
 ## Step hooks
 
-Every step has a post hook available. Those can be defined using the `postHooks` key and accept either a function or an array of functions that take `nconf` as a parameter.
+Every step has a post hook available.
+Those can be defined using the `postHooks` key and accept either a
+function or an array of functions that take `nconf` as a parameter.
 
 ```js
 const server = new Hapi.Server();

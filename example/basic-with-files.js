@@ -16,7 +16,7 @@ const ConfigueOptions = {
 };
 
 server.register({register: Configue, options: ConfigueOptions}, (err) => {
-    if (err) return console.log('Error loading plugins');
+    if (err) return console.log('Error loading plugins:\n %s', err);
 
     const salute = server.configue('salute') || 'Hello';
     const who = server.configue('who') || 'World';
