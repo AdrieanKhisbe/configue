@@ -5,6 +5,7 @@ Hapi Configue Plugin
 [![Build Status](https://travis-ci.org/AdrieanKhisbe/hapi-configue.svg)](https://travis-ci.org/AdrieanKhisbe/hapi-configue)
 [![Coverage Status](https://coveralls.io/repos/AdrieanKhisbe/hapi-configue/badge.svg?branch=master&service=github)](https://coveralls.io/github/AdrieanKhisbe/hapi-configue?branch=master)
 [![Dependency Status](https://david-dm.org/AdrieanKhisbe/hapi-configue.svg)](https://david-dm.org/AdrieanKhisbe/hapi-configue)
+[![bitHound Overalll Score](https://www.bithound.io/github/AdrieanKhisbe/hapi-configue/badges/score.svg)](https://www.bithound.io/github/AdrieanKhisbe/hapi-configue)
 
 ***Config plugin for [Hapi](http://hapijs.com/).***
 
