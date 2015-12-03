@@ -9,7 +9,7 @@ const ConfigueOptions = {
     files: [
         {file: './config.json'},
         {
-            file: './config.yaml',
+            file: './confige.yaml',
             format: require('nconf-yaml')
         }
     ]

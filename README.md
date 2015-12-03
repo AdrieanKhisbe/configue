@@ -19,6 +19,8 @@ command line arguments, files, that you can easily *configure* and *extend*.
 It defines a list of configuration step that are executed in order.
 Every property defined on a steps will shadow the same key in the following steps.
 
+Quoting [nconf]: ***"The order in which you attach these configuration sources determines their priority in the hierarchy"***
+
 Here are the standard steps [Configue] does define:
 - `argv` : command line option
 - `env` : environment variables

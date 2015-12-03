@@ -70,8 +70,8 @@ describe('Configue Options', () => {
         it('can load data from a json file', (done)=> {
             const server = new Hapi.Server();
             server.connection();
-             // TODO: support filestring and file array.
-            const configueOptions = {files: [{file:"./test/data/config.json"}]};
+            // TODO: support filestring and file array.
+            const configueOptions = {files: [{file: "./test/data/config.json"}]};
             server.register({register: Configue, options: configueOptions}, (err) => {
                 expect(err).to.not.exist();
                 expect(server.configue('key')).to.equal('json-config');
@@ -82,10 +82,9 @@ describe('Configue Options', () => {
         it('can load data from a yaml file', (done)=> {
             const server = new Hapi.Server();
             server.connection();
-             // TODO: support filestring and file array.
             const configueOptions = {
                 files: [{
-                    file: "./test/data/config.yaml",
+                    file: "./test/data/confige.yaml",
                     format: require('nconf-yaml')
                 }]
             };
@@ -94,7 +93,25 @@ describe('Configue Options', () => {
                 expect(server.configue('key')).to.equal('yaml-config');
                 done();
             });
-        })
+        });
+
+        it('files are loaded in order', (done)=> {
+            const server = new Hapi.Server();
+            server.connection();
+
+            const configueOptions = {
+                files: [{file: "./test/data/config.json"},
+                    {
+                        file: "./test/data/confige.yaml",
+                        format: require('nconf-yaml')
+                    }]
+            };
+            server.register({register: Configue, options: configueOptions}, (err) => {
+                expect(err).to.not.exist();
+                expect(server.configue('key')).to.equal('json-config');
+                done();
+            });
+        });
 
     });
 
@@ -126,7 +143,6 @@ describe('Configue Options', () => {
         it('enable to insert hook', (done)=> {
             const server = new Hapi.Server();
             server.connection();
-
             const configueOptions = {
                 postHooks: {
                     argv: function postArgv(nconf) {
