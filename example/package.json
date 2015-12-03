@@ -1,6 +1,6 @@
 {
   "name": "hapi-configue-example",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Example for hapi-configue plugin",
   "main": "index.js",
   "scripts": {
