@@ -2,6 +2,7 @@
 
 const Lab = require('lab');
 const Code = require('code');
+const path = require('path');
 
 const lab = exports.lab = Lab.script();
 const describe = lab.describe;
@@ -10,6 +11,10 @@ const expect = Code.expect;
 
 const Hapi = require('hapi');
 const Configue = require('../');
+
+const JSON_CONF_FILE = path.join(__dirname, "data/config.json");
+const YAML_CONF_FILE = path.join(__dirname, "data/config.yaml");
+// const yamlConfig =
 
 
 describe('Register', () => {
@@ -71,7 +76,9 @@ describe('Configue Options', () => {
             const server = new Hapi.Server();
             server.connection();
             // TODO: support filestring and file array.
-            const configueOptions = {files: [{file: "./test/data/config.json"}]};
+
+
+            const configueOptions = {files: [{file: JSON_CONF_FILE}]};
             server.register({register: Configue, options: configueOptions}, (err) => {
                 expect(err).to.not.exist();
                 expect(server.configue('key')).to.equal('json-config');
@@ -84,7 +91,7 @@ describe('Configue Options', () => {
             server.connection();
             const configueOptions = {
                 files: [{
-                    file: "./test/data/confige.yaml",
+                    file: YAML_CONF_FILE,
                     format: require('nconf-yaml')
                 }]
             };
@@ -100,9 +107,9 @@ describe('Configue Options', () => {
             server.connection();
 
             const configueOptions = {
-                files: [{file: "./test/data/config.json"},
+                files: [{file: JSON_CONF_FILE},
                     {
-                        file: "./test/data/confige.yaml",
+                        file: YAML_CONF_FILE,
                         format: require('nconf-yaml')
                     }]
             };
@@ -185,8 +192,7 @@ describe('Configue Options', () => {
         });
     });
 
-
-})
+});
 
 
 

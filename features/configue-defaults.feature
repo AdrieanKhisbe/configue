@@ -20,7 +20,7 @@ Feature: Configue Plugin default workflow
     When I try to access the "who"
     Then I should see have for associated value: "Me"
 
-  Scenario: Args value overide env var
+  Scenario: Args value override env var
     Given I pass as arguments '--who=His'
       And I pass have as ENV var who with value "Yours"
       And I load Configue
