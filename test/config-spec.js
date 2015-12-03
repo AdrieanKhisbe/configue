@@ -72,11 +72,22 @@ describe('Configue Options', () => {
 
     describe('Files', () => {
 
+        it('can load data from a json file given as string', (done)=> {
+            const server = new Hapi.Server();
+            server.connection();
+            // TODO: support array filestring
+
+            const configueOptions = {files: JSON_CONF_FILE};
+            server.register({register: Configue, options: configueOptions}, (err) => {
+                expect(err).to.not.exist();
+                expect(server.configue('key')).to.equal('json-config');
+                done();
+            });
+        });
+
         it('can load data from a json file', (done)=> {
             const server = new Hapi.Server();
             server.connection();
-            // TODO: support filestring and file array.
-
 
             const configueOptions = {files: [{file: JSON_CONF_FILE}]};
             server.register({register: Configue, options: configueOptions}, (err) => {
