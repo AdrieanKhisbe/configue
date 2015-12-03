@@ -161,7 +161,6 @@ describe('Configue Options', () => {
             });
         })
 
-
     });
 
 
@@ -210,6 +209,28 @@ describe('Configue Options', () => {
                 done();
             });
         });
+    });
+
+    describe('CustomWorkflow', () => {
+
+        it('accept a custom workflow', (done) => {
+            const server = new Hapi.Server();
+            server.connection();
+
+            const configueOptions = {customWorkflow: function(nconf){
+                nconf.set('workflow', 'custom')
+            }};
+            process.argv.push('--workflow=default');
+            process.env.key = 'value';
+
+            server.register({register: Configue, options: configueOptions}, (err) => {
+                expect(err).to.not.exist();
+                expect(server.configue('workflow')).to.equal('custom');
+                expect(server.configue('key')).to.not.exist();
+                done();
+            });
+        })
+
     });
 
 });
