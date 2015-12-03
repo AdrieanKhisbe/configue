@@ -1,6 +1,6 @@
 {
   "name": "hapi-configue",
-  "version": "0.3.3",
+  "version": "0.4.0",
   "engines": {
     "node": ">=4.0.0"
   },

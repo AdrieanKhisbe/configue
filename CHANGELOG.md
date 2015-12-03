@@ -4,6 +4,9 @@ All notable changes to *hapi-configue* will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][unreleased]
+## [0.4] - 2015-12-03
+### Added
+- `.npmignore` for lighter package
 ## [0.3.3] - 2015-12-03
 ### Added
 - support to configure files with a single path, or array of path (as string)
