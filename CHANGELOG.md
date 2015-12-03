@@ -20,7 +20,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - Minimal "Step" definition
 - Usage Example
-- More detailed documention (README+jsdoc)
+- More detailed documentation (README+jsdoc)
 
 ## [0.1.0] - 2015-12-01
 - Initial Release
