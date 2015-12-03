@@ -13,9 +13,8 @@ const Hapi = require('hapi');
 const Configue = require('../');
 
 const JSON_CONF_FILE = path.join(__dirname, "data/config.json");
+const JSON_CONF_FILE_BIS = path.join(__dirname, "data/config-bis.json");
 const YAML_CONF_FILE = path.join(__dirname, "data/config.yaml");
-// const yamlConfig =
-
 
 describe('Register', () => {
     it('expose configue handler', (done) => {
@@ -75,12 +74,22 @@ describe('Configue Options', () => {
         it('can load data from a json file given as string', (done)=> {
             const server = new Hapi.Server();
             server.connection();
-            // TODO: support array filestring
-
-            const configueOptions = {files: JSON_CONF_FILE};
+             const configueOptions = {files: JSON_CONF_FILE};
             server.register({register: Configue, options: configueOptions}, (err) => {
                 expect(err).to.not.exist();
                 expect(server.configue('key')).to.equal('json-config');
+                done();
+            });
+        });
+
+        it('can load data from a json files given as string array', (done)=> {
+            const server = new Hapi.Server();
+            server.connection();
+            const configueOptions = {files: [JSON_CONF_FILE, JSON_CONF_FILE_BIS]};
+            server.register({register: Configue, options: configueOptions}, (err) => {
+                expect(err).to.not.exist();
+                expect(server.configue('key')).to.equal('json-config');
+                expect(server.configue('key-bis')).to.equal('json-config-bis');
                 done();
             });
         });
