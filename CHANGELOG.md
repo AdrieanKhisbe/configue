@@ -4,6 +4,10 @@ All notable changes to *hapi-configue* will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][unreleased]
+
+## [0.5] - 2015-12-03
+### Added
+- enable full customization with `customWorkflow`
 ## [0.4] - 2015-12-03
 ### Added
 - `.npmignore` for lighter package
@@ -38,7 +42,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [0.1.0] - 2015-12-01
 - Initial Release
 
-[unreleased]: https://github.com/AdrieanKhisbe/velibe/compare/v0.3.3...HEAD
+[unreleased]: https://github.com/AdrieanKhisbe/velibe/compare/v0.5.0...HEAD
+[0.5]: https://github.com/AdrieanKhisbe/velibe/compare/v0.4.0...v0.5.0
+[0.4]: https://github.com/AdrieanKhisbe/velibe/compare/v0.3.3...v0.4.0
 [0.3.3]: https://github.com/AdrieanKhisbe/velibe/compare/v0.3.2...v0.3.3
 [0.3.2]: https://github.com/AdrieanKhisbe/velibe/compare/v0.3.1...v0.3.2
 [0.3.1]: https://github.com/AdrieanKhisbe/velibe/compare/v0.3.0...v0.3.1

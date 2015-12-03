@@ -33,11 +33,15 @@ and finishes by loading a basic default config.
 Hence why every option defined as an argument commandline will override defaults
 and environment variables
 
-<!-- HOOKS -->
+## Installation
 
-# Usage
+Just add `hapi-configue` has a dependency installing it with npm.
 
-## Basic usage without customization
+    npm install --save hapi-configue
+
+## Usage
+
+### Basic usage without customization
 
 ```js
 server.register({register: Configue}, (err) => {
@@ -70,9 +74,9 @@ who=Human node basic.js
 
 The full example is available in the [`examples`](./examples/basic.js) folder.
 
-## Usage with customization of the configuration workflow
+### Usage with customization of the configuration workflow
 
-### Specifying Files
+#### Specifying Files
 
 The files key can contain a single object or an array of objects containing a file key containing the path to the config file. The object can also reference a nconf plugin tasked with the formatting using the key format.
 
@@ -95,7 +99,7 @@ server.register({
 });
 ```
 
-## Disabling Steps
+#### Disabling Steps
 
 The argv and env steps can be skipped using the `disable` object in `options`.
 
@@ -114,11 +118,15 @@ server.register({
 });
 ```
 
-## Step hooks
+#### Step hooks
 
 Every step has a post hook available.
 Those can be defined using the `postHooks` key and accept either a
 function or an array of functions that take `nconf` as a parameter.
+
+The special hooks `overrides` and `default` enables you to respectively
+apply a hook at the very beginning or very enf of the configuration
+process.
 
 ```js
 const server = new Hapi.Server();
@@ -127,6 +135,9 @@ server.register({
     register: Configue,
     options: {
         postHooks: {
+            overrides: function first(nconf){
+                //Your code here
+            },
             argv: function postArgv(nconf){
                 //Your code here
             },
@@ -145,11 +156,21 @@ server.register({
 });
 ```
 
-# Installation
+#### Custom Workflow
 
-Just add `hapi-configue` has a dependency installing it with npm.
+If needed you can have your full custom configuration workflow,
+simply by providing an object with the single key `customWorkflow`
 
-    npm install --save hapi-configue
+```js
+const configueOptions = { customWorkflow: function(nconf){
+  // my own config setting
+}};
+
+server.register({register: Configue, options: configueOptions}, (err) => {
+
+});
+
+```
 
 
 [Configue]: https://github.com/AdrieanKhisbe/hapi-configue
