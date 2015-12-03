@@ -68,7 +68,7 @@ export who=Man ; node basic.js
 who=Human node basic.js
 ```
 
-The full example is available in the [`example`](./example/basic.js) folder.
+The full example is available in the [`examples`](./examples/basic.js) folder.
 
 ## Usage with customization of the configuration workflow
 
@@ -147,7 +147,7 @@ server.register({
 
 # Installation
 
-Just add `hapi-configue` has a dependancy installing it with npm.
+Just add `hapi-configue` has a dependency installing it with npm.
 
     npm install --save hapi-configue
 
