@@ -21,7 +21,7 @@
   },
   "scripts": {
     "test": "lab -a code -P spec -t 60",
-    "features":  "cucumber.js",
+    "features": "cucumber.js",
     "cov": "./.coverage.sh"
   },
   "dependencies": {
@@ -36,7 +36,8 @@
     "hapi": "11.x.x",
     "istanbul": "^0.4.1",
     "lab": "^7.3.0",
-    "lcov-result-merger": "^1.0.2"
+    "lcov-result-merger": "^1.0.2",
+    "nconf-yaml": "^1.0.1"
   },
   "license": "BSD-3-Clause"
 }

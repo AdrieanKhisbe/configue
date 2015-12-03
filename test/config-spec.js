@@ -77,6 +77,23 @@ describe('Configue Options', () => {
                 expect(server.configue('key')).to.equal('json-config');
                 done();
             });
+        });
+
+        it('can load data from a yaml file', (done)=> {
+            const server = new Hapi.Server();
+            server.connection();
+             // TODO: support filestring and file array.
+            const configueOptions = {
+                files: [{
+                    file: "./test/data/config.yaml",
+                    format: require('nconf-yaml')
+                }]
+            };
+            server.register({register: Configue, options: configueOptions}, (err) => {
+                expect(err).to.not.exist();
+                expect(server.configue('key')).to.equal('yaml-config');
+                done();
+            });
         })
 
     });
