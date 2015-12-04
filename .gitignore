@@ -16,3 +16,4 @@ out
 test/coverage.html
 test/report.html
 .idea
+coverage

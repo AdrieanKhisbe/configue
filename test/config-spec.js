@@ -191,6 +191,22 @@ describe('Configue Options', () => {
                 done();
             });
         });
+
+        it('handle error in loading process', (done)=> {
+            const server = new Hapi.Server();
+            server.connection();
+            const configueOptions = {
+                postHooks: {
+                    argv: function postArgv(nconf, done) {
+                        done('This is an error');
+                    }
+                }
+            };
+            server.register({register: Configue, options: configueOptions}, (err) => {
+                expect(err).to.exist();
+                done();
+            });
+        });
     });
 
     describe('CustomWorkflow', () => {
