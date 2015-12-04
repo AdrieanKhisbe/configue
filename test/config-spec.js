@@ -175,6 +175,10 @@ describe('Configue Options', () => {
                         nconf.set('who', 'ME FIRST!');
                         nconf.set('when', 'NOW');
                         return done();
+                    },
+                    default: function last(nconf, done) {
+                        nconf.set('when', 'RIGHT '+nconf.get('when'));
+                        done()
                     }
                 }
             };
@@ -183,7 +187,7 @@ describe('Configue Options', () => {
             server.register({register: Configue, options: configueOptions}, (err) => {
                 expect(err).to.not.exist();
                 expect(server.configue('who')).to.equal('ME FIRST!');
-                expect(server.configue('when')).to.equal('NOW');
+                expect(server.configue('when')).to.equal('RIGHT NOW');
                 done();
             });
         });
