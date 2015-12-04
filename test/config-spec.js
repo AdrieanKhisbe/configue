@@ -171,9 +171,10 @@ describe('Configue Options', () => {
             server.connection();
             const configueOptions = {
                 postHooks: {
-                    argv: function postArgv(nconf) {
+                    argv: function postArgv(nconf, done) {
                         nconf.set('who', 'ME FIRST!');
                         nconf.set('when', 'NOW');
+                        return done();
                     }
                 }
             };
@@ -186,29 +187,6 @@ describe('Configue Options', () => {
                 done();
             });
         });
-
-        it('enable to insert hook arrays, that are run in order', (done)=> {
-            const server = new Hapi.Server();
-            server.connection();
-
-            process.env['x'] = 3;
-            const configueOptions = {
-                postHooks: {
-                    env: [function (nconf) {
-                        const tmp = nconf.get('x');
-                        nconf.set('x', tmp * 10)
-                    }, function (nconf) {
-                        const tmp = nconf.get('x');
-                        nconf.set('x', tmp + 12)
-                    }]
-                }
-            };
-            server.register({register: Configue, options: configueOptions}, (err) => {
-                expect(err).to.not.exist();
-                expect(server.configue('x')).to.equal(42);
-                done();
-            });
-        });
     });
 
     describe('CustomWorkflow', () => {
@@ -217,8 +195,9 @@ describe('Configue Options', () => {
             const server = new Hapi.Server();
             server.connection();
 
-            const configueOptions = {customWorkflow: function(nconf){
-                nconf.set('workflow', 'custom')
+            const configueOptions = {customWorkflow: function(nconf, done){
+                nconf.set('workflow', 'custom');
+                return done();
             }};
             process.argv.push('--workflow=default');
             process.env.key = 'value';

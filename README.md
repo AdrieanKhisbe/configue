@@ -121,8 +121,8 @@ server.register({
 #### Step hooks
 
 Every step has a post hook available.
-Those can be defined using the `postHooks` key and accept either a
-function or an array of functions that take `nconf` as a parameter.
+Those can be defined using the `postHooks` key and accept a
+function that take `nconf` as a parameter and a callback as a parameter.
 
 The special hooks `overrides` and `default` enables you to respectively
 apply a hook at the very beginning or very enf of the configuration
@@ -135,20 +135,12 @@ server.register({
     register: Configue,
     options: {
         postHooks: {
-            overrides: function first(nconf){
+            overrides: function first(nconf, done){
                 //Your code here
             },
-            argv: function postArgv(nconf){
+            argv: function postArgv(nconf, done){
                 //Your code here
-            },
-            files: [
-                function postFile1(nconf){
-                    //Your code here
-                },
-                function postFile2(nconf){
-                    //Your code here
-                }
-            ]
+            }
         }
     }
 }, (err) => {

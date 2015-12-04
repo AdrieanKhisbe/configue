@@ -6,8 +6,9 @@ server.connection({port: 3000});
 
 const configueOptions = {
     postHooks: {
-        argv: function postArgv(nconf){
+        argv: function postArgv(nconf, done){
             nconf.set('hook', 'post-argv hook');
+            return done();
         }
     }
 };
