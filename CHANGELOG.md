@@ -5,10 +5,16 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][unreleased]
 
-## [0.5] - 2015-12-03
+## [0.6.0] - 2015-12-05
+### Changed
+- hook can now be asynchronous and must be provided with a callback
+### Fixed
+- default and overrides hooks in option were not accepted by Joi
+
+## [0.5.0] - 2015-12-03
 ### Added
 - enable full customization with `customWorkflow`
-## [0.4] - 2015-12-03
+## [0.4.0] - 2015-12-03
 ### Added
 - `.npmignore` for lighter package
 ## [0.3.3] - 2015-12-03
@@ -43,8 +49,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Initial Release
 
 [unreleased]: https://github.com/AdrieanKhisbe/velibe/compare/v0.5.0...HEAD
-[0.5]: https://github.com/AdrieanKhisbe/velibe/compare/v0.4.0...v0.5.0
-[0.4]: https://github.com/AdrieanKhisbe/velibe/compare/v0.3.3...v0.4.0
+[0.6.0]: https://github.com/AdrieanKhisbe/velibe/compare/v0.5.0...v0.6.0
+[0.5.0]: https://github.com/AdrieanKhisbe/velibe/compare/v0.4.0...v0.5.0
+[0.4.0]: https://github.com/AdrieanKhisbe/velibe/compare/v0.3.3...v0.4.0
 [0.3.3]: https://github.com/AdrieanKhisbe/velibe/compare/v0.3.2...v0.3.3
 [0.3.2]: https://github.com/AdrieanKhisbe/velibe/compare/v0.3.1...v0.3.2
 [0.3.1]: https://github.com/AdrieanKhisbe/velibe/compare/v0.3.0...v0.3.1
