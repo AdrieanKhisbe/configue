@@ -154,7 +154,7 @@ If needed you can have your full custom configuration workflow,
 simply by providing an object with the single key `customWorkflow`
 
 ```js
-const configueOptions = { customWorkflow: function(nconf){
+const configueOptions = { customWorkflow: function(nconf, done){
   // my own config setting
 }};
 
