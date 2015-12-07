@@ -48,13 +48,13 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [0.1.0] - 2015-12-01
 - Initial Release
 
-[unreleased]: https://github.com/AdrieanKhisbe/velibe/compare/v0.5.0...HEAD
-[0.6.0]: https://github.com/AdrieanKhisbe/velibe/compare/v0.5.0...v0.6.0
-[0.5.0]: https://github.com/AdrieanKhisbe/velibe/compare/v0.4.0...v0.5.0
-[0.4.0]: https://github.com/AdrieanKhisbe/velibe/compare/v0.3.3...v0.4.0
-[0.3.3]: https://github.com/AdrieanKhisbe/velibe/compare/v0.3.2...v0.3.3
-[0.3.2]: https://github.com/AdrieanKhisbe/velibe/compare/v0.3.1...v0.3.2
-[0.3.1]: https://github.com/AdrieanKhisbe/velibe/compare/v0.3.0...v0.3.1
-[0.3.0]: https://github.com/AdrieanKhisbe/velibe/compare/v0.2.0...v0.3.0
-[0.2.0]: https://github.com/AdrieanKhisbe/velibe/compare/v0.1.0...v0.2.0
-[0.1.0]: https://github.com/AdrieanKhisbe/velibe/compare/e482070....v0.1.0
+[unreleased]: https://github.com/AdrieanKhisbe/hapi-configue/compare/v0.5.0...HEAD
+[0.6.0]: https://github.com/AdrieanKhisbe/hapi-configue/compare/v0.5.0...v0.6.0
+[0.5.0]: https://github.com/AdrieanKhisbe/hapi-configue/compare/v0.4.0...v0.5.0
+[0.4.0]: https://github.com/AdrieanKhisbe/hapi-configue/compare/v0.3.3...v0.4.0
+[0.3.3]: https://github.com/AdrieanKhisbe/hapi-configue/compare/v0.3.2...v0.3.3
+[0.3.2]: https://github.com/AdrieanKhisbe/hapi-configue/compare/v0.3.1...v0.3.2
+[0.3.1]: https://github.com/AdrieanKhisbe/hapi-configue/compare/v0.3.0...v0.3.1
+[0.3.0]: https://github.com/AdrieanKhisbe/hapi-configue/compare/v0.2.0...v0.3.0
+[0.2.0]: https://github.com/AdrieanKhisbe/hapi-configue/compare/v0.1.0...v0.2.0
+[0.1.0]: https://github.com/AdrieanKhisbe/hapi-configue/compare/e482070....v0.1.0
