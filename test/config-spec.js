@@ -146,11 +146,11 @@ describe('Configue Options', () => {
             server.connection();
 
             const configueOptions = {
-                defaults: {a:1}
+                defaults: {one: 1}
             };
             server.register({register: Configue, options: configueOptions}, (err) => {
                 expect(err).to.not.exist();
-                expect(server.configue('aa')).to.equal(1);
+                expect(server.configue('one')).to.equal(1);
                 done();
             });
         });
@@ -160,12 +160,12 @@ describe('Configue Options', () => {
             server.connection();
 
             const configueOptions = {
-                defaults: [{a:1}, {a:2, b:2}]
+                defaults: [{one: 1}, {one: 2, two: 2}]
             };
             server.register({register: Configue, options: configueOptions}, (err) => {
                 expect(err).to.not.exist();
-                expect(server.configue('a')).to.equal(1);
-                expect(server.configue('b')).to.equal(2);
+                expect(server.configue('one')).to.equal(1);
+                expect(server.configue('two')).to.equal(2);
                 done();
             });
         });
@@ -201,8 +201,11 @@ describe('Configue Options', () => {
             server.connection();
             const configueOptions = {
                 postHooks: {
-                    argv: function postArgv(nconf, done) {
+                    overrides: function first(nconf, done) {
                         nconf.set('who', 'ME FIRST!');
+                        done()
+                    },
+                    argv: function postArgv(nconf, done) {
                         nconf.set('when', 'NOW');
                         return done();
                     },
