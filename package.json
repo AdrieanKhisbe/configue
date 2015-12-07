@@ -19,6 +19,9 @@
   "publishConfig": {
     "registry": "http://registry.npmjs.org/"
   },
+  "bugs": {
+    "url": "https://github.com/AdrieanKhisbe/hapi-configue/issues"
+  },
   "scripts": {
     "test": "lab -a code -P spec -t 60",
     "features": "cucumber.js",
