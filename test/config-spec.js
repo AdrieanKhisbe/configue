@@ -30,6 +30,7 @@ describe('Register', () => {
         });
     });
 
+
     it('detect wrong option item', (done) => {
         const server = new Hapi.Server();
         server.connection();
@@ -140,6 +141,35 @@ describe('Configue Options', () => {
             });
         });
 
+        it('can load a default file', (done)=> {
+            const server = new Hapi.Server();
+            server.connection();
+
+            const configueOptions = {
+                defaults: {a:1}
+            };
+            server.register({register: Configue, options: configueOptions}, (err) => {
+                expect(err).to.not.exist();
+                expect(server.configue('aa')).to.equal(1);
+                done();
+            });
+        });
+
+        it('defaults are loaded in order', (done)=> {
+            const server = new Hapi.Server();
+            server.connection();
+
+            const configueOptions = {
+                defaults: [{a:1}, {a:2, b:2}]
+            };
+            server.register({register: Configue, options: configueOptions}, (err) => {
+                expect(err).to.not.exist();
+                expect(server.configue('a')).to.equal(1);
+                expect(server.configue('b')).to.equal(2);
+                done();
+            });
+        });
+
     });
 
 
@@ -176,7 +206,7 @@ describe('Configue Options', () => {
                         nconf.set('when', 'NOW');
                         return done();
                     },
-                    default: function last(nconf, done) {
+                    defaults: function last(nconf, done) {
                         nconf.set('when', 'RIGHT '+nconf.get('when'));
                         done()
                     }

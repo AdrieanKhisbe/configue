@@ -25,13 +25,14 @@ Quoting [nconf]: ***"The order in which you attach these configuration sources d
 Here are the standard steps [Configue] does define:
 - `argv` : command line option
 - `env` : environment variables
-- `file` : config file
+- `file` : config files
+- `defaults` : default objects
 
 The plugin loads the various configurations in order using predefined steps.
 It starts by parsing argv then goes through the env and the files options
-and finishes by loading a basic default config.
+and finishes by loading the default config objects if any.
 Hence why every option defined as an argument commandline will override defaults
-and environment variables
+and environment variables.
 
 ## Installation
 
@@ -124,9 +125,7 @@ Every step has a post hook available.
 Those can be defined using the `postHooks` key and accept a
 function that take `nconf` as a parameter and a callback as a parameter.
 
-The special hooks `overrides` and `default` enables you to respectively
-apply a hook at the very beginning or very enf of the configuration
-process.
+The special hooks `overrides`  enables you to respectively apply a hook at the very beginning.
 
 ```js
 const server = new Hapi.Server();
