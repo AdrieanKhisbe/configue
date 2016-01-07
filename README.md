@@ -2,6 +2,7 @@ Hapi Configue Plugin
 ====================
 
 [![NPM Version](https://img.shields.io/npm/v/hapi-configue.svg)](https://npmjs.org/package/hapi-configue)
+[![Experimental][experimental-badge]][experimental-url]
 [![Build Status](https://travis-ci.org/AdrieanKhisbe/hapi-configue.svg)](https://travis-ci.org/AdrieanKhisbe/hapi-configue)
 [![Coverage Status](https://coveralls.io/repos/AdrieanKhisbe/hapi-configue/badge.svg?branch=master&service=github)](https://coveralls.io/github/AdrieanKhisbe/hapi-configue?branch=master)
 [![Dependency Status](https://david-dm.org/AdrieanKhisbe/hapi-configue.svg)](https://david-dm.org/AdrieanKhisbe/hapi-configue)
@@ -166,3 +167,5 @@ server.register({register: Configue, options: configueOptions}, (err) => {
 
 [Configue]: https://github.com/AdrieanKhisbe/hapi-configue
 [nconf]: (https://github.com/indexzero/nconf)
+[experimental-badge]: https://img.shields.io/badge/stability-experimental-DD5F0A.svg
+[experimental-url]: https://nodejs.org/api/documentation.html#documentation_stability_index
