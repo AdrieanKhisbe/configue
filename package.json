@@ -38,6 +38,8 @@
   "devDependencies": {
     "code": "^2.0.1",
     "coveralls": "^2.11.4",
+    "eslint-config-hapi": "^8.0.1",
+    "eslint-plugin-hapi": "^4.0.0",
     "hapi": "11.x.x",
     "istanbul": "^0.4.1",
     "lab": "^8.0.0",
