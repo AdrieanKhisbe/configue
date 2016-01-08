@@ -1,6 +1,8 @@
 Hapi Configue Plugin
 ====================
 
+***Config plugin for [Hapi](http://hapijs.com/).***
+
 [![NPM Version](https://img.shields.io/npm/v/hapi-configue.svg)](https://npmjs.org/package/hapi-configue)
 [![Experimental][experimental-badge]][experimental-url]
 [![Build Status](https://travis-ci.org/AdrieanKhisbe/hapi-configue.svg)](https://travis-ci.org/AdrieanKhisbe/hapi-configue)
@@ -8,7 +10,11 @@ Hapi Configue Plugin
 [![Dependency Status](https://david-dm.org/AdrieanKhisbe/hapi-configue.svg)](https://david-dm.org/AdrieanKhisbe/hapi-configue)
 [![bitHound Overalll Score](https://www.bithound.io/github/AdrieanKhisbe/hapi-configue/badges/score.svg)](https://www.bithound.io/github/AdrieanKhisbe/hapi-configue)
 
-***Config plugin for [Hapi](http://hapijs.com/).***
+### RENAMED TO [CONFIGUE][github-repo]
+
+> ***This node.js module is being renamed to Configue, dropping the `hapi-` Prefix***
+
+> Release `v0.7.1` is to warn of the migration!
 
 [Configue] is a wrapper on [nconf] node hierarchical
 plugin tool. It defines a standard workflow to load a config from environment variables,
@@ -166,6 +172,7 @@ server.register({register: Configue, options: configueOptions}, (err) => {
 
 
 [Configue]: https://github.com/AdrieanKhisbe/hapi-configue
+[github-repo]: https://github.com/AdrieanKhisbe/configue
 [nconf]: (https://github.com/indexzero/nconf)
 [experimental-badge]: https://img.shields.io/badge/stability-experimental-DD5F0A.svg
 [experimental-url]: https://nodejs.org/api/documentation.html#documentation_stability_index
