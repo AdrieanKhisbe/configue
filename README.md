@@ -3,12 +3,13 @@ Configue
 
 ***Config plugin for [Hapi](http://hapijs.com/).***
 
-[![NPM Version](https://img.shields.io/npm/v/configue.svg)](https://npmjs.org/package/configue)
-[![Experimental][experimental-badge]][experimental-url]
-[![Build Status](https://travis-ci.org/AdrieanKhisbe/configue.svg)](https://travis-ci.org/AdrieanKhisbe/configue)
-[![Coverage Status](https://coveralls.io/repos/AdrieanKhisbe/configue/badge.svg?branch=master&service=github)](https://coveralls.io/github/AdrieanKhisbe/configue?branch=master)
-[![Dependency Status](https://david-dm.org/AdrieanKhisbe/configue.svg)](https://david-dm.org/AdrieanKhisbe/configue)
-[![bitHound Overalll Score](https://www.bithound.io/github/AdrieanKhisbe/configue/badges/score.svg)](https://www.bithound.io/github/AdrieanKhisbe/configue)
+[![npm version][npm-badge]][npm-url]
+[![experimental][experimental-badge]][experimental-url]
+[![Build Status][travis-badge]][travis-url]
+[![Coverage Status][coverage-badge]][coverage-url]
+[![Code Climate][codeclimate-badge]][codeclimate-url]
+[![Dependency Status][david-badge]][david-url]
+[![bitHound Overalll Score][bithound-badge]][bithound-url]
 
 [Configue] is a wrapper on [nconf] node hierarchical
 plugin tool. It defines a standard workflow to load a config from environment variables,
@@ -165,8 +166,21 @@ server.register({register: Configue, options: configueOptions}, (err) => {
 ```
 
 
-[Configue]: https://github.com/AdrieanKhisbe/hapi-configue
+[Configue]: https://github.com/AdrieanKhisbe/configue
 [github-repo]: https://github.com/AdrieanKhisbe/configue
 [nconf]: (https://github.com/indexzero/nconf)
+
+[npm-badge]: https://img.shields.io/npm/v/configue.svg
+[npm-url]: https://npmjs.com/package/configue
+[travis-badge]: https://api.travis-ci.org/AdrieanKhisbe/configue.svg
+[travis-url]: https://travis-ci.org/AdrieanKhisbe/configue
+[david-badge]: https://david-dm.org/AdrieanKhisbe/configue.svg
+[david-url]: https://david-dm.org/AdrieanKhisbe/configue
 [experimental-badge]: https://img.shields.io/badge/stability-experimental-DD5F0A.svg
 [experimental-url]: https://nodejs.org/api/documentation.html#documentation_stability_index
+[codeclimate-badge]: https://codeclimate.com/github/AdrieanKhisbe/configue/badges/gpa.svg
+[codeclimate-url]: https://codeclimate.com/github/AdrieanKhisbe/configue
+[coverage-badge]: https://codeclimate.com/github/AdrieanKhisbe/configue/badges/coverage.svg
+[coverage-url]: https://codeclimate.com/github/AdrieanKhisbe/configue/coverage
+[bithound-badge]: https://www.bithound.io/github/AdrieanKhisbe/configue/badges/score.svg
+[bithound-url]: https://www.bithound.io/github/AdrieanKhisbe/configue
