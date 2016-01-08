@@ -3,6 +3,8 @@
 All notable changes to *configue* will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+Up to version [0.7.1] project was know has `hapi-configue`.
+
 ## [Unreleased][unreleased]
 
 ## [0.8.2] - 2016-01-08
@@ -19,6 +21,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [0.8.0] - 2016-01-08
 ### Changed
 - Upgrade package name to *Configue*
+- Deprecated previous name with
+
+        npm deprecate hapi-configue "<=v0.7.1" "WARNING: This project has been renamed to configue. Install using configue instead."
 
 ## [0.7.1] - 2016-01-08
 ### Added
