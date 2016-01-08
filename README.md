@@ -1,5 +1,5 @@
-Hapi Configue Plugin
-====================
+Configue
+========
 
 ***Config plugin for [Hapi](http://hapijs.com/).***
 
@@ -9,12 +9,6 @@ Hapi Configue Plugin
 [![Coverage Status](https://coveralls.io/repos/AdrieanKhisbe/hapi-configue/badge.svg?branch=master&service=github)](https://coveralls.io/github/AdrieanKhisbe/hapi-configue?branch=master)
 [![Dependency Status](https://david-dm.org/AdrieanKhisbe/hapi-configue.svg)](https://david-dm.org/AdrieanKhisbe/hapi-configue)
 [![bitHound Overalll Score](https://www.bithound.io/github/AdrieanKhisbe/hapi-configue/badges/score.svg)](https://www.bithound.io/github/AdrieanKhisbe/hapi-configue)
-
-### RENAMED TO [CONFIGUE][github-repo]
-
-> ***This node.js module is being renamed to Configue, dropping the `hapi-` Prefix***
-
-> Release `v0.7.1` is to warn of the migration!
 
 [Configue] is a wrapper on [nconf] node hierarchical
 plugin tool. It defines a standard workflow to load a config from environment variables,

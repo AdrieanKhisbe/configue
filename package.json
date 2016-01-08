@@ -1,10 +1,10 @@
 {
-  "name": "hapi-configue",
-  "version": "0.7.1",
+  "name": "configue",
+  "version": "0.8.0",
   "engines": {
     "node": ">=4.0.0"
   },
-  "repository": "https://github.com/AdrieanKhisbe/hapi-configue",
+  "repository": "https://github.com/AdrieanKhisbe/configue",
   "main": "lib/configue.js",
   "contributors": [
     {
@@ -20,7 +20,7 @@
     "registry": "http://registry.npmjs.org/"
   },
   "bugs": {
-    "url": "https://github.com/AdrieanKhisbe/hapi-configue/issues"
+    "url": "https://github.com/AdrieanKhisbe/configue/issues"
   },
   "scripts": {
     "test": "lab -a code -P spec -t 60",

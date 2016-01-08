@@ -5,6 +5,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][unreleased]
 
+## [0.8.0] - 2016-01-08
+### Changed
+- Upgrade package name to *Configue*
+
 ## [0.7.1] - 2016-01-08
 ### Added
 - Warning for migration to *Configue*
@@ -56,7 +60,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [0.1.0] - 2015-12-01
 - Initial Release
 
-[unreleased]: https://github.com/AdrieanKhisbe/hapi-configue/compare/v0.7.1...HEAD
+[unreleased]: https://github.com/AdrieanKhisbe/hapi-configue/compare/v0.8.0...HEAD
+[0.8.0]: https://github.com/AdrieanKhisbe/hapi-configue/compare/v0.7.1...v0.8.0
 [0.7.1]: https://github.com/AdrieanKhisbe/hapi-configue/compare/v0.7.0...v0.7.1
 [0.7.0]: https://github.com/AdrieanKhisbe/hapi-configue/compare/v0.6.0...v0.7.0
 [0.6.0]: https://github.com/AdrieanKhisbe/hapi-configue/compare/v0.5.0...v0.6.0
