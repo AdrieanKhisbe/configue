@@ -1,6 +1,5 @@
 #!/bin/bash
 mkdir -p coverage
-lab -P spec -r lcov > ./coverage/lab.lcov
+lab -r lcov -o coverage/lab.lcov -r html -o coverage/index.html
 istanbul cover cucumber.js --lcovonly -- --tags ~@ignore --format json > /dev/null
 lcov-result-merger 'coverage/*.lcov' 'coverage/merged.lcov'
-cat ./coverage/merged.lcov |  coveralls
