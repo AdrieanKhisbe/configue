@@ -1,7 +1,6 @@
-Configue
-========
+# Configue
 
-***Config plugin for [Hapi](http://hapijs.com/).***
+> ***Config plugin for [Hapi](http://hapijs.com/).***
 
 [![npm version][npm-badge]][npm-url]
 [![experimental][experimental-badge]][experimental-url]
@@ -11,20 +10,23 @@ Configue
 [![Dependency Status][david-badge]][david-url]
 [![bitHound Overalll Score][bithound-badge]][bithound-url]
 
-[Configue] is a wrapper on [nconf] node hierarchical
-plugin tool. It defines a standard workflow to load a config from environment variables,
+[Configue][] is a wrapper on [nconf][] node hierarchical config tool.
+
+It defines a *conventional workflow* to load a config from environment variables,
 command line arguments, files, that you can easily *configure* and *extend*.
 
 ## About Configue
 
 [Configue] builds up on [nconf] and its
 [Hierarchical configuration](https://github.com/indexzero/nconf#hierarchical-configuration) system.
+
 It defines a list of configuration step that are executed in order.
 Every property defined on a steps will shadow the same key in the following steps.
 
-Quoting [nconf]: ***"The order in which you attach these configuration sources determines their priority in the hierarchy"***
+Quoting [nconf][]:
+> ***"The order in which you attach these configuration sources determines their priority in the hierarchy"***
 
-Here are the standard steps [Configue] does define:
+Here are the standard steps [Configue][] does define:
 - `argv` : command line option
 - `env` : environment variables
 - `file` : config files
@@ -33,14 +35,15 @@ Here are the standard steps [Configue] does define:
 The plugin loads the various configurations in order using predefined steps.
 It starts by parsing argv then goes through the env and the files options
 and finishes by loading the default config objects if any.
+
 Hence why every option defined as an argument commandline will override defaults
 and environment variables.
 
 ## Installation
 
-Just add `hapi-configue` has a dependency installing it with npm.
+Just add `onfigue` has a dependency installing it with npm.
 
-    npm install --save hapi-configue
+    npm install --save configue
 
 ## Usage
 
@@ -81,7 +84,8 @@ The full example is available in the [`examples`](./examples/basic.js) folder.
 
 #### Specifying Files
 
-The files key can contain a single object or an array of objects containing a file key containing the path to the config file. The object can also reference a nconf plugin tasked with the formatting using the key format.
+The files key can contain a single object or an array of objects containing a file key containing the path to the config file.
+The object can also reference a nconf plugin tasked with the formatting using the key format.
 
 ```js
 const server = new Hapi.Server();
