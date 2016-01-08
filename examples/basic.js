@@ -1,5 +1,5 @@
 const Hapi = require('hapi');
-const Configue = require('hapi-configue');
+const Configue = require('configue');
 
 const server = new Hapi.Server();
 server.connection({port: 3000});

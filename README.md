@@ -41,7 +41,7 @@ and environment variables.
 
 ## Installation
 
-Just add `onfigue` has a dependency installing it with npm.
+Just add `configue` has a dependency installing it with npm.
 
     npm install --save configue
 

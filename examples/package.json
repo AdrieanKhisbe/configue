@@ -1,8 +1,9 @@
 {
   "name": "hapi-configue-example",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "description": "Example for hapi-configue plugin",
   "main": "index.js",
+  "private": true,
   "scripts": {
     "start": "node basic.js",
     "test": "mocha"
@@ -14,8 +15,8 @@
   "author": "Adriean Khisbe <adriean.khisbe@live.fr> (https://github.com/AdrieanKhisbe/)",
   "license": "ISC",
   "dependencies": {
-    "hapi": "^11.1.2",
-    "hapi-configue": "^0.7.0",
+    "hapi": "12.x.x",
+    "configue": "0.8.x",
     "nconf": "^0.8.2",
     "nconf-yaml": "^1.0.1"
   }
