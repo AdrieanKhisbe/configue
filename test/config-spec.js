@@ -19,16 +19,15 @@ const YAML_CONF_FILE = path.join(__dirname, "data/config.yaml");
 
 describe('Configue Options', () => {
 
-    const configueTest = (option, callback) => {
-
+    const configueTest = (configueOptions, callback) => {
+        const configue = Configue(configueOptions)
+        configue.resolve((err, other) => callback(configue, err, other) );
     }
 
     describe('Files', () => {
 
         it('can load data from a json file given as string', (done)=> {
-            const configueOptions = {files: JSON_CONF_FILE};
-            const configue = Configue(configueOptions)
-            configue.resolve((err) => {
+            configueTest({files: JSON_CONF_FILE }, (configue, err) => {
                 expect(err).to.not.exist();
                 expect(configue.get('key')).to.equal('json-config');
                 done();
@@ -36,20 +35,18 @@ describe('Configue Options', () => {
         });
 
         it('can load data from a json files given as string array', (done)=> {
-            const configueOptions = {files: [JSON_CONF_FILE, JSON_CONF_FILE_BIS]};
-            server.register({register: Configue, options: configueOptions}, (err) => {
+            configueTest({files: [JSON_CONF_FILE, JSON_CONF_FILE_BIS]}, (configue, err) => {
                 expect(err).to.not.exist();
-                expect(server.configue('key')).to.equal('json-config');
-                expect(server.configue('key-bis')).to.equal('json-config-bis');
+                expect(configue.get('key')).to.equal('json-config');
+                expect(configue.get('key-bis')).to.equal('json-config-bis');
                 done();
             });
         });
 
         it('can load data from a json file', (done)=> {
-            const configueOptions = {files: [{file: JSON_CONF_FILE}]};
-            server.register({register: Configue, options: configueOptions}, (err) => {
+            configueTest({files: [{file: JSON_CONF_FILE}]}, (configue, err) => {
                 expect(err).to.not.exist();
-                expect(server.configue('key')).to.equal('json-config');
+                expect(configue.get('key')).to.equal('json-config');
                 done();
             });
         });
@@ -61,9 +58,9 @@ describe('Configue Options', () => {
                     format: require('nconf-yaml')
                 }]
             };
-            server.register({register: Configue, options: configueOptions}, (err) => {
+            configueTest(configueOptions, (configue, err) => {
                 expect(err).to.not.exist();
-                expect(server.configue('key')).to.equal('yaml-config');
+                expect(configue.get('key')).to.equal('yaml-config');
                 done();
             });
         });
@@ -76,32 +73,28 @@ describe('Configue Options', () => {
                         format: require('nconf-yaml')
                     }]
             };
-            server.register({register: Configue, options: configueOptions}, (err) => {
+            configueTest(configueOptions, (configue, err) => {
                 expect(err).to.not.exist();
-                expect(server.configue('key')).to.equal('json-config');
+                expect(configue.get('key')).to.equal('json-config');
                 done();
             });
         });
 
         it('can load a default file', (done)=> {
-            const configueOptions = {
-                defaults: {one: 1}
-            };
-            server.register({register: Configue, options: configueOptions}, (err) => {
+            configueTest({defaults: {one: 1}}, (configue, err) => {
                 expect(err).to.not.exist();
-                expect(server.configue('one')).to.equal(1);
+                expect(configue.get('one')).to.equal(1);
                 done();
             });
         });
 
         it('defaults are loaded in order', (done)=> {
-             const configueOptions = {
+            configueTest({
                 defaults: [{one: 1}, {one: 2, two: 2}]
-            };
-            server.register({register: Configue, options: configueOptions}, (err) => {
+            }, (configue, err) => {
                 expect(err).to.not.exist();
-                expect(server.configue('one')).to.equal(1);
-                expect(server.configue('two')).to.equal(2);
+                expect(configue.get('one')).to.equal(1);
+                expect(configue.get('two')).to.equal(2);
                 done();
             });
         });
@@ -112,14 +105,13 @@ describe('Configue Options', () => {
     describe('Disable', () => {
 
         it('enable to disable argv', (done) => {
-            const configueOptions = {disable: {argv: true}};
             process.argv.push('--who=YO');
             process.env.who = 'NO';
             // RISKY!!!!
 
-            server.register({register: Configue, options: configueOptions}, (err) => {
+            configueTest({ disable: {argv: true}}, (configue, err) => {
                 expect(err).to.not.exist();
-                expect(server.configue('who')).to.equal('NO');
+                expect(configue.get('who')).to.equal('NO');
                 done();
             });
         })
@@ -148,23 +140,21 @@ describe('Configue Options', () => {
             };
             process.argv.push('--when=later');
             process.env.who = 'me';
-            server.register({register: Configue, options: configueOptions}, (err) => {
+
+            configueTest(configueOptions, (configue, err) => {
                 expect(err).to.not.exist();
-                expect(server.configue('who')).to.equal('ME FIRST!');
-                expect(server.configue('when')).to.equal('RIGHT NOW');
+                expect(configue.get('who')).to.equal('ME FIRST!');
+                expect(configue.get('when')).to.equal('RIGHT NOW');
                 done();
             });
         });
 
-        it('handle error in loading process', (done)=> {
-            const configueOptions = {
-                postHooks: {
-                    argv: function postArgv(nconf, done) {
-                        done('This is an error');
-                    }
+        it('handle error in loading process', (done) => {
+            configueTest({ postHooks: {
+                argv: function postArgv(nconf, done) {
+                    done('This is an error');
                 }
-            };
-            server.register({register: Configue, options: configueOptions}, (err) => {
+            }}, (configue, err) => {
                 expect(err).to.exist();
                 done();
             });
@@ -174,17 +164,17 @@ describe('Configue Options', () => {
     describe('CustomWorkflow', () => {
 
         it('accept a custom workflow', (done) => {
-            const configueOptions = {customWorkflow: function(nconf, done){
+            const configueOptions = { customWorkflow: function(nconf, done){
                 nconf.set('workflow', 'custom');
                 return done();
             }};
             process.argv.push('--workflow=default');
             process.env.key = 'value';
 
-            server.register({register: Configue, options: configueOptions}, (err) => {
+            configueTest(configueOptions, (configue, err) => {
                 expect(err).to.not.exist();
-                expect(server.configue('workflow')).to.equal('custom');
-                expect(server.configue('key')).to.not.exist();
+                expect(configue.get('workflow')).to.equal('custom');
+                expect(configue.get('key')).to.not.exist();
                 done();
             });
         })
@@ -201,14 +191,13 @@ describe('Hapi plugin', () => {
 
             server.register({register: Configue}, (err) => {
                 expect(err).to.not.exist();
-
                 expect(server.configue).to.exist();
                 expect(server.configue).to.be.a.function();
                 return done();
             });
         });
 
-
+     // FIXME
         it('detect wrong option item', (done) => {
             const server = new Hapi.Server();
             server.connection();
