@@ -50,21 +50,14 @@ Just add `configue` has a dependency installing it with npm.
 ### Basic usage without customization
 
 ```js
-server.register({register: Configue}, (err) => {
-    if (err) return console.log("Error loading plugins");
+const Configue = require('configue');
+const configue = Configue()
 
-    const who = server.configue('who') || "World";
+configue.resolve((err) => {
+    if (err) return console.error('Something bad happened\n%j', err);
 
-    server.route({
-        method: 'GET', path: '/', handler: function (request, reply) {
-            reply("Hello " + who);
-        }
-    });
-
-    server.start(function () {
-        console.log('Server running at:', server.info.uri);
-        console.log('With "who" as ' + who)
-    });
+    const who = configue.get('who') || "World";
+    console.log('I know thath "who" is ' + who);
 });
 ```
 
@@ -88,20 +81,21 @@ The files key can contain a single object or an array of objects containing a fi
 The object can also reference a nconf plugin tasked with the formatting using the key format.
 
 ```js
-const server = new Hapi.Server();
-server.connection();
-server.register({
-    register: Configue,
-    options: {
-        files: [
-            {file: 'path/to/config.json'},
-            {
-                file: 'path/to/config2.yaml',
-                format: require('nconf-yaml')
-            }
-        ]
-    }
-}, (err) => {
+const Configue = require('configue');
+
+const configueOptions = {
+    disable: {argv: true},
+    files: [
+        {file: './config.json'},
+        {
+            file: './config.yaml',
+            format: require('nconf-yaml')
+        }
+    ]
+};
+
+const configue = Configue(configueOptions)
+configue.resolve((err) => {
     // Your code here
 });
 ```
@@ -111,18 +105,12 @@ server.register({
 The argv and env steps can be skipped using the `disable` object in `options`.
 
 ```js
-const server = new Hapi.Server();
-server.connection();
-server.register({
-    register: Configue,
-    options: {
-        disable: {
-            argv: true
-        }
-    }
-}, (err) => {
-    // Your code here
-});
+const configue = Configue({
+  disable: {
+     argv: true
+        }});
+
+// Your code here
 ```
 
 #### Step hooks
@@ -134,11 +122,7 @@ function that take `nconf` as a parameter and a callback as a parameter.
 The special hooks `overrides`  enables you to respectively apply a hook at the very beginning.
 
 ```js
-const server = new Hapi.Server();
-server.connection();
-server.register({
-    register: Configue,
-    options: {
+const configue = Configue({
         postHooks: {
             overrides: function first(nconf, done){
                 //Your code here
@@ -147,10 +131,8 @@ server.register({
                 //Your code here
             }
         }
-    }
-}, (err) => {
-    // Your code here
 });
+// Your code here
 ```
 
 #### Custom Workflow
@@ -163,11 +145,37 @@ const configueOptions = { customWorkflow: function(nconf, done){
   // my own config setting
 }};
 
-server.register({register: Configue, options: configueOptions}, (err) => {
-
-});
-
+const configue = Configue(configueOptions)
 ```
+
+### Loading into Hapi
+
+Thought _Configue_ is usable without hapi, (it was originaly just a _Hapi_ plugin),
+it can be easily loaded in hapi to have the _configue_ being easily accessible from
+the server, or on the request.
+
+To do this, you need to register the plugin.
+```js
+const Hapi = require('hapi');
+const Configue = require('configue');
+
+const server = new Hapi.Server();
+server.connection({port: 3000});
+
+const configue = Configue({some: 'config'})
+
+// FIXME: TODO: automatic resolve if not done
+configue.resolve((err) => {
+    if (err) return console.error("Error resolving configue");
+
+    server.register({register: configue.plugin()}, (err) => {
+       // starting the server or else
+    })
+})
+```
+
+A more complete example is available in [`examples`](./examples/basic-plugin.js) folder.
+
 
 
 [Configue]: https://github.com/AdrieanKhisbe/configue

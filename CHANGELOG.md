@@ -6,6 +6,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 Up to version [0.7.1] project was know has `hapi-configue`.
 
 ## [Unreleased][unreleased]
+### Changed
+- whole api was refactored: `configue is now usable without hapi
+- `configue` is now registerable to hapi by extracting a plugin from the
+  instance with `configue.plugin()`
 
 ## [0.8.2] - 2016-01-08
 ### Changed
