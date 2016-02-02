@@ -1,6 +1,6 @@
 {
   "name": "hapi-configue-example",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "description": "Example for hapi-configue plugin",
   "main": "index.js",
   "private": true,
@@ -16,7 +16,7 @@
   "license": "ISC",
   "dependencies": {
     "hapi": "12.x.x",
-    "configue": "0.8.x",
+    "configue": "0.9.x",
     "nconf": "^0.8.2",
     "nconf-yaml": "^1.0.1"
   }
