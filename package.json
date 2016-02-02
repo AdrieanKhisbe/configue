@@ -17,13 +17,12 @@
     "url": "https://github.com/AdrieanKhisbe/configue/issues"
   },
   "scripts": {
-    "test": "lab -a code -v -P spec -t 60",
-    "coverage": "./.coverage.sh",
+    "test": "lab -a code -v -P spec -t 90 -c",
+    "coverage": "lab -r lcov -o coverage/lab.lcov -r html -o coverage/index.html",
     "publish-coverage": "codeclimate-test-reporter < coverage/merged.lcov",
-    "features": "cucumber.js"
+    "lint": "lab -dL"
   },
   "dependencies": {
-    "cucumber": "^0.9.4",
     "hoek": "^3.0.4",
     "joi": "^7.2.3",
     "lodash": "^4.2.0",
@@ -36,9 +35,7 @@
     "eslint-config-hapi": "^8.0.1",
     "eslint-plugin-hapi": "^4.0.0",
     "hapi": "13.x.x",
-    "istanbul": "^0.4.2",
     "lab": "^8.2.0",
-    "lcov-result-merger": "^1.0.2",
     "nconf-yaml": "^1.0.1"
   },
   "license": "BSD-3-Clause"
