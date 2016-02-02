@@ -208,11 +208,13 @@ describe('Hapi plugin', () => {
             server.connection();
             const configue = Configue()
 
-            server.register({register: configue.plugin()}, (err) => {
-                expect(err).to.not.exist();
-                expect(server.configue).to.exist();
-                expect(server.configue).to.be.a.function();
-                return done();
+            configue.resolve((err) => {
+                server.register({register: configue.plugin()}, (err) => {
+                    expect(err).to.not.exist();
+                    expect(server.configue).to.exist();
+                    expect(server.configue).to.be.a.function();
+                    return done();
+                });
             });
         });
     });
@@ -223,19 +225,21 @@ describe('Hapi plugin', () => {
             server.connection();
 
             const configue = Configue()
-            server.register({register: configue.plugin()}, (err) => {
+            configue.resolve((err) => {
 
-                expect(err).to.not.exist();
+                server.register({register: configue.plugin()}, (err) => {
 
-                server.route({
-                    method: 'GET', path: '/', handler: function (request, reply) {
-                        expect(request.configue).to.exist();
-                        expect(request.configue).to.be.a.function();
-                        return done();
-                    }
+                    expect(err).to.not.exist();
+
+                    server.route({
+                        method: 'GET', path: '/', handler: function (request, reply) {
+                            expect(request.configue).to.exist();
+                            expect(request.configue).to.be.a.function();
+                            return done();
+                        }
+                    });
+                    server.inject('/');
                 });
-
-                server.inject('/');
             });
         });
 
