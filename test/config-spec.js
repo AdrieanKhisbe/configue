@@ -19,22 +19,23 @@ const YAML_CONF_FILE = path.join(__dirname, "data/config.yaml");
 
 describe('Configue Options', () => {
 
+    const configueTest = (option, callback) => {
+
+    }
+
     describe('Files', () => {
 
         it('can load data from a json file given as string', (done)=> {
-            const server = new Hapi.Server();
-            server.connection();
             const configueOptions = {files: JSON_CONF_FILE};
-            server.register({register: Configue, options: configueOptions}, (err) => {
+            const configue = Configue(configueOptions)
+            configue.resolve((err) => {
                 expect(err).to.not.exist();
-                expect(server.configue('key')).to.equal('json-config');
+                expect(configue.get('key')).to.equal('json-config');
                 done();
             });
         });
 
         it('can load data from a json files given as string array', (done)=> {
-            const server = new Hapi.Server();
-            server.connection();
             const configueOptions = {files: [JSON_CONF_FILE, JSON_CONF_FILE_BIS]};
             server.register({register: Configue, options: configueOptions}, (err) => {
                 expect(err).to.not.exist();
@@ -45,9 +46,6 @@ describe('Configue Options', () => {
         });
 
         it('can load data from a json file', (done)=> {
-            const server = new Hapi.Server();
-            server.connection();
-
             const configueOptions = {files: [{file: JSON_CONF_FILE}]};
             server.register({register: Configue, options: configueOptions}, (err) => {
                 expect(err).to.not.exist();
@@ -57,8 +55,6 @@ describe('Configue Options', () => {
         });
 
         it('can load data from a yaml file', (done)=> {
-            const server = new Hapi.Server();
-            server.connection();
             const configueOptions = {
                 files: [{
                     file: YAML_CONF_FILE,
@@ -73,9 +69,6 @@ describe('Configue Options', () => {
         });
 
         it('files are loaded in order', (done)=> {
-            const server = new Hapi.Server();
-            server.connection();
-
             const configueOptions = {
                 files: [{file: JSON_CONF_FILE},
                     {
@@ -91,9 +84,6 @@ describe('Configue Options', () => {
         });
 
         it('can load a default file', (done)=> {
-            const server = new Hapi.Server();
-            server.connection();
-
             const configueOptions = {
                 defaults: {one: 1}
             };
@@ -105,10 +95,7 @@ describe('Configue Options', () => {
         });
 
         it('defaults are loaded in order', (done)=> {
-            const server = new Hapi.Server();
-            server.connection();
-
-            const configueOptions = {
+             const configueOptions = {
                 defaults: [{one: 1}, {one: 2, two: 2}]
             };
             server.register({register: Configue, options: configueOptions}, (err) => {
@@ -125,9 +112,6 @@ describe('Configue Options', () => {
     describe('Disable', () => {
 
         it('enable to disable argv', (done) => {
-            const server = new Hapi.Server();
-            server.connection();
-
             const configueOptions = {disable: {argv: true}};
             process.argv.push('--who=YO');
             process.env.who = 'NO';
@@ -146,8 +130,6 @@ describe('Configue Options', () => {
     describe('Post Hooks', () => {
 
         it('enable to insert hook', (done)=> {
-            const server = new Hapi.Server();
-            server.connection();
             const configueOptions = {
                 postHooks: {
                     overrides: function first(nconf, done) {
@@ -175,8 +157,6 @@ describe('Configue Options', () => {
         });
 
         it('handle error in loading process', (done)=> {
-            const server = new Hapi.Server();
-            server.connection();
             const configueOptions = {
                 postHooks: {
                     argv: function postArgv(nconf, done) {
@@ -194,9 +174,6 @@ describe('Configue Options', () => {
     describe('CustomWorkflow', () => {
 
         it('accept a custom workflow', (done) => {
-            const server = new Hapi.Server();
-            server.connection();
-
             const configueOptions = {customWorkflow: function(nconf, done){
                 nconf.set('workflow', 'custom');
                 return done();
