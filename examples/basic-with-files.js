@@ -1,10 +1,8 @@
-const Hapi = require('hapi');
+'use strict';
+
 const Configue = require('configue');
 
-const server = new Hapi.Server();
-server.connection({port: 3000});
-
-const ConfigueOptions = {
+const configueOptions = {
     disable: {argv: true},
     files: [
         {file: './config.json'},
@@ -15,20 +13,13 @@ const ConfigueOptions = {
     ]
 };
 
-server.register({register: Configue, options: ConfigueOptions}, (err) => {
-    if (err) return console.log('Error loading plugins:\n %s', err);
+const configue = Configue(configueOptions)
 
-    const salute = server.configue('salute') || 'Hello';
-    const who = server.configue('who') || 'World';
+configue.resolve((err) => {
+    if (err) return console.error('Error loading plugins:\n %s', err);
 
-    server.route({
-        method: 'GET', path: '/', handler: function (request, reply) {
-            reply(salute + ' ' + who);
-        }
-    });
+    const salute = configue.get('salute') || 'Hello';
+    const who = configue.get('who') || 'World';
 
-    server.start(function () {
-        console.log('Server running at:', server.info.uri);
-        console.log('With "who" as ' + who + ' and "salute" as ' + salute);
-    });
+    console.log('The Configue tell that "who" is ' + who + ' and "salute" is ' + salute);
 });
