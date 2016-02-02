@@ -7,14 +7,8 @@
   "repository": "https://github.com/AdrieanKhisbe/configue",
   "main": "lib/configue.js",
   "contributors": [
-    {
-      "name": "Adriean Khisbe",
-      "email": "adriean.khisbe@live.fr"
-    },
-    {
-      "name": "mlequain",
-      "email": "maxime.lequain@gmail.com"
-    }
+    "Adrien Becchis (https://github.com/AdrieanKhisbe)",
+    "Maxime Lequain (https://github.com/mlequain)"
   ],
   "publishConfig": {
     "registry": "http://registry.npmjs.org/"
