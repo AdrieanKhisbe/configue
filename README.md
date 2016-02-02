@@ -1,6 +1,6 @@
 # Configue
 
-> ***Config plugin for [Hapi](http://hapijs.com/).***
+> ***Config tool and plugin for [Hapi](http://hapijs.com/).***
 
 [![npm version][npm-badge]][npm-url]
 [![experimental][experimental-badge]][experimental-url]
@@ -10,7 +10,7 @@
 [![Dependency Status][david-badge]][david-url]
 [![bitHound Overalll Score][bithound-badge]][bithound-url]
 
-[Configue][] is a wrapper on [nconf][] node hierarchical config tool.
+[Configue] is a wrapper on [nconf] node hierarchical config tool.
 
 It defines a *conventional workflow* to load a config from environment variables,
 command line arguments, files, that you can easily *configure* and *extend*.
@@ -23,10 +23,10 @@ command line arguments, files, that you can easily *configure* and *extend*.
 It defines a list of configuration step that are executed in order.
 Every property defined on a steps will shadow the same key in the following steps.
 
-Quoting [nconf][]:
+Quoting [nconf]:
 > ***"The order in which you attach these configuration sources determines their priority in the hierarchy"***
 
-Here are the standard steps [Configue][] does define:
+Here are the standard steps [Configue] does define:
 - `argv` : command line option
 - `env` : environment variables
 - `file` : config files
@@ -47,7 +47,17 @@ Just add `configue` has a dependency installing it with npm.
 
 ## Usage
 
+### How To
+
+To use _Configue_ you need first to create an instance passing the option to the `Configue(opts)`
+constructor.
+Once done, you'll first need to `resolve` the config, to ensure all values are loaded in the store.
+The function takes a callback that is fired when the config is loaded
+
+See the following example for concrete presentation.
+
 ### Basic usage without customization
+
 
 ```js
 const Configue = require('configue');
