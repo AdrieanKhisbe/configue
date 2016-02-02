@@ -21,13 +21,26 @@ describe('Configue Options', () => {
 
     const configueTest = (configueOptions, callback) => {
         const configue = Configue(configueOptions)
-        configue.resolve((err, other) => callback(configue, err, other) );
+        configue.resolve((err, other) => callback(configue, err, other));
     }
+
+    describe('Schema', () => {
+        // FIXME
+        it('detect wrong option item', (done) => {
+            try {
+                const configue = Configue({'this': 'is-junk'})
+                fail('Exception not triggered')
+            } catch (err) {
+
+            }
+            done()
+        })
+    })
 
     describe('Files', () => {
 
         it('can load data from a json file given as string', (done)=> {
-            configueTest({files: JSON_CONF_FILE }, (configue, err) => {
+            configueTest({files: JSON_CONF_FILE}, (configue, err) => {
                 expect(err).to.not.exist();
                 expect(configue.get('key')).to.equal('json-config');
                 done();
@@ -109,7 +122,7 @@ describe('Configue Options', () => {
             process.env.who = 'NO';
             // RISKY!!!!
 
-            configueTest({ disable: {argv: true}}, (configue, err) => {
+            configueTest({disable: {argv: true}}, (configue, err) => {
                 expect(err).to.not.exist();
                 expect(configue.get('who')).to.equal('NO');
                 done();
@@ -133,7 +146,7 @@ describe('Configue Options', () => {
                         return done();
                     },
                     defaults: function last(nconf, done) {
-                        nconf.set('when', 'RIGHT '+nconf.get('when'));
+                        nconf.set('when', 'RIGHT ' + nconf.get('when'));
                         done()
                     }
                 }
@@ -150,11 +163,13 @@ describe('Configue Options', () => {
         });
 
         it('handle error in loading process', (done) => {
-            configueTest({ postHooks: {
-                argv: function postArgv(nconf, done) {
-                    done('This is an error');
+            configueTest({
+                postHooks: {
+                    argv: function postArgv(nconf, done) {
+                        done('This is an error');
+                    }
                 }
-            }}, (configue, err) => {
+            }, (configue, err) => {
                 expect(err).to.exist();
                 done();
             });
@@ -164,10 +179,12 @@ describe('Configue Options', () => {
     describe('CustomWorkflow', () => {
 
         it('accept a custom workflow', (done) => {
-            const configueOptions = { customWorkflow: function(nconf, done){
-                nconf.set('workflow', 'custom');
-                return done();
-            }};
+            const configueOptions = {
+                customWorkflow: function (nconf, done) {
+                    nconf.set('workflow', 'custom');
+                    return done();
+                }
+            };
             process.argv.push('--workflow=default');
             process.env.key = 'value';
 
@@ -181,6 +198,7 @@ describe('Configue Options', () => {
 
     });
 
+
 });
 
 describe('Hapi plugin', () => {
@@ -188,22 +206,13 @@ describe('Hapi plugin', () => {
         it('expose configue handler', (done) => {
             const server = new Hapi.Server();
             server.connection();
+            const configue = Configue()
 
-            server.register({register: Configue}, (err) => {
+            server.register({register: configue.plugin()}, (err) => {
                 expect(err).to.not.exist();
                 expect(server.configue).to.exist();
                 expect(server.configue).to.be.a.function();
                 return done();
-            });
-        });
-
-     // FIXME
-        it('detect wrong option item', (done) => {
-            const server = new Hapi.Server();
-            server.connection();
-            server.register({register: Configue, options: {'this': 'is-junk'}}, (err) => {
-                expect(err).to.exist();
-                done();
             });
         });
     });
@@ -213,7 +222,8 @@ describe('Hapi plugin', () => {
             const server = new Hapi.Server();
             server.connection();
 
-            server.register({register: Configue}, (err) => {
+            const configue = Configue()
+            server.register({register: configue.plugin()}, (err) => {
 
                 expect(err).to.not.exist();
 
