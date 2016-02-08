@@ -37,6 +37,33 @@ describe('Configue Options', () => {
         })
     })
 
+    describe('Getter', () => {
+
+        it('get value', (done) =>{
+            configueTest({defaults: {A: '2', B: 42 }}, (configue, err) => {
+                expect(err).to.not.exist();
+                // NOTE: code is interpreted from command line: -a !!
+                expect(configue.get('A')).to.equal('2');
+                expect(configue.get('B')).to.equal(42);
+                done();
+            });
+        });
+
+        it('get nested value', (done) =>{
+            configueTest({defaults: {root: {a: '2', b: 42 }}}, (configue, err) => {
+                expect(err).to.not.exist();
+                console.log(configue.get('root'))
+                expect(configue.get('root')).to.deep.equal({a: '2', b: 42 });
+                expect(configue.get('root:a')).to.equal('2');
+                expect(configue.get('root:b')).to.equal(42);
+                done();
+            });
+        });
+
+        //defaultValue
+
+    })
+
     describe('Files', () => {
 
         it('can load data from a json file given as string', (done)=> {
