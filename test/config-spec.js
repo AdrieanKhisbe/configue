@@ -50,9 +50,9 @@ describe('Configue Options', () => {
         });
 
         it('get nested value', (done) =>{
-            configueTest({defaults: {root: {a: '2', b: 42 }}}, (configue, err) => {
+            configueTest({defaults: {root: {a: '2', b: 42}}}, (configue, err) => {
                 expect(err).to.not.exist();
-                console.log(configue.get('root'))
+
                 expect(configue.get('root')).to.deep.equal({a: '2', b: 42 });
                 expect(configue.get('root:a')).to.equal('2');
                 expect(configue.get('root:b')).to.equal(42);
@@ -60,7 +60,26 @@ describe('Configue Options', () => {
             });
         });
 
-        //defaultValue
+        it('get defaultValue', (done) =>{
+            configueTest({defaults: {A: '2', B: 42}}, (configue, err) => {
+                expect(err).to.not.exist();
+
+                expect(configue.get('C', 'pasdefini')).to.equal('pasdefini');
+                done();
+            });
+        });
+
+
+        it('get defaultValue if result is set undefined', (done) => {
+            configueTest({defaults: {idonotexist: undefined, zero: 0}}, (configue, err) => {
+                expect(err).to.not.exist();
+
+                expect(configue.get('idonotexist', 'unlessItellsSo')).to.contain('unless');
+                expect(configue.get('zero', 12)).to.equal(0);
+                done();
+            });
+        });
+
 
     })
 
