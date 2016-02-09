@@ -66,11 +66,12 @@ const configue = Configue()
 configue.resolve((err) => {
     if (err) return console.error('Something bad happened\n%j', err);
 
-    const who = configue.get('who') || "World";
+    const who = configue.get('who', 'World');
     console.log('I know thath "who" is ' + who);
 });
 ```
 
+#### Passing By Options
 You can specify the `who` configue in different manners.
 Here are some:
 
@@ -82,6 +83,19 @@ who=Human node basic.js
 ```
 
 The full example is available in the [`examples`](./examples/basic.js) folder.
+
+#### Retrieving values
+
+To retrieve a configue value, use the `get` method on the config holder.
+It takes has argument the key of the argument. For nested value you need to
+use `:` to deep access to value.
+It's also possible to specify a default value in case key is `undefined`.
+
+```js
+configue.get('defined4sure')
+configue.get('some:nested:value')
+configue.get('mightBeUndefined', 'default')
+```
 
 ### Usage with customization of the configuration workflow
 
