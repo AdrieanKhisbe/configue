@@ -15,7 +15,7 @@ configue.resolve((err) => {
     server.register({register: configue.plugin()}, (err) => {
         if (err) return console.log("Error loading plugins");
 
-        const who = server.configue('who') || "World";
+        const who = server.configue('who', 'World');
 
         server.route({
             method: 'GET', path: '/', handler: function (request, reply) {
