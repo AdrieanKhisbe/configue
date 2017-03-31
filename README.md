@@ -112,7 +112,7 @@ configue.get('mightBeUndefined', 'default')
 ### Usage with customization of the configuration workflow
 
 #### Passing options to nconf
-You can provide `options` arguments to `argv` (`yargs`underneath), and `env` in order to customize the behavior 
+You can provide options arguments to `argv` (`yargs`underneath), and `env` in order to customize the behavior 
 around command line argument and environment variables.
 For more in depth readings see nconf options [here][nconf-options-argv-env]
 
@@ -120,16 +120,14 @@ For more in depth readings see nconf options [here][nconf-options-argv-env]
 const Configue = require('configue');
 
 const configueOptions = {
-    options: {
-        argv: { f: {
-                     alias: 'file',
-                     demandOption: true,
-                     default: '/etc/passwd',
-                     describe: 'x marks the spot',
-                     type: 'string'
-                     }},
-        env: ["HOME", "PWD"] // whitelist
-    },
+    argv: { f: {
+                 alias: 'file',
+                 demandOption: true,
+                 default: '/etc/passwd',
+                 describe: 'x marks the spot',
+                 type: 'string'
+                 }},
+    env: ["HOME", "PWD"] // whitelist
 
 };
 

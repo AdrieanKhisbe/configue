@@ -116,7 +116,7 @@ describe('Configue Options', () => {
 
     describe('Options', () => {
         it('argv are forwarded to nconf', (done)=> {
-            configueTest({options: {argv: {"key": {default: 'some-value'}}}},
+            configueTest({argv: {"key": {default: 'some-value'}}},
                 (configue, err) => {
                     expect(err).to.not.exist();
                     expect(configue.get('key')).to.equal('some-value');
@@ -125,7 +125,7 @@ describe('Configue Options', () => {
         });
 
         it('env are forwarded to nconf', (done)=> {
-            configueTest({options: {env: ["PWD"]}},
+            configueTest({env: ["PWD"]},
                 (configue, err) => {
                     expect(err).to.not.exist();
                     const allEnv = configue.nconf.load();
