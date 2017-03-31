@@ -7,7 +7,11 @@ Up to version [0.7.1] project was know has `hapi-configue`.
 
 ## [Unreleased][unreleased]
 
-## [0.10.1] - 2017-03-31
+## [0.12.0] - 2017-03-31
+### Added
+- `argv` and `env` configuration
+
+## [0.11.0] - 2017-03-31
 ### Added
 - promises support
 
@@ -98,7 +102,8 @@ Up to version [0.7.1] project was know has `hapi-configue`.
 ## [0.1.0] - 2015-12-01
 - Initial Release
 
-[unreleased]: https://github.com/AdrieanKhisbe/hapi-configue/compare/v0.10.0...HEAD
+[unreleased]: https://github.com/AdrieanKhisbe/hapi-configue/compare/v0.12.0...HEAD
+[0.12.0]: https://github.com/AdrieanKhisbe/hapi-configue/compare/v0.11.0...v0.12.0
 [0.11.0]: https://github.com/AdrieanKhisbe/hapi-configue/compare/v0.10.1...v0.11.0
 [0.10.1]: https://github.com/AdrieanKhisbe/hapi-configue/compare/v0.10.0...v0.10.1
 [0.10.0]: https://github.com/AdrieanKhisbe/hapi-configue/compare/v0.9.2...v0.10.0

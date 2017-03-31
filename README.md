@@ -72,7 +72,7 @@ configue.resolve((err) => {
 ```
 #### WithPromises
 ```js
-const Configue = require('.');
+const Configue = require('configue');
 const configue = Configue()
 
 configue.resolve()
@@ -110,6 +110,34 @@ configue.get('mightBeUndefined', 'default')
 ```
 
 ### Usage with customization of the configuration workflow
+
+#### Passing options to nconf
+You can provide `options` arguments to `argv` (`yargs`underneath), and `env` in order to customize the behavior 
+around command line argument and environment variables.
+For more in depth readings see nconf options [here][nconf-options-argv-env]
+
+```js
+const Configue = require('configue');
+
+const configueOptions = {
+    options: {
+        argv: { f: {
+                     alias: 'file',
+                     demandOption: true,
+                     default: '/etc/passwd',
+                     describe: 'x marks the spot',
+                     type: 'string'
+                     }},
+        env: ["HOME", "PWD"] // whitelist
+    },
+
+};
+
+const configue = Configue(configueOptions)
+configue.resolve((err) => {
+    // Your code here
+});
+```
 
 #### Specifying Files
 
@@ -216,7 +244,8 @@ A more complete example is available in [`examples`](./examples/basic-plugin.js)
 
 [Configue]: https://github.com/AdrieanKhisbe/configue
 [github-repo]: https://github.com/AdrieanKhisbe/configue
-[nconf]: (https://github.com/indexzero/nconf)
+[nconf]: https://github.com/indexzero/nconf
+[nconf-options-argv-env]: https://github.com/indexzero/nconf#argv
 
 [npm-badge]: https://img.shields.io/npm/v/configue.svg
 [npm-url]: https://npmjs.com/package/configue
