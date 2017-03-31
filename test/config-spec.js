@@ -51,7 +51,7 @@ describe('Configue Options', () => {
             configueTest({defaults: {root: {a: '2', b: 42}}}, (configue, err) => {
                 expect(err).to.not.exist();
 
-                expect(configue.get('root')).to.deep.equal({a: '2', b: 42 });
+                expect(configue.get('root')).to.equal({a: '2', b: 42 });
                 expect(configue.get('root:a')).to.equal('2');
                 expect(configue.get('root:b')).to.equal(42);
                 done();
