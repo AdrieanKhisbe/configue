@@ -300,6 +300,37 @@ describe('Configue Options', () => {
 
 });
 
+describe('Fluent builder', () => {
+    it('get is working fine as factory method', (done) => {
+        const configue = Configue.get()
+        expect(configue instanceof Configue).to.be.true()
+        done()
+    });
+
+    it('get is reseting the chain', (done) => {
+        const configue1 = Configue.defaults({a: 1}).get()
+        const configue2 = Configue.get()
+        expect(configue2.settings).to.equal({})
+        done()
+    });
+
+    it('methods sets the good values', (done) => {
+        const configue = Configue.defaults({a: 1})
+            .env(["HOME"])
+            .get()
+        expect(configue.settings).to.equal({
+            "defaults": {
+                "a": 1
+            },
+            "env": [
+                "HOME"
+            ]
+        })
+        done()
+
+    });
+});
+
 describe('Hapi plugin', () => {
     describe('Register', () => {
         it('expose configue handler', (done) => {
