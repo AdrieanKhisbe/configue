@@ -112,6 +112,28 @@ describe('Configue Options', () => {
 
     })
 
+    describe('Options', () => {
+        it('argv are forwarded to nconf', (done)=> {
+            configueTest({options: {argv: {"key": {default: 'some-value'}}}},
+                (configue, err) => {
+                    expect(err).to.not.exist();
+                    expect(configue.get('key')).to.equal('some-value');
+                    done();
+                });
+        });
+
+        it('env are forwarded to nconf', (done)=> {
+            configueTest({options: {env: ["PWD"]}},
+                (configue, err) => {
+                    expect(err).to.not.exist();
+                    const allEnv = configue.nconf.load();
+                    expect(configue.get('HOME')).to.be.undefined()
+                    done();
+                });
+        });
+
+    });
+
     describe('Files', () => {
 
         it('can load data from a json file given as string', (done)=> {
