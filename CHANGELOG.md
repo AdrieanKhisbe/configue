@@ -7,6 +7,14 @@ Up to version [0.7.1] project was know has `hapi-configue`.
 
 ## [Unreleased][unreleased]
 
+## [0.10.1] - 2017-03-31
+### Added
+- promises support
+
+## [0.10.1] - 2017-03-31
+### Changed
+- upgraded dependencies
+
 ## [0.10.0] - 2016-02-09
 ### Added
 - can now specify default value to `get`
@@ -91,6 +99,8 @@ Up to version [0.7.1] project was know has `hapi-configue`.
 - Initial Release
 
 [unreleased]: https://github.com/AdrieanKhisbe/hapi-configue/compare/v0.10.0...HEAD
+[0.11.0]: https://github.com/AdrieanKhisbe/hapi-configue/compare/v0.10.1...v0.11.0
+[0.10.1]: https://github.com/AdrieanKhisbe/hapi-configue/compare/v0.10.0...v0.10.1
 [0.10.0]: https://github.com/AdrieanKhisbe/hapi-configue/compare/v0.9.2...v0.10.0
 [0.9.2]: https://github.com/AdrieanKhisbe/hapi-configue/compare/v0.9.1...v0.9.2
 [0.9.1]: https://github.com/AdrieanKhisbe/hapi-configue/compare/v0.8.2...v0.9.1
