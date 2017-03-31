@@ -23,16 +23,16 @@ describe('Configue Options', () => {
 
         it('resolve from a callback', done => {
             const configue = Configue()
-            configue.resolve(err =>{
+            configue.resolve(err => {
                     expect(err).to.not.exist();
-                done()
+                    done()
                 }
             )
         })
         it('resolve from a promise', () => {
             const configue = Configue({defaults: {A: 1}})
             return configue.resolve()
-                .then(()=> {
+                .then(() => {
                     expect(configue.get('A')).to.equal(1);
                 })
         })
@@ -42,9 +42,9 @@ describe('Configue Options', () => {
             expect(configue.resolved).to.be.false();
             return configue.resolve()
                 .then(() => configue.resolve()) // coverage ensure that we don't run second times
-                .then(()=> {
+                .then(() => {
                     expect(configue.resolved).to.be.true();
-                // can't test a resolve with change value since dynamic access to argv and env
+                    // can't test a resolve with change value since dynamic access to argv and env
                 })
         })
     })
@@ -64,12 +64,14 @@ describe('Configue Options', () => {
                 done()
             }
         })
+        // TODO maybe add some valid schema
     })
+
 
     describe('Getter', () => {
 
-        it('get value', (done) =>{
-            configueTest({defaults: {A: '2', B: 42 }}, (configue, err) => {
+        it('get value', (done) => {
+            configueTest({defaults: {A: '2', B: 42}}, (configue, err) => {
                 expect(err).to.not.exist();
                 // NOTE: code is interpreted from command line: -a !!
                 expect(configue.get('A')).to.equal('2');
@@ -78,18 +80,18 @@ describe('Configue Options', () => {
             });
         });
 
-        it('get nested value', (done) =>{
+        it('get nested value', (done) => {
             configueTest({defaults: {root: {a: '2', b: 42}}}, (configue, err) => {
                 expect(err).to.not.exist();
 
-                expect(configue.get('root')).to.equal({a: '2', b: 42 });
+                expect(configue.get('root')).to.equal({a: '2', b: 42});
                 expect(configue.get('root:a')).to.equal('2');
                 expect(configue.get('root:b')).to.equal(42);
                 done();
             });
         });
 
-        it('get defaultValue', (done) =>{
+        it('get defaultValue', (done) => {
             configueTest({defaults: {A: '2', B: 42}}, (configue, err) => {
                 expect(err).to.not.exist();
 
