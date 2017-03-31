@@ -25,15 +25,13 @@ describe('Configue Options', () => {
     }
 
     describe('Schema', () => {
-        // FIXME
         it('detect wrong option item', (done) => {
             try {
                 const configue = Configue({'this': 'is-junk'})
-                fail('Exception not triggered')
+                done(new Error('Exception not triggered'))
             } catch (err) {
-
+                done()
             }
-            done()
         })
     })
 
