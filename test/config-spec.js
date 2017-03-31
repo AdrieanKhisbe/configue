@@ -39,13 +39,11 @@ describe('Configue Options', () => {
 
         it('resolve is executed once', () => {
             const configue = Configue({defaults: {A: 1}})
+            expect(configue.resolved).to.be.false();
             return configue.resolve()
-                .then(()=> expect(configue.get('A')).to.equal(1))
-                .then(() => { process.argv.push('--A=2')})
-                .then(() => configue.resolve())
-                .then(() => { process.argv.pop()})
+                .then(() => configue.resolve()) // coverage ensure that we don't run second times
                 .then(()=> {
-                    expect(configue.get('A')).to.equal(1);
+                    expect(configue.resolved).to.be.true();
                 // can't test a resolve with change value since dynamic access to argv and env
                 })
         })
