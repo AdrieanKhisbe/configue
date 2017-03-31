@@ -23,18 +23,30 @@ describe('Configue Options', () => {
 
         it('resolve from a callback', done => {
             const configue = Configue()
-            configue.resolve((err, config)=>{
+            configue.resolve(err =>{
                     expect(err).to.not.exist();
                 done()
                 }
             )
         })
-        it('resolve from a promise', (done) => {
+        it('resolve from a promise', () => {
             const configue = Configue({defaults: {A: 1}})
-            configue.resolve()
+            return configue.resolve()
                 .then(()=> {
                     expect(configue.get('A')).to.equal(1);
-                    done()
+                })
+        })
+
+        it('resolve is executed once', () => {
+            const configue = Configue({defaults: {A: 1}})
+            return configue.resolve()
+                .then(()=> expect(configue.get('A')).to.equal(1))
+                .then(() => { process.argv.push('--A=2')})
+                .then(() => configue.resolve())
+                .then(() => { process.argv.pop()})
+                .then(()=> {
+                    expect(configue.get('A')).to.equal(1);
+                // can't test a resolve with change value since dynamic access to argv and env
                 })
         })
     })
