@@ -101,7 +101,7 @@ async@^1.4.0, async@~1.5.2:
   version "1.5.2"
   resolved "https://registry.npmjs.org/async/-/async-1.5.2.tgz#ec6a61ae56480c0c3cb241c95618e20892f9672a"
 
-async@^2.0.1:
+async@^2.0.1, async@^2.2.0:
   version "2.2.0"
   resolved "https://registry.npmjs.org/async/-/async-2.2.0.tgz#c324eba010a237e4fbd55a12dee86367d5c0ef32"
   dependencies:
@@ -1053,10 +1053,6 @@ nconf@^0.8.3:
     ini "^1.3.0"
     secure-keys "^1.0.0"
     yargs "^3.19.0"
-
-neo-async@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.npmjs.org/neo-async/-/neo-async-2.1.0.tgz#54e01a060b84b8731c62778b8aa9341892662c89"
 
 nigel@2.x.x:
   version "2.0.2"
