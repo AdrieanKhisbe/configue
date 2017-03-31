@@ -143,6 +143,10 @@ bl@~1.1.2:
   dependencies:
     readable-stream "~2.0.5"
 
+bluebird@^3.5.0:
+  version "3.5.0"
+  resolved "https://registry.npmjs.org/bluebird/-/bluebird-3.5.0.tgz#791420d7f551eea2897453a8a77653f96606d67c"
+
 boom@2.x.x:
   version "2.10.1"
   resolved "https://registry.npmjs.org/boom/-/boom-2.10.1.tgz#39c8918ceff5799f83f9492a848f625add0c766f"

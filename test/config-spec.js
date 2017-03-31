@@ -19,6 +19,27 @@ const YAML_CONF_FILE = path.join(__dirname, "data/config.yaml");
 
 describe('Configue Options', () => {
 
+    describe('Resolving', () => {
+
+        it('resolve from a callback', done => {
+            const configue = Configue()
+            configue.resolve((err, config)=>{
+                    expect(err).to.not.exist();
+                done()
+                }
+            )
+        })
+        it('resolve from a promise', (done) => {
+            const configue = Configue({defaults: {A: 1}})
+            configue.resolve()
+                .then(()=> {
+                    expect(configue.get('A')).to.equal(1);
+                    done()
+                })
+        })
+    })
+
+
     const configueTest = (configueOptions, callback) => {
         const configue = Configue(configueOptions)
         configue.resolve((err, other) => callback(configue, err, other));
