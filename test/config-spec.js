@@ -308,16 +308,16 @@ describe('Fluent builder', () => {
     });
 
     it('get is reseting the chain', (done) => {
-        const configue1 = Configue.defaults({a: 1}).get()
-        const configue2 = Configue.get()
-        expect(configue2.settings).to.equal({})
-        done()
+        const configue1 = Configue.defaults({a: 1}).get();
+        const configue2 = Configue.get();
+        expect(configue2.settings).to.equal({});
+        done();
     });
 
-    it('methods sets the good values', (done) => {
+    it('options methods sets the good values', (done) => {
         const configue = Configue.defaults({a: 1})
             .env(["HOME"])
-            .get()
+            .get();
         expect(configue.settings).to.equal({
             "defaults": {
                 "a": 1
@@ -325,9 +325,21 @@ describe('Fluent builder', () => {
             "env": [
                 "HOME"
             ]
+        });
+        done();
+
+    });
+
+    it('options methods sets the good values', (done) => {
+        const hook = (nconf, callback) => callback()
+        const configue = Configue.argvHook(hook).envHook(hook).get()
+        expect(configue.settings).to.equal({
+            "postHooks": {
+                "argv": hook,
+                "env": hook
+            }
         })
         done()
-
     });
 });
 
