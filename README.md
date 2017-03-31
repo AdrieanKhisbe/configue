@@ -58,7 +58,7 @@ See the following example for concrete presentation.
 
 ### Basic usage without customization
 
-
+#### With Callback
 ```js
 const Configue = require('configue');
 const configue = Configue()
@@ -67,8 +67,20 @@ configue.resolve((err) => {
     if (err) return console.error('Something bad happened\n%j', err);
 
     const who = configue.get('who', 'World');
-    console.log('I know thath "who" is ' + who);
+    console.log('Hello ' + who);
 });
+```
+#### WithPromises
+```js
+const Configue = require('.');
+const configue = Configue()
+
+configue.resolve()
+    .then(() => {
+        const who = configue.get('who', 'World');
+        console.log('I know that "who" is ' + who);
+        })
+    .catch((err) => console.error('Something bad happened\n%j', err))
 ```
 
 #### Passing By Options
