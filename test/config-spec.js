@@ -115,7 +115,7 @@ describe('Configue Options', () => {
     })
 
     describe('Options', () => {
-        it('argv are forwarded to nconf', (done)=> {
+        it('argv are forwarded to nconf', (done) => {
             configueTest({argv: {"key": {default: 'some-value'}}},
                 (configue, err) => {
                     expect(err).to.not.exist();
@@ -124,7 +124,7 @@ describe('Configue Options', () => {
                 });
         });
 
-        it('env are forwarded to nconf', (done)=> {
+        it('env are forwarded to nconf', (done) => {
             configueTest({env: ["PWD"]},
                 (configue, err) => {
                     expect(err).to.not.exist();
@@ -138,7 +138,7 @@ describe('Configue Options', () => {
 
     describe('Files', () => {
 
-        it('can load data from a json file given as string', (done)=> {
+        it('can load data from a json file given as string', (done) => {
             configueTest({files: JSON_CONF_FILE}, (configue, err) => {
                 expect(err).to.not.exist();
                 expect(configue.get('key')).to.equal('json-config');
@@ -146,7 +146,7 @@ describe('Configue Options', () => {
             });
         });
 
-        it('can load data from a json files given as string array', (done)=> {
+        it('can load data from a json files given as string array', (done) => {
             configueTest({files: [JSON_CONF_FILE, JSON_CONF_FILE_BIS]}, (configue, err) => {
                 expect(err).to.not.exist();
                 expect(configue.get('key')).to.equal('json-config');
@@ -155,7 +155,7 @@ describe('Configue Options', () => {
             });
         });
 
-        it('can load data from a json file', (done)=> {
+        it('can load data from a json file', (done) => {
             configueTest({files: [{file: JSON_CONF_FILE}]}, (configue, err) => {
                 expect(err).to.not.exist();
                 expect(configue.get('key')).to.equal('json-config');
@@ -163,7 +163,7 @@ describe('Configue Options', () => {
             });
         });
 
-        it('can load data from a yaml file', (done)=> {
+        it('can load data from a yaml file', (done) => {
             const configueOptions = {
                 files: [{
                     file: YAML_CONF_FILE,
@@ -177,7 +177,7 @@ describe('Configue Options', () => {
             });
         });
 
-        it('files are loaded in order', (done)=> {
+        it('files are loaded in order', (done) => {
             const configueOptions = {
                 files: [{file: JSON_CONF_FILE},
                     {
@@ -192,7 +192,7 @@ describe('Configue Options', () => {
             });
         });
 
-        it('can load a default file', (done)=> {
+        it('can load a default file', (done) => {
             configueTest({defaults: {one: 1}}, (configue, err) => {
                 expect(err).to.not.exist();
                 expect(configue.get('one')).to.equal(1);
@@ -200,7 +200,7 @@ describe('Configue Options', () => {
             });
         });
 
-        it('defaults are loaded in order', (done)=> {
+        it('defaults are loaded in order', (done) => {
             configueTest({
                 defaults: [{one: 1}, {one: 2, two: 2}]
             }, (configue, err) => {
@@ -233,7 +233,7 @@ describe('Configue Options', () => {
 
     describe('Post Hooks', () => {
 
-        it('enable to insert hook', (done)=> {
+        it('enable to insert hook', (done) => {
             const configueOptions = {
                 postHooks: {
                     overrides: function first(nconf, done) {
