@@ -219,7 +219,7 @@ Thought _Configue_ is usable without hapi, (it was originaly just a _Hapi_ plugi
 it can be easily loaded in hapi to have the _configue_ being easily accessible from
 the server, or on the request.
 
-To do this, you need to register the plugin.
+To do this, you need to register the plugin. It takes care to resolve the config.
 ```js
 const Hapi = require('hapi');
 const Configue = require('configue');
@@ -229,13 +229,8 @@ server.connection({port: 3000});
 
 const configue = Configue({some: 'config'})
 
-// FIXME: TODO: automatic resolve if not done
-configue.resolve((err) => {
-    if (err) return console.error("Error resolving configue");
-
-    server.register({register: configue.plugin()}, (err) => {
+server.register({register: configue.plugin()}, (err) => {
        // starting the server or else
-    })
 })
 ```
 
