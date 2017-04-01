@@ -359,6 +359,20 @@ describe('Hapi plugin', () => {
                 });
             });
         });
+
+        it('take care to do the resolve', (done) => {
+            const server = new Hapi.Server();
+            server.connection();
+
+            const configue = Configue({defaults:{un: 1}});
+            server.register({register: configue.plugin()}, (err) => {
+                expect(err).to.not.exist();
+                expect(server.configue).to.exist();
+                expect(server.configue).to.be.a.function();
+                expect(server.configue('un')).to.equal(1);
+                return done();
+            });
+        });
     });
     describe('Request', () => {
 
