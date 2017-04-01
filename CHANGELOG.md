@@ -7,6 +7,13 @@ Up to version [0.7.1] project was know has `hapi-configue`.
 
 ## [Unreleased][unreleased]
 
+## [0.14.0] - 2017-04-01
+### Added
+- hapi plugin registration takes care of the resolve
+
+### Fixed
+- hapi plugin decorated function was not working
+
 ## [0.13.0] - 2017-04-01
 ### Added
 - fluent builder
@@ -107,7 +114,8 @@ Up to version [0.7.1] project was know has `hapi-configue`.
 ## [0.1.0] - 2015-12-01
 - Initial Release
 
-[unreleased]: https://github.com/AdrieanKhisbe/hapi-configue/compare/v0.13.0...HEAD
+[unreleased]: https://github.com/AdrieanKhisbe/hapi-configue/compare/v0.14.0...HEAD
+[0.14.0]: https://github.com/AdrieanKhisbe/hapi-configue/compare/v0.13.0...v0.14.0
 [0.13.0]: https://github.com/AdrieanKhisbe/hapi-configue/compare/v0.12.0...v0.13.0
 [0.12.0]: https://github.com/AdrieanKhisbe/hapi-configue/compare/v0.11.0...v0.12.0
 [0.11.0]: https://github.com/AdrieanKhisbe/hapi-configue/compare/v0.10.1...v0.11.0
