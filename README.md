@@ -139,8 +139,8 @@ configue.resolve((err) => {
 
 #### Specifying Files
 
-The files key can contain a single object or an array of objects containing a file key containing the path to the config file.
-The object can also reference a nconf plugin tasked with the formatting using the key format.
+The files key can contain a single object or an array of objects containing a `file key containing the path to the config file.
+The object can also reference a nconf plugin tasked with the formatting using the key `format.
 
 ```js
 const Configue = require('configue');
@@ -160,7 +160,9 @@ const configue = Configue(configueOptions)
 configue.resolve((err) => {
     // Your code here
 });
-```
+````
+
+Note that if only one file is needed, its path can be directly given as options.
 
 #### Disabling Steps
 
@@ -239,6 +241,43 @@ configue.resolve((err) => {
 
 A more complete example is available in [`examples`](./examples/basic-plugin.js) folder.
 
+## Configuration Recap
+Configue can be configured into two different way. Either using a config object or using a fluent builder.
+
+### Configuration Object
+Here is a recap of how the configuration should look like. All options are optional:
+
+- `customWorkflow`: a function manipulating the `nconf`. This option is exclusive of all others
+- `argv`: Config object for `yargv`, a map of config key with n object values (`alias`, `demandOption`, `default`,`describe`, `type`)
+- `env`: The options for the `nconf.env` method that can be:
+  - a string: separator for nested keys
+  - an array of string, the whitelisted env method
+  - an object with key: `separator`, `match`, `whitelist
+- `disable`: A object with key `argv` and/or `env` attach to a boolean indicated whether the step shouldbe disable. 
+        Default to true.
+- `files`: file or list of files. (object `file`, `format`)
+- `defaults`: Object of key mapped to default values. (or array of them)
+- `postHooks`: an object of (`step`: function hook)
+    step being one of `overrides`, `argv`, `env`, `files` `defaults`
+
+For more details you can see the `internals.schema` in the `configue.js` file around the line 100
+
+### Fluent builder
+
+Instead to use the configuration object provided to the `Configue` constructor, you can use the fluent builder.
+This consist in chaining a list of configuration methods before to retrieve the instance to a `get` method.
+
+Here is a simple example:
+
+```js
+const configue = Configue.defaults({a: 1})
+            .env(["HOME"])
+            .get();
+```
+
+Here is the builder function list, the function name being the name of the key in the object config (except the postHooks function):
+`argv`, `customWorkflow`, `defaults`, `disable`, `env`, `files` 
+and `overridesHook`, `argvHook`, `envHook`, `filesHook`, `defaultsHook`
 
 
 [Configue]: https://github.com/AdrieanKhisbe/configue
