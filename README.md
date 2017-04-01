@@ -215,7 +215,7 @@ const configue = Configue(configueOptions)
 
 ### Loading into Hapi
 
-Thought _Configue_ is usable without hapi, (it was originaly just a _Hapi_ plugin),
+Thought _Configue_ is usable without hapi, (it was originally just a _Hapi_ plugin),
 it can be easily loaded in hapi to have the _configue_ being easily accessible from
 the server, or on the request.
 
