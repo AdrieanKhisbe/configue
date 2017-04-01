@@ -201,6 +201,7 @@ const configue = Configue({
 
 If needed you can have your full custom configuration workflow,
 simply by providing an object with the single key `customWorkflow`
+attached to a function taking the `nconf` object, and a `done` callback.
 
 ```js
 const configueOptions = { customWorkflow: function(nconf, done){
