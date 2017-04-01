@@ -348,7 +348,7 @@ describe('Hapi plugin', () => {
         it('expose configue handler', (done) => {
             const server = new Hapi.Server();
             server.connection();
-            const configue = Configue()
+            const configue = Configue();
 
             configue.resolve((err) => {
                 server.register({register: configue.plugin()}, (err) => {
@@ -366,7 +366,7 @@ describe('Hapi plugin', () => {
             const server = new Hapi.Server();
             server.connection();
 
-            const configue = Configue()
+            const configue = Configue({defaults:{one: 1}})
             configue.resolve((err) => {
 
                 server.register({register: configue.plugin()}, (err) => {
@@ -377,6 +377,7 @@ describe('Hapi plugin', () => {
                         method: 'GET', path: '/', handler: function (request, reply) {
                             expect(request.configue).to.exist();
                             expect(request.configue).to.be.a.function();
+                            expect(request.configue('one')).to.equal(1);
                             return done();
                         }
                     });
