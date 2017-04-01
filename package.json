@@ -19,8 +19,8 @@
   "scripts": {
     "test": "lab -a code -v -P spec -t 90 -c",
     "coverage": "lab -r lcov -o coverage/lab.lcov -r html -o coverage/index.html",
-    "publish-coverage": "codeclimate-test-reporter < coverage/merged.lcov",
-    "lint": "lab -dL"
+    "publish-coverage": "codeclimate-test-reporter < coverage/lab.lcov",
+    "lint": "lab -dL lib"
   },
   "dependencies": {
     "async": "^2.2.0",
