@@ -20,19 +20,20 @@ command line arguments, files, that you can easily *configure* and *extend*.
 [Configue] builds up on [nconf] and its
 [Hierarchical configuration](https://github.com/indexzero/nconf#hierarchical-configuration) system.
 
-It defines a list of configuration step that are executed in order.
+It defines a list of _configuration step_ that are executed in order.
 Every property defined on a steps will shadow the same key in the following steps.
 
 Quoting [nconf]:
 > ***"The order in which you attach these configuration sources determines their priority in the hierarchy"***
 
 Here are the standard steps [Configue] does define:
-- `argv` : command line option
+- `argv` : command line options
 - `env` : environment variables
 - `file` : config files
 - `defaults` : default objects
 
-The plugin loads the various configurations in order using predefined steps.
+The plugin loads the various configurations in order using _predefined steps_.
+
 It starts by parsing argv then goes through the env and the files options
 and finishes by loading the default config objects if any.
 
@@ -54,7 +55,7 @@ constructor.
 Once done, you'll first need to `resolve` the config, to ensure all values are loaded in the store.
 The function takes a callback that is fired when the config is loaded
 
-See the following example for concrete presentation.
+See the following examples for concrete presentation.
 
 ### Basic usage without customization
 
@@ -215,7 +216,7 @@ const configue = Configue(configueOptions)
 
 ### Loading into Hapi
 
-Thought _Configue_ is usable without hapi, (it was originaly just a _Hapi_ plugin),
+Thought _Configue_ is usable without hapi, (it was originally just a _Hapi_ plugin),
 it can be easily loaded in hapi to have the _configue_ being easily accessible from
 the server, or on the request.
 
