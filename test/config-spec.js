@@ -373,6 +373,18 @@ describe('Hapi plugin', () => {
                 return done();
             });
         });
+
+        it('handle failure in the resolve', (done) => {
+            const server = new Hapi.Server();
+            server.connection();
+
+            const configue = Configue({customWorkflow: (nconf, done) => done(new Error('init failed'))});
+            server.register({register: configue.plugin()}, (err) => {
+                expect(err).to.exist();
+                expect(err.message).to.equal('init failed');
+                return done();
+            });
+        });
     });
     describe('Request', () => {
 
