@@ -376,6 +376,21 @@ describe('Hapi plugin', () => {
             });
         });
 
+        it('expose configue handler with a custom name', (done) => {
+            const server = new Hapi.Server();
+            server.connection();
+            const configue = Configue();
+
+            configue.resolve((err) => {
+                server.register({register: configue.plugin('conf')}, (err) => {
+                    expect(err).to.not.exist();
+                    expect(server.conf).to.exist();
+                    expect(server.conf).to.be.a.function();
+                    return done();
+                });
+            });
+        });
+
         it('take care to do the resolve', (done) => {
             const server = new Hapi.Server();
             server.connection();
@@ -420,6 +435,29 @@ describe('Hapi plugin', () => {
                             expect(request.configue).to.exist();
                             expect(request.configue).to.be.a.function();
                             expect(request.configue('one')).to.equal(1);
+                            return done();
+                        }
+                    });
+                    server.inject('/');
+                });
+            });
+        });
+
+        it('has access to configue with a custom name', (done) => {
+            const server = new Hapi.Server();
+            server.connection();
+
+            const configue = Configue({defaults: {one: 1}});
+            configue.resolve((err) => {
+
+                server.register({register: configue.plugin('config')}, (err) => {
+
+                    expect(err).to.not.exist();
+                    server.route({
+                        method: 'GET', path: '/', handler: function (request, reply) {
+                            expect(request.config).to.exist();
+                            expect(request.config).to.be.a.function();
+                            expect(request.config('one')).to.equal(1);
                             return done();
                         }
                     });
