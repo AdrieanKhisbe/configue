@@ -244,6 +244,20 @@ describe('Configue Options', () => {
             });
         });
 
+        it('enable to disable env', (done) => {
+            process.env.who = 'NONO';
+            // RISKY!!!!
+
+            configueTest({disable: {env: true}, defaults: {who: 'YES YES'}}, (configue, err) => {
+                expect(err).to.not.exist();
+                expect(configue.get('who')).to.equal('YES YES');
+
+                process.env.who = undefined;
+
+                done();
+            });
+        });
+
     });
 
 
