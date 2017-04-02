@@ -253,6 +253,7 @@ Here is a recap of how the configuration should look like. All options are optio
         Default to true.
 - `files`: file or list of files. (object `file`, `format`)
 - `defaults`: Object of key mapped to default values. (or array of them)
+- `required`: list of key that are required one way or another
 - `postHooks`: an object of (`step`: function hook)
     step being one of `overrides`, `argv`, `env`, `files` `defaults`
 
@@ -272,7 +273,7 @@ const configue = Configue.defaults({a: 1})
 ```
 
 Here is the builder function list, the function name being the name of the key in the object config (except the postHooks function):
-`argv`, `customWorkflow`, `defaults`, `disable`, `env`, `files` 
+`argv`, `customWorkflow`, `defaults`, `disable`, `env`, `files`, `required`
 and `overridesHook`, `argvHook`, `envHook`, `filesHook`, `defaultsHook`
 
 
