@@ -171,23 +171,19 @@ Note that if only one file is needed, its path can be directly given as options.
 The argv and env steps can be skipped using the `disable` object in `options`.
 
 ```js
-const configue = Configue({
-  disable: {
-     argv: true
-        }});
-
-// Your code here
+const configue = Configue({ disable: { argv: true }});
+// ...
 ```
 
-The is no disabling for `overrides`, `files` and `default`; you just have to don't provide the matching option.
+There is no disabling for `overrides`, `files` and `default`; you just have to don't provide the matching option.
 
 #### Step hooks
 
 Every step (`overrides`, `argv`, `env`, `files`, `defaults`)has a post hook available.
 Those can be defined using the `postHooks` key and accept a
-function that take `nconf` as a parameter and a callback as a parameter.
+function that take `nconf` and a callback as parameters.
 
-The special hooks `first` enables you to respectively apply a hook at the very beginning.
+The special hooks `first` enables you to respectively apply a function on nconf at the very beginning.
 
 ```js
 const configue = Configue({
