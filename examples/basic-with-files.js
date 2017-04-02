@@ -13,7 +13,7 @@ const configueOptions = {
     ]
 };
 
-const configue = Configue(configueOptions)
+const configue = Configue(configueOptions);
 
 configue.resolve((err) => {
     if (err) return console.error('Error loading plugins:\n %s', err);

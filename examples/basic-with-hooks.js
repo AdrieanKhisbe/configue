@@ -11,12 +11,12 @@ const configueOptions = {
     }
 };
 
-const configue = Configue(configueOptions)
+const configue = Configue(configueOptions);
 configue.resolve((err) => {
     if (err) return console.error('Error resolving configue\n%j', err);
 
-    const who = server.configue('who', 'World');
-    const hook = server.configue('hook', 'none');
+    const who = configue('who', 'World');
+    const hook = configue('hook', 'none');
 
-    console.log('Configue: {who: ' + who + ', hook: ' + hook + '}')
+    console.log('Configue: {who: ' + who + ', hook: ' + hook + '}');
 });
