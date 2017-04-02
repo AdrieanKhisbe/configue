@@ -13,59 +13,59 @@ const expect = Code.expect;
 const Hapi = require('hapi');
 const Configue = require('../');
 
-const JSON_CONF_FILE = path.join(__dirname, "data/config.json");
-const JSON_CONF_FILE_BIS = path.join(__dirname, "data/config-bis.json");
-const YAML_CONF_FILE = path.join(__dirname, "data/config.yaml");
+const JSON_CONF_FILE = path.join(__dirname, 'data/config.json');
+const JSON_CONF_FILE_BIS = path.join(__dirname, 'data/config-bis.json');
+const YAML_CONF_FILE = path.join(__dirname, 'data/config.yaml');
 
 describe('Configue Options', () => {
 
     describe('Resolving', () => {
 
         it('resolve from a callback', done => {
-            const configue = Configue()
+            const configue = Configue();
             configue.resolve(err => {
                     expect(err).to.not.exist();
-                    done()
+                    done();
                 }
-            )
-        })
+            );
+        });
         it('resolve from a promise', () => {
-            const configue = Configue({defaults: {A: 1}})
+            const configue = Configue({defaults: {A: 1}});
             return configue.resolve()
                 .then(() => {
                     expect(configue.get('A')).to.equal(1);
-                })
-        })
+                });
+        });
 
         it('resolve is executed once', () => {
-            const configue = Configue({defaults: {A: 1}})
+            const configue = Configue({defaults: {A: 1}});
             expect(configue.resolved).to.be.false();
             return configue.resolve()
                 .then(() => configue.resolve()) // coverage ensure that we don't run second times
                 .then(() => {
                     expect(configue.resolved).to.be.true();
                     // can't test a resolve with change value since dynamic access to argv and env
-                })
-        })
-    })
+                });
+        });
+    });
 
 
     const configueTest = (configueOptions, callback) => {
-        const configue = Configue(configueOptions)
+        const configue = Configue(configueOptions);
         configue.resolve((err, other) => callback(configue, err, other));
-    }
+    };
 
     describe('Schema', () => {
         it('detect wrong option item', (done) => {
             try {
-                const configue = Configue({'this': 'is-junk'})
-                done(new Error('Exception not triggered'))
+                const configue = Configue({'this': 'is-junk'});
+                done(new Error('Exception not triggered'));
             } catch (err) {
-                done()
+                done();
             }
-        })
+        });
         // TODO maybe add some valid schema
-    })
+    });
 
 
     describe('Getter', () => {
@@ -112,11 +112,11 @@ describe('Configue Options', () => {
         });
 
 
-    })
+    });
 
     describe('Options', () => {
         it('argv are forwarded to nconf', (done) => {
-            configueTest({argv: {"key": {default: 'some-value'}}},
+            configueTest({argv: {'key': {default: 'some-value'}}},
                 (configue, err) => {
                     expect(err).to.not.exist();
                     expect(configue.get('key')).to.equal('some-value');
@@ -125,11 +125,11 @@ describe('Configue Options', () => {
         });
 
         it('env are forwarded to nconf', (done) => {
-            configueTest({env: ["PWD"]},
+            configueTest({env: ['PWD']},
                 (configue, err) => {
                     expect(err).to.not.exist();
                     const allEnv = configue.nconf.load();
-                    expect(configue.get('HOME')).to.be.undefined()
+                    expect(configue.get('HOME')).to.be.undefined();
                     done();
                 });
         });
@@ -226,7 +226,7 @@ describe('Configue Options', () => {
                 expect(configue.get('who')).to.equal('NO');
                 done();
             });
-        })
+        });
 
     });
 
@@ -238,7 +238,7 @@ describe('Configue Options', () => {
                 postHooks: {
                     overrides: function first(nconf, done) {
                         nconf.set('who', 'ME FIRST!');
-                        done()
+                        done();
                     },
                     argv: function postArgv(nconf, done) {
                         nconf.set('when', 'NOW');
@@ -246,7 +246,7 @@ describe('Configue Options', () => {
                     },
                     defaults: function last(nconf, done) {
                         nconf.set('when', 'RIGHT ' + nconf.get('when'));
-                        done()
+                        done();
                     }
                 }
             };
@@ -293,7 +293,7 @@ describe('Configue Options', () => {
                 expect(configue.get('key')).to.not.exist();
                 done();
             });
-        })
+        });
 
     });
 
@@ -302,9 +302,9 @@ describe('Configue Options', () => {
 
 describe('Fluent builder', () => {
     it('get is working fine as factory method', (done) => {
-        const configue = Configue.get()
-        expect(configue instanceof Configue).to.be.true()
-        done()
+        const configue = Configue.get();
+        expect(configue instanceof Configue).to.be.true();
+        done();
     });
 
     it('get is reseting the chain', (done) => {
@@ -316,14 +316,14 @@ describe('Fluent builder', () => {
 
     it('options methods sets the good values', (done) => {
         const configue = Configue.defaults({a: 1})
-            .env(["HOME"])
+            .env(['HOME'])
             .get();
         expect(configue.settings).to.equal({
-            "defaults": {
-                "a": 1
+            'defaults': {
+                'a': 1
             },
-            "env": [
-                "HOME"
+            'env': [
+                'HOME'
             ]
         });
         done();
@@ -331,15 +331,15 @@ describe('Fluent builder', () => {
     });
 
     it('options methods sets the good values', (done) => {
-        const hook = (nconf, callback) => callback()
-        const configue = Configue.argvHook(hook).envHook(hook).get()
+        const hook = (nconf, callback) => callback();
+        const configue = Configue.argvHook(hook).envHook(hook).get();
         expect(configue.settings).to.equal({
-            "postHooks": {
-                "argv": hook,
-                "env": hook
+            'postHooks': {
+                'argv': hook,
+                'env': hook
             }
-        })
-        done()
+        });
+        done();
     });
 });
 
@@ -392,7 +392,7 @@ describe('Hapi plugin', () => {
             const server = new Hapi.Server();
             server.connection();
 
-            const configue = Configue({defaults:{one: 1}})
+            const configue = Configue({defaults:{one: 1}});
             configue.resolve((err) => {
 
                 server.register({register: configue.plugin()}, (err) => {
@@ -415,4 +415,4 @@ describe('Hapi plugin', () => {
 
     });
 
-})
+});
