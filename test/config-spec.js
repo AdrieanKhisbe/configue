@@ -112,42 +112,6 @@ describe('Configue Options', () => {
 
     });
 
-    describe('Options', () => {
-        it('argv are forwarded to nconf', (done) => {
-            configueTest({argv: {'key': {default: 'some-value'}}},
-                (configue, err) => {
-                    expect(err).to.not.exist();
-                    expect(configue.get('key')).to.equal('some-value');
-                    done();
-                });
-        });
-
-        it('env are forwarded to nconf', (done) => {
-            configueTest({env: ['PWD']},
-                (configue, err) => {
-                    expect(err).to.not.exist();
-                    const allEnv = configue.nconf.load();
-                    expect(configue.get('HOME')).to.be.undefined();
-                    done();
-                });
-        });
-        it('required keys are enforced by nconf', (done) => {
-            const configue = Configue.defaults({A: 1}).required(['A', 'B']).get();
-            configue.resolve()
-                .then(() => Code.fail('Error should be triggered'))
-                .catch((err) => {
-                    expect(err.message).to.equal('Missing required keys: B');
-                }).nodeify(done);
-        });
-        it('required keys are enforced by nconf does not false alarm', (done) => {
-            const configue = Configue.defaults({A: 1, B: 2, C: 3}).required(['A', 'B']).get();
-            configue.resolve()
-                .catch((err) => {
-                    Code.fail('Error should not be triggered');
-                }).nodeify(done);
-        });
-    });
-
     describe('Files', () => {
 
         it('can load data from a json file given as string', (done) => {
@@ -203,8 +167,10 @@ describe('Configue Options', () => {
                 done();
             });
         });
+    });
 
-        it('can load a default file', (done) => {
+    describe('Defaults', () => {
+        it('can load a default object', (done) => {
             configueTest({defaults: {one: 1}}, (configue, err) => {
                 expect(err).to.not.exist();
                 expect(configue.get('one')).to.equal(1);
@@ -223,6 +189,42 @@ describe('Configue Options', () => {
             });
         });
 
+    });
+
+    describe('Options', () => {
+        it('argv are forwarded to nconf', (done) => {
+            configueTest({argv: {'key': {default: 'some-value'}}},
+                (configue, err) => {
+                    expect(err).to.not.exist();
+                    expect(configue.get('key')).to.equal('some-value');
+                    done();
+                });
+        });
+
+        it('env are forwarded to nconf', (done) => {
+            configueTest({env: ['PWD']},
+                (configue, err) => {
+                    expect(err).to.not.exist();
+                    const allEnv = configue.nconf.load();
+                    expect(configue.get('HOME')).to.be.undefined();
+                    done();
+                });
+        });
+        it('required keys are enforced by nconf', (done) => {
+            const configue = Configue.defaults({A: 1}).required(['A', 'B']).get();
+            configue.resolve()
+                .then(() => Code.fail('Error should be triggered'))
+                .catch((err) => {
+                    expect(err.message).to.equal('Missing required keys: B');
+                }).nodeify(done);
+        });
+        it('required keys are enforced by nconf does not false alarm', (done) => {
+            const configue = Configue.defaults({A: 1, B: 2, C: 3}).required(['A', 'B']).get();
+            configue.resolve()
+                .catch((err) => {
+                    Code.fail('Error should not be triggered');
+                }).nodeify(done);
+        });
     });
 
 
