@@ -1,3 +1,17 @@
 {
-  "extends": "eslint-config-hapi"
+  "env": {
+    "node": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 6
+  },
+  "globals": {
+  },
+  "rules": {
+    "no-trailing-spaces": 1,
+    "quotes": [1, "single"],
+    "semi": [1, "always"]
+  },
+  "plugins": [
+  ]
 }
