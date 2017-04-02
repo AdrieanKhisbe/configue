@@ -27,6 +27,7 @@ Quoting [nconf]:
 > ***"The order in which you attach these configuration sources determines their priority in the hierarchy"***
 
 Here are the standard steps [Configue] does define:
+- `overrides` : objects that would take precedence on all other steps
 - `argv` : command line options
 - `env` : environment variables
 - `file` : config files
@@ -178,22 +179,27 @@ const configue = Configue({
 // Your code here
 ```
 
+The is no disabling for `overrides`, `files` and `default`; you just have to don't provide the matching option.
+
 #### Step hooks
 
-Every step has a post hook available.
+Every step (`overrides`, `argv`, `env`, `files`, `defaults`)has a post hook available.
 Those can be defined using the `postHooks` key and accept a
 function that take `nconf` as a parameter and a callback as a parameter.
 
-The special hooks `overrides`  enables you to respectively apply a hook at the very beginning.
+The special hooks `first` enables you to respectively apply a hook at the very beginning.
 
 ```js
 const configue = Configue({
         postHooks: {
-            overrides: function first(nconf, done){
-                //Your code here
+            first: function first(nconf, done){
+                // Your code here
+            },
+            overrides: function postOverrides(nconf, done){
+                // Your code here
             },
             argv: function postArgv(nconf, done){
-                //Your code here
+                // Your code here
             }
         }
 });
@@ -250,7 +256,7 @@ Configue can be configured into two different way. Either using a config object 
 Here is a recap of how the configuration should look like. All options are optional:
 
 - `customWorkflow`: a function manipulating the `nconf`. This option is exclusive of all others
-- `argv`: Config object for `yargv`, a map of config key with n object values (`alias`, `demandOption`, `default`,`describe`, `type`)
+- `argv`: Config object for `yargv`, a map of config key with an object values (`alias`, `demandOption`, `default`,`describe`, `type`)
 - `env`: The options for the `nconf.env` method that can be:
   - a string: separator for nested keys
   - an array of string, the whitelisted env method
@@ -259,9 +265,10 @@ Here is a recap of how the configuration should look like. All options are optio
         Default to true.
 - `files`: file or list of files. (object `file`, `format`)
 - `defaults`: Object of key mapped to default values. (or array of them)
+- `overrides`: Object of key mapped to overrides values.
 - `required`: list of key that are required one way or another
 - `postHooks`: an object of (`step`: function hook)
-    step being one of `overrides`, `argv`, `env`, `files` `defaults`
+    step being one of `first`, `overrides`, `argv`, `env`, `files` `defaults`
 
 For more details you can see the `internals.schema` in the `configue.js` file around the line 100
 
@@ -279,8 +286,8 @@ const configue = Configue.defaults({a: 1})
 ```
 
 Here is the builder function list, the function name being the name of the key in he object config (except the postHooks function):
-`argv`, `customWorkflow`, `defaults`, `disable`, `env`, `files`, `required`
-and `overridesHook`, `argvHook`, `envHook`, `filesHook`, `defaultsHook`
+`argv`, `customWorkflow`, `defaults`, `overrides`, `disable`, `env`, `files`, `required`
+and `firstHook`, `overridesHook`, `argvHook`, `envHook`, `filesHook`, `defaultsHook`
 
 
 [Configue]: https://github.com/AdrieanKhisbe/configue
