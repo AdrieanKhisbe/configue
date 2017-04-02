@@ -141,8 +141,8 @@ configue.resolve((err) => {
 
 #### Specifying Files
 
-The files key can contain a single object or an array of objects containing a `file key containing the path to the config file.
-The object can also reference a nconf plugin tasked with the formatting using the key `format.
+The files key can contain a single object or an array of objects containing a `file` key containing the path to the config file.
+The object can also reference a nconf plugin tasked with the formatting using the key `format`.
 
 ```js
 const Configue = require('configue');
