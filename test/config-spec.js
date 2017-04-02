@@ -190,6 +190,26 @@ describe('Configue Options', () => {
         });
 
     });
+    describe('Overrides', () => {
+        it('can be defined', (done) => {
+            configueTest({overrides: {one: 1}}, (configue, err) => {
+                expect(err).to.not.exist();
+                expect(configue.get('one')).to.equal(1);
+                done();
+            });
+        });
+
+        it('are not overidden', (done) => {
+            process.argv.push('--one=2');
+            configueTest({overrides: {one: 1}}, (configue, err) => {
+                process.argv.pop();
+                expect(err).to.not.exist();
+                expect(configue.get('one')).to.equal(1);
+                done();
+            });
+        });
+
+    });
 
     describe('Options', () => {
         it('argv are forwarded to nconf', (done) => {
@@ -268,7 +288,7 @@ describe('Configue Options', () => {
         it('enable to insert hook', (done) => {
             const configueOptions = {
                 postHooks: {
-                    overrides: function first(nconf, done) {
+                    overrides: function postOverrides(nconf, done) {
                         nconf.set('who', 'ME FIRST!');
                         done();
                     },
@@ -289,6 +309,27 @@ describe('Configue Options', () => {
                 expect(err).to.not.exist();
                 expect(configue.get('who')).to.equal('ME FIRST!');
                 expect(configue.get('when')).to.equal('RIGHT NOW');
+                done();
+            });
+        });
+        it('first hook is runned to insert hook', (done) => {
+            const configueOptions = {
+                overrides: {who: 'ME second!'},
+                postHooks: {
+                    first: function first(nconf, done) {
+                        nconf.set('who', 'ME FIRST!');
+                        nconf.set('when', 'RIGHT NOW!');
+                        done();
+                    }
+                }
+            };
+            process.env.who = 'me';
+
+            configueTest(configueOptions, (configue, err) => {
+                process.env.who = undefined;
+                expect(err).to.not.exist();
+                expect(configue.get('who')).to.equal('ME FIRST!');
+                expect(configue.get('when')).to.equal('RIGHT NOW!');
                 done();
             });
         });
