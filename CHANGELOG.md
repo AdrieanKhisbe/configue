@@ -6,6 +6,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 Up to version [0.7.1] project was know has `hapi-configue`.
 
 ## [Unreleased][unreleased]
+### Added
+- can customize the name of the accessor in the hapi server/request
 
 ## [0.14.0] - 2017-04-01
 ### Added

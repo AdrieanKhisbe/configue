@@ -231,11 +231,17 @@ server.connection({port: 3000});
 const configue = Configue({some: 'config'})
 
 server.register({register: configue.plugin()}, (err) => {
-       // starting the server or else
+      // starting the server or else
+       
+      // access to the config
+      const config = server.configue('some');
+      // ...
 })
 ```
-
 A more complete example is available in [`examples`](examples/basic-hapi-plugin.js) folder.
+
+Note it's possible to provide to `configue.plugin()` a `decorateName` so that you use a custom accessor on `server` or `request`.
+
 
 ## Configuration Recap
 Configue can be configured into two different way. Either using a config object or using a fluent builder.
@@ -272,7 +278,7 @@ const configue = Configue.defaults({a: 1})
             .get();
 ```
 
-Here is the builder function list, the function name being the name of the key in the object config (except the postHooks function):
+Here is the builder function list, the function name being the name of the key in he object config (except the postHooks function):
 `argv`, `customWorkflow`, `defaults`, `disable`, `env`, `files`, `required`
 and `overridesHook`, `argvHook`, `envHook`, `filesHook`, `defaultsHook`
 
