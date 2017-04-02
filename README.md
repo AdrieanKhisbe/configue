@@ -235,7 +235,7 @@ server.register({register: configue.plugin()}, (err) => {
 })
 ```
 
-A more complete example is available in [`examples`](./examples/basic-plugin.js) folder.
+A more complete example is available in [`examples`](examples/basic-hapi-plugin.js) folder.
 
 ## Configuration Recap
 Configue can be configured into two different way. Either using a config object or using a fluent builder.
