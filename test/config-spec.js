@@ -100,7 +100,6 @@ describe('Configue Options', () => {
             });
         });
 
-
         it('get defaultValue if result is set undefined', (done) => {
             configueTest({defaults: {idonotexist: undefined, zero: 0}}, (configue, err) => {
                 expect(err).to.not.exist();
@@ -110,7 +109,6 @@ describe('Configue Options', () => {
                 done();
             });
         });
-
 
     });
 
@@ -133,7 +131,21 @@ describe('Configue Options', () => {
                     done();
                 });
         });
-
+        it('required keys are enforced by nconf', (done) => {
+            const configue = Configue.defaults({A: 1}).required(['A', 'B']).get();
+            configue.resolve()
+                .then(() => Code.fail('Error should be triggered'))
+                .catch((err) => {
+                    expect(err.message).to.equal('Missing required keys: B');
+                }).nodeify(done);
+        });
+        it('required keys are enforced by nconf does not false alarm', (done) => {
+            const configue = Configue.defaults({A: 1, B: 2, C: 3}).required(['A', 'B']).get();
+            configue.resolve()
+                .catch((err) => {
+                    Code.fail('Error should not be triggered');
+                }).nodeify(done);
+        });
     });
 
     describe('Files', () => {
@@ -224,6 +236,10 @@ describe('Configue Options', () => {
             configueTest({disable: {argv: true}}, (configue, err) => {
                 expect(err).to.not.exist();
                 expect(configue.get('who')).to.equal('NO');
+
+                process.argv.pop();
+                process.env.who = undefined;
+
                 done();
             });
         });
@@ -364,7 +380,7 @@ describe('Hapi plugin', () => {
             const server = new Hapi.Server();
             server.connection();
 
-            const configue = Configue({defaults:{un: 1}});
+            const configue = Configue({defaults: {un: 1}});
             server.register({register: configue.plugin()}, (err) => {
                 expect(err).to.not.exist();
                 expect(server.configue).to.exist();
@@ -392,7 +408,7 @@ describe('Hapi plugin', () => {
             const server = new Hapi.Server();
             server.connection();
 
-            const configue = Configue({defaults:{one: 1}});
+            const configue = Configue({defaults: {one: 1}});
             configue.resolve((err) => {
 
                 server.register({register: configue.plugin()}, (err) => {
