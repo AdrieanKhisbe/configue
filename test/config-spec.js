@@ -121,6 +121,14 @@ describe('Configue Options', () => {
                 done();
             });
         });
+        it('get all value', (done) => {
+            configueTest({overrides: {A: '2', B: 42, C: false}}, (configue, err) => {
+                expect(err).to.not.exist();
+                expect(configue.getAll('A', 'B', 'C')).to.equal(['2', 42, false]);
+                expect(configue.getAll('b', 'B')).to.equal([undefined, 42]);
+                done();
+            });
+        });
 
     });
 
