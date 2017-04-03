@@ -121,11 +121,31 @@ describe('Configue Options', () => {
                 done();
             });
         });
+
+        it('get first value from array', (done) => {
+            configueTest({overrides: {A: '2', B: 42, C: false}}, (configue, err) => {
+                expect(err).to.not.exist();
+                expect(configue.getFirst(['A', 'B', 'C'])).to.equal('2');
+                expect(configue.getFirst(['b', 'B'])).to.equal(42);
+                expect(configue.getFirst(['acd', 'C'])).to.equal(false);
+                expect(configue.getFirst(['aa', 'bb', 'cc'])).to.equal(undefined);
+                done();
+            });
+        });
+
         it('get all value', (done) => {
             configueTest({overrides: {A: '2', B: 42, C: false}}, (configue, err) => {
                 expect(err).to.not.exist();
                 expect(configue.getAll('A', 'B', 'C')).to.equal(['2', 42, false]);
                 expect(configue.getAll('b', 'B')).to.equal([undefined, 42]);
+                done();
+            });
+        });
+        it('get all value from array', (done) => {
+            configueTest({overrides: {A: '2', B: 42, C: false}}, (configue, err) => {
+                expect(err).to.not.exist();
+                expect(configue.getAll(['A', 'B', 'C'])).to.equal(['2', 42, false]);
+                expect(configue.getAll(['b', 'B'])).to.equal([undefined, 42]);
                 done();
             });
         });
