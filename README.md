@@ -1,6 +1,6 @@
 # Configue
 
-> ***Config tool and plugin for [Hapi](http://hapijs.com/).***
+> ***Config tool on top of [nconf] to easily customize your app with argv, env, files and more.***
 
 [![npm version][npm-badge]][npm-url]
 [![experimental][experimental-badge]][experimental-url]
