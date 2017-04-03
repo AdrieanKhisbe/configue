@@ -1,6 +1,6 @@
 # Configue
 
-> ***Config tool on top of [nconf] to easily customize your app with argv, env, files and more.***
+> ***CONFIGUE ALL THE THINGS \o/***
 
 [![npm version][npm-badge]][npm-url]
 [![experimental][experimental-badge]][experimental-url]
