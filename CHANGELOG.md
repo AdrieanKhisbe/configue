@@ -6,6 +6,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 Up to version [0.7.1] project was know has `hapi-configue`.
 
 ## [Unreleased][unreleased]
+
+## [0.16.0] - 2017-04-03
+### Added
+- getFirst accessor
+- getAll accessor
+
 ## [0.15.0] - 2017-04-02
 ### Added
 - new overrides steps
@@ -122,7 +128,8 @@ Up to version [0.7.1] project was know has `hapi-configue`.
 ## [0.1.0] - 2015-12-01
 - Initial Release
 
-[unreleased]: https://github.com/AdrieanKhisbe/hapi-configue/compare/v0.15.0...HEAD
+[unreleased]: https://github.com/AdrieanKhisbe/hapi-configue/compare/v0.16.0...HEAD
+[0.16.0]: https://github.com/AdrieanKhisbe/hapi-configue/compare/v0.15.0...v0.16.0
 [0.15.0]: https://github.com/AdrieanKhisbe/hapi-configue/compare/v0.14.1...v0.15.0
 [0.14.1]: https://github.com/AdrieanKhisbe/hapi-configue/compare/v0.14.0...v0.14.1
 [0.14.0]: https://github.com/AdrieanKhisbe/hapi-configue/compare/v0.13.0...v0.14.0

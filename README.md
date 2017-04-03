@@ -29,7 +29,7 @@ Quoting [nconf]:
 > ***"The order in which you attach these configuration sources determines their priority in the hierarchy"***
 
 Here are the standard steps [Configue] does define:
-- `overrides` : objects that would take precedence on all other steps
+- `overrides` : properties that would take precedence on all other steps
 - `argv` : command line options
 - `env` : environment variables
 - `file` : config files
