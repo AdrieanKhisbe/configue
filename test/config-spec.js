@@ -543,7 +543,39 @@ describe('Hapi plugin', () => {
             });
         });
 
+        it('has access to configue sub accessors', (done) => {
+            const server = new Hapi.Server();
+            server.connection();
 
+            const configue = Configue({overrides: {a: 1, b: 2, c: 3}});
+            configue.resolve((err) => {
+
+                server.register({register: configue.plugin()}, (err) => {
+                    expect(err).to.not.exist();
+                    server.route({
+                        method: 'GET', path: '/', handler: function (request, reply) {
+                            try {
+                                expect(request.configue.get).to.exist();
+                                expect(request.configue.get).to.be.a.function();
+                                expect(request.configue.get('a')).to.equal(1);
+
+                                expect(request.configue.getFirst).to.exist();
+                                expect(request.configue.getFirst).to.be.a.function();
+                                expect(request.configue.getFirst('aa', 'b')).to.equal(2);
+
+                                expect(request.configue.getAll).to.exist();
+                                expect(request.configue.getAll).to.be.a.function();
+                                expect(request.configue.getAll('a', 'b', 'c')).to.equal([1, 2, 3]);
+                            } catch(err) {
+                                return done(err);
+                            }
+                            return done();
+                        }
+                    });
+                    server.inject('/');
+                });
+            });
+        });
     });
 
 });
