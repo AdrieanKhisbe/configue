@@ -10,7 +10,9 @@
 [![Dependency Status][david-badge]][david-url]
 [![bitHound Overalll Score][bithound-badge]][bithound-url]
 
-[Configue] is a wrapper on [nconf] node hierarchical config tool.
+[Configue] is a node.js Config library to easily customize your app with argv, env, files and more.
+
+It's a wrapper on [nconf] node hierarchical config tool.
 
 It defines a *conventional workflow* to load a config from environment variables,
 command line arguments, files, that you can easily *configure* and *extend*.
@@ -110,6 +112,7 @@ configue.get('defined4sure')
 configue.get('some:nested:value')
 configue.get('mightBeUndefined', 'default')
 ```
+You can also retrieve a list of value with `getAll`, or the first non undefined value from a list with `getFirst
 
 ### Usage with customization of the configuration workflow
 
@@ -236,7 +239,10 @@ server.register({register: configue.plugin()}, (err) => {
       // starting the server or else
        
       // access to the config
-      const config = server.configue('some');
+      const config = server.configue('some'); // => 'config'
+      const configGet = server.configue.get('some'); // => 'config'
+      const configGetAll = server.configue.getAll('some', 'undefined'); // => ['config', undefined]
+      const configGetFirst = server.configue.getFirst('get', 'some'); // => 'config'
       // ...
 })
 ```
