@@ -73,7 +73,7 @@ describe('Configue Options', () => {
         it('get value', (done) => {
             configueTest({defaults: {A: '2', B: 42}}, (configue, err) => {
                 expect(err).to.not.exist();
-                // NOTE: code is interpreted from command line: -a !!
+                // NOTE: code is interpreted from command line: -a !! (-a code, param of lab)
                 expect(configue.get('A')).to.equal('2');
                 expect(configue.get('B')).to.equal(42);
                 done();
@@ -106,6 +106,18 @@ describe('Configue Options', () => {
 
                 expect(configue.get('idonotexist', 'unlessItellsSo')).to.contain('unless');
                 expect(configue.get('zero', 12)).to.equal(0);
+                done();
+            });
+        });
+
+
+        it('get first value', (done) => {
+            configueTest({overrides: {A: '2', B: 42, C: false}}, (configue, err) => {
+                expect(err).to.not.exist();
+                expect(configue.getFirst('A', 'B', 'C')).to.equal('2');
+                expect(configue.getFirst('b', 'B')).to.equal(42);
+                expect(configue.getFirst('acd', 'C')).to.equal(false);
+                expect(configue.getFirst('aa', 'bb', 'cc')).to.equal(undefined);
                 done();
             });
         });
