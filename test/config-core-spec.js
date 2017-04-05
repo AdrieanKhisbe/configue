@@ -151,6 +151,43 @@ describe('Configue Options', () => {
 
     });
 
+    describe('Loader', () => {
+
+        it('simple load', (done) => {
+            configueTest({defaults: {A: '2', B: 42}}, (configue, err) => {
+                expect(err).to.not.exist();
+
+                const config = configue.load();
+                expect(config.A).to.equal('2');
+                expect(config.B).to.equal(42);
+
+                done();
+            });
+        });
+
+        it('load with simple model', (done) => {
+            configueTest({defaults: {A: '2', B: 42}}, (configue, err) => {
+                expect(err).to.not.exist();
+
+                const config = configue.load({a: 'A', b: 'B'});
+                expect(config).to.equal({a: '2', b: 42});
+
+                done();
+            });
+        });
+
+        it('load with complex model', (done) => {
+            configueTest({defaults: {A: {a:1, b:2}, B: 42}}, (configue, err) => {
+                expect(err).to.not.exist();
+
+                const config = configue.load({a: 'A:a', b: {b: 'B'}});
+                expect(config).to.equal({a: 1, b: {b: 42}});
+
+                done();
+            });
+        });
+    });
+
     describe('Files', () => {
 
         it('can load data from a json file given as string', (done) => {
@@ -230,6 +267,13 @@ describe('Configue Options', () => {
 
     });
     describe('Overrides', () => {
+        it('can be defined', (done) => {
+            configueTest({overrides: {one: 1}}, (configue, err) => {
+                expect(err).to.not.exist();
+                expect(configue.get('one')).to.equal(1);
+                done();
+            });
+        });
         it('can be defined', (done) => {
             configueTest({overrides: {one: 1}}, (configue, err) => {
                 expect(err).to.not.exist();
