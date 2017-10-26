@@ -16,7 +16,7 @@
   "license": "ISC",
   "dependencies": {
     "hapi": "12.x.x",
-    "configue": "0.14.x",
+    "configue": "..",
     "nconf": "^0.8.2",
     "nconf-yaml": "^1.0.1"
   }

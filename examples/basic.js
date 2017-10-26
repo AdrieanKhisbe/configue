@@ -6,7 +6,7 @@ const configue = Configue();
 try {
     configue.resolve();
     const who = configue.get('who', 'World');
-    console.log('I know thath "who" is ' + who);
+    console.log('I know that "who" is ' + who);
 } catch (err) {
     console.error('Something bad happened\n%j', err);
 }
