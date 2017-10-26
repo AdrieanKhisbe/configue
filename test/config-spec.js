@@ -21,14 +21,22 @@ describe('Configue Options', () => {
 
     describe('Resolving', () => {
 
-        it('resolve ', (done) => {
+        it('resolve is automatic', (done) => {
             const configue = Configue();
+            expect(configue.resolved).to.be.true();
+            done();
+        });
+        it('resolve is automatic unless defer', (done) => {
+            const configue = Configue({defer: true});
+            expect(configue.resolved).to.be.false();
             configue.resolve();
+
+            expect(configue.resolved).to.be.true();
             done();
         });
 
         it('resolve is executed once', (done) => {
-            const configue = Configue({defaults: {A: 1}});
+            const configue = Configue({defer: true, defaults: {A: 1}});
             expect(configue.resolved).to.be.false();
             configue.resolve()
             configue.resolve() // coverage ensure that we don't have ran a second times
@@ -41,9 +49,9 @@ describe('Configue Options', () => {
 
 
     const configueTest = (configueOptions, callback) => {
-        const configue = Configue(configueOptions);
+        let configue
         try {
-          configue.resolve()
+          configue = Configue(configueOptions);
           callback(configue, null)
         } catch(err) {
           callback(configue, err)
@@ -266,9 +274,8 @@ describe('Configue Options', () => {
                 });
         });
         it('required keys are enforced by nconf', (done) => {
-            const configue = Configue.defaults({A: 1}).required(['A', 'B']).get();
             try {
-                configue.resolve();
+                const configue = Configue.defaults({A: 1}).required(['A', 'B']).get();
                 done(new Error('Error should be triggered'))
             } catch(err)  {
                 expect(err.message).to.equal('Missing required keys: B');
@@ -422,11 +429,13 @@ describe('Fluent builder', () => {
     it('options methods sets the good values', (done) => {
         const configue = Configue.defaults({a: 1})
             .env(['HOME'])
+            .defer(true)
             .get();
         expect(configue.settings).to.equal({
             'defaults': {
                 'a': 1
             },
+            defer: true,
             'env': [
                 'HOME'
             ]
@@ -436,7 +445,7 @@ describe('Fluent builder', () => {
     });
 
     it('options methods sets the good values', (done) => {
-        const hook = (nconf, callback) => callback();
+        const hook = nconf => {}
         const configue = Configue.argvHook(hook).envHook(hook).get();
         expect(configue.settings).to.equal({
             'postHooks': {
@@ -496,7 +505,7 @@ describe('Hapi plugin', () => {
             const server = new Hapi.Server();
             server.connection();
 
-            const configue = Configue({customWorkflow: nconf => {throw new Error('init failed')}});
+            const configue = Configue({defer: true, customWorkflow: nconf => {throw new Error('init failed')}});
             server.register({register: configue.plugin()}, (err) => {
                 expect(err).to.exist();
                 expect(err.message).to.equal('init failed');
