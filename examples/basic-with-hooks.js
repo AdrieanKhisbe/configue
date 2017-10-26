@@ -12,7 +12,6 @@ const configueOptions = {
 
 const configue = Configue(configueOptions);
 try {
-    configue.resolve();
     const who = configue('who', 'World');
     const hook = configue('hook', 'none');
 

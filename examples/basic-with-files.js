@@ -3,6 +3,7 @@
 const Configue = require('configue');
 
 const configueOptions = {
+    defer: true,
     disable: {argv: true},
     files: [
         {file: './config.json'},
@@ -16,6 +17,7 @@ const configueOptions = {
 const configue = Configue(configueOptions);
 
 try {
+    console.log(`Need to call resolve defer being true, so resolve is ${configue.resolved}`)
     configue.resolve();
 
     const salute = configue.get('salute', 'Hello');

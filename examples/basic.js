@@ -4,7 +4,6 @@ const Configue = require('configue');
 const configue = Configue();
 
 try {
-    configue.resolve();
     const who = configue.get('who', 'World');
     console.log('I know that "who" is ' + who);
 } catch (err) {
