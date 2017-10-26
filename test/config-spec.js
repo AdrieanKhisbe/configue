@@ -21,38 +21,33 @@ describe('Configue Options', () => {
 
     describe('Resolving', () => {
 
-        it('resolve from a callback', done => {
+        it('resolve ', (done) => {
             const configue = Configue();
-            configue.resolve(err => {
-                    expect(err).to.not.exist();
-                    done();
-                }
-            );
-        });
-        it('resolve from a promise', () => {
-            const configue = Configue({defaults: {A: 1}});
-            return configue.resolve()
-                .then(() => {
-                    expect(configue.get('A')).to.equal(1);
-                });
+            configue.resolve();
+            done();
         });
 
-        it('resolve is executed once', () => {
+        it('resolve is executed once', (done) => {
             const configue = Configue({defaults: {A: 1}});
             expect(configue.resolved).to.be.false();
-            return configue.resolve()
-                .then(() => configue.resolve()) // coverage ensure that we don't run second times
-                .then(() => {
-                    expect(configue.resolved).to.be.true();
-                    // can't test a resolve with change value since dynamic access to argv and env
-                });
+            configue.resolve()
+            configue.resolve() // coverage ensure that we don't have ran a second times
+
+            expect(configue.resolved).to.be.true();
+            // can't test a resolve with change value since dynamic access to argv and env
+            done();
         });
     });
 
 
     const configueTest = (configueOptions, callback) => {
         const configue = Configue(configueOptions);
-        configue.resolve((err, other) => callback(configue, err, other));
+        try {
+          configue.resolve()
+          callback(configue, null)
+        } catch(err) {
+          callback(configue, err)
+        }
     };
 
     describe('Schema', () => {
@@ -272,18 +267,22 @@ describe('Configue Options', () => {
         });
         it('required keys are enforced by nconf', (done) => {
             const configue = Configue.defaults({A: 1}).required(['A', 'B']).get();
-            configue.resolve()
-                .then(() => Code.fail('Error should be triggered'))
-                .catch((err) => {
-                    expect(err.message).to.equal('Missing required keys: B');
-                }).nodeify(done);
+            try {
+                configue.resolve();
+                done(new Error('Error should be triggered'))
+            } catch(err)  {
+                expect(err.message).to.equal('Missing required keys: B');
+                done();
+            }
         });
         it('required keys are enforced by nconf does not false alarm', (done) => {
             const configue = Configue.defaults({A: 1, B: 2, C: 3}).required(['A', 'B']).get();
-            configue.resolve()
-                .catch((err) => {
-                    Code.fail('Error should not be triggered');
-                }).nodeify(done);
+            try {
+              configue.resolve()
+              done()
+            } catch (err) {
+              done(new Error('Error should not be triggered'));
+            }
         });
     });
 
@@ -328,17 +327,14 @@ describe('Configue Options', () => {
         it('enable to insert hook', (done) => {
             const configueOptions = {
                 postHooks: {
-                    overrides: function postOverrides(nconf, done) {
+                    overrides: function postOverrides(nconf) {
                         nconf.set('who', 'ME FIRST!');
-                        done();
                     },
-                    argv: function postArgv(nconf, done) {
+                    argv: function postArgv(nconf) {
                         nconf.set('when', 'NOW');
-                        return done();
                     },
-                    defaults: function last(nconf, done) {
+                    defaults: function last(nconf) {
                         nconf.set('when', 'RIGHT ' + nconf.get('when'));
-                        done();
                     }
                 }
             };
@@ -356,10 +352,9 @@ describe('Configue Options', () => {
             const configueOptions = {
                 overrides: {who: 'ME second!'},
                 postHooks: {
-                    first: function first(nconf, done) {
+                    first: function first(nconf) {
                         nconf.set('who', 'ME FIRST!');
                         nconf.set('when', 'RIGHT NOW!');
-                        done();
                     }
                 }
             };
@@ -377,8 +372,8 @@ describe('Configue Options', () => {
         it('handle error in loading process', (done) => {
             configueTest({
                 postHooks: {
-                    argv: function postArgv(nconf, done) {
-                        done('This is an error');
+                    argv: function postArgv(nconf) {
+                        throw new Error('This is an error');
                     }
                 }
             }, (configue, err) => {
@@ -392,10 +387,7 @@ describe('Configue Options', () => {
 
         it('accept a custom workflow', (done) => {
             const configueOptions = {
-                customWorkflow: function (nconf, done) {
-                    nconf.set('workflow', 'custom');
-                    return done();
-                }
+                customWorkflow: nconf => nconf.set('workflow', 'custom')
             };
             process.argv.push('--workflow=default');
             process.env.key = 'value';
@@ -463,13 +455,12 @@ describe('Hapi plugin', () => {
             server.connection();
             const configue = Configue();
 
-            configue.resolve((err) => {
-                server.register({register: configue.plugin()}, (err) => {
-                    expect(err).to.not.exist();
-                    expect(server.configue).to.exist();
-                    expect(server.configue).to.be.a.function();
-                    return done();
-                });
+            configue.resolve()
+            server.register({register: configue.plugin()}, (err) => {
+                 expect(err).to.not.exist();
+                 expect(server.configue).to.exist();
+                 expect(server.configue).to.be.a.function();
+                 done();
             });
         });
 
@@ -478,13 +469,12 @@ describe('Hapi plugin', () => {
             server.connection();
             const configue = Configue();
 
-            configue.resolve((err) => {
-                server.register({register: configue.plugin('conf')}, (err) => {
-                    expect(err).to.not.exist();
-                    expect(server.conf).to.exist();
-                    expect(server.conf).to.be.a.function();
-                    return done();
-                });
+            configue.resolve();
+            server.register({register: configue.plugin('conf')}, (err) => {
+                expect(err).to.not.exist();
+                expect(server.conf).to.exist();
+                expect(server.conf).to.be.a.function();
+                return done();
             });
         });
 
@@ -506,7 +496,7 @@ describe('Hapi plugin', () => {
             const server = new Hapi.Server();
             server.connection();
 
-            const configue = Configue({customWorkflow: (nconf, done) => done(new Error('init failed'))});
+            const configue = Configue({customWorkflow: nconf => {throw new Error('init failed')}});
             server.register({register: configue.plugin()}, (err) => {
                 expect(err).to.exist();
                 expect(err.message).to.equal('init failed');
@@ -521,45 +511,41 @@ describe('Hapi plugin', () => {
             server.connection();
 
             const configue = Configue({defaults: {one: 1}});
-            configue.resolve((err) => {
+            configue.resolve()
+            server.register({register: configue.plugin()}, (err) => {
+                expect(err).to.not.exist();
 
-                server.register({register: configue.plugin()}, (err) => {
-
-                    expect(err).to.not.exist();
-
-                    server.route({
-                        method: 'GET', path: '/', handler: function (request, reply) {
-                            expect(request.configue).to.exist();
-                            expect(request.configue).to.be.a.function();
-                            expect(request.configue('one')).to.equal(1);
-                            return done();
-                        }
-                    });
-                    server.inject('/');
+                server.route({
+                    method: 'GET', path: '/', handler: function (request, reply) {
+                        expect(request.configue).to.exist();
+                        expect(request.configue).to.be.a.function();
+                        expect(request.configue('one')).to.equal(1);
+                        return done();
+                    }
+                });
+                server.inject('/');
                 });
             });
-        });
 
         it('has access to configue with a custom name', (done) => {
             const server = new Hapi.Server();
             server.connection();
 
             const configue = Configue({defaults: {one: 1}});
-            configue.resolve((err) => {
+            configue.resolve();
 
-                server.register({register: configue.plugin('config')}, (err) => {
+            server.register({register: configue.plugin('config')}, (err) => {
 
-                    expect(err).to.not.exist();
-                    server.route({
-                        method: 'GET', path: '/', handler: function (request, reply) {
-                            expect(request.config).to.exist();
-                            expect(request.config).to.be.a.function();
-                            expect(request.config('one')).to.equal(1);
-                            return done();
-                        }
-                    });
-                    server.inject('/');
+                expect(err).to.not.exist();
+                server.route({
+                    method: 'GET', path: '/', handler: function (request, reply) {
+                        expect(request.config).to.exist();
+                        expect(request.config).to.be.a.function();
+                        expect(request.config('one')).to.equal(1);
+                        return done();
+                    }
                 });
+                server.inject('/');
             });
         });
 
@@ -568,32 +554,31 @@ describe('Hapi plugin', () => {
             server.connection();
 
             const configue = Configue({overrides: {a: 1, b: 2, c: 3}});
-            configue.resolve((err) => {
+            configue.resolve();
 
-                server.register({register: configue.plugin()}, (err) => {
-                    expect(err).to.not.exist();
-                    server.route({
-                        method: 'GET', path: '/', handler: function (request, reply) {
-                            try {
-                                expect(request.configue.get).to.exist();
-                                expect(request.configue.get).to.be.a.function();
-                                expect(request.configue.get('a')).to.equal(1);
+            server.register({register: configue.plugin()}, (err) => {
+                expect(err).to.not.exist();
+                server.route({
+                    method: 'GET', path: '/', handler: function (request, reply) {
+                        try {
+                            expect(request.configue.get).to.exist();
+                            expect(request.configue.get).to.be.a.function();
+                            expect(request.configue.get('a')).to.equal(1);
 
-                                expect(request.configue.getFirst).to.exist();
-                                expect(request.configue.getFirst).to.be.a.function();
-                                expect(request.configue.getFirst('aa', 'b')).to.equal(2);
+                            expect(request.configue.getFirst).to.exist();
+                            expect(request.configue.getFirst).to.be.a.function();
+                            expect(request.configue.getFirst('aa', 'b')).to.equal(2);
 
-                                expect(request.configue.getAll).to.exist();
-                                expect(request.configue.getAll).to.be.a.function();
-                                expect(request.configue.getAll('a', 'b', 'c')).to.equal([1, 2, 3]);
-                            } catch(err) {
-                                return done(err);
-                            }
-                            return done();
+                            expect(request.configue.getAll).to.exist();
+                            expect(request.configue.getAll).to.be.a.function();
+                            expect(request.configue.getAll('a', 'b', 'c')).to.equal([1, 2, 3]);
+                        } catch(err) {
+                            return done(err);
                         }
-                    });
-                    server.inject('/');
+                        return done();
+                    }
                 });
+                server.inject('/');
             });
         });
     });
