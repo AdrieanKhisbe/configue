@@ -15,11 +15,13 @@ const configueOptions = {
 
 const configue = Configue(configueOptions);
 
-configue.resolve((err) => {
-    if (err) return console.error('Error loading plugins:\n %s', err);
+try {
+    configue.resolve();
 
     const salute = configue.get('salute', 'Hello');
     const who = configue.get('who', 'World');
 
     console.log('The Configue tell that "who" is ' + who + ' and "salute" is ' + salute);
-});
+} catch (err) {
+    console.error('Error loading plugins:\n %s', err);
+}
