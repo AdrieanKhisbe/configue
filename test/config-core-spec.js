@@ -186,6 +186,16 @@ describe('Configue Options', () => {
                 done();
             });
         });
+        it('load with complex model and default values', (done) => {
+            configueTest({defaults: {A: {a:1, b:2}, B: 42}}, (configue, err) => {
+                expect(err).to.not.exist();
+
+                const config = configue.load({a: ['a:a', 'A:a'], b: {b: ['B', 'A']}});
+                expect(config).to.equal({a: 1, b: {b: 42}});
+
+                done();
+            });
+        });
     });
 
     describe('Files', () => {
