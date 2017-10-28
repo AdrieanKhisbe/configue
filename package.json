@@ -32,7 +32,7 @@
     "codeclimate-test-reporter": "^0.5.0",
     "eslint": "^4.10.0",
     "hapi": "^16.6.2",
-    "lab": "^15.1.0",
+    "lab": "^14.3.1",
     "nconf-yaml": "^1.0.1"
   },
   "license": "BSD-3-Clause"
