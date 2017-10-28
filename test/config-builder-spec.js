@@ -41,7 +41,7 @@ describe('Fluent builder', () => {
     });
 
     it('options methods sets the good values', (done) => {
-        const hook = nconf => {}
+        const hook = nconf => {};
         const configue = Configue.argvHook(hook).envHook(hook).get();
         expect(configue.settings).to.equal({
             'postHooks': {

@@ -16,7 +16,6 @@ describe('Hapi plugin', () => {
             server.connection();
             const configue = Configue();
 
-            configue.resolve()
             server.register({register: configue.plugin()}, (err) => {
                  expect(err).to.not.exist();
                  expect(server.configue).to.exist();
@@ -30,7 +29,6 @@ describe('Hapi plugin', () => {
             server.connection();
             const configue = Configue();
 
-            configue.resolve();
             server.register({register: configue.plugin('conf')}, (err) => {
                 expect(err).to.not.exist();
                 expect(server.conf).to.exist();
@@ -57,7 +55,7 @@ describe('Hapi plugin', () => {
             const server = new Hapi.Server();
             server.connection();
 
-            const configue = Configue({defer: true, customWorkflow: nconf => {throw new Error('init failed')}});
+            const configue = Configue({defer: true, customWorkflow: nconf => {throw new Error('init failed');}});
             server.register({register: configue.plugin()}, (err) => {
                 expect(err).to.exist();
                 expect(err.message).to.equal('init failed');
@@ -72,7 +70,6 @@ describe('Hapi plugin', () => {
             server.connection();
 
             const configue = Configue({defaults: {one: 1}});
-            configue.resolve()
             server.register({register: configue.plugin()}, (err) => {
                 expect(err).to.not.exist();
 
@@ -93,7 +90,6 @@ describe('Hapi plugin', () => {
             server.connection();
 
             const configue = Configue({defaults: {one: 1}});
-            configue.resolve();
 
             server.register({register: configue.plugin('config')}, (err) => {
 
@@ -115,7 +111,6 @@ describe('Hapi plugin', () => {
             server.connection();
 
             const configue = Configue({overrides: {a: 1, b: 2, c: 3}});
-            configue.resolve();
 
             server.register({register: configue.plugin()}, (err) => {
                 expect(err).to.not.exist();

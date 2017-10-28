@@ -34,8 +34,8 @@ describe('Configue Core', () => {
         it('resolve is executed once', (done) => {
             const configue = Configue({defer: true, defaults: {A: 1}});
             expect(configue.resolved).to.be.false();
-            configue.resolve()
-            configue.resolve() // coverage ensure that we don't have ran a second times
+            configue.resolve();
+            configue.resolve(); // coverage ensure that we don't have ran a second times
 
             expect(configue.resolved).to.be.true();
             // can't test a resolve with change value since dynamic access to argv and env

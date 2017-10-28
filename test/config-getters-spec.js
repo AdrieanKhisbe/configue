@@ -14,7 +14,7 @@ describe('Configue Getters', () => {
     describe('Getter', () => {
 
         it('get value', (done) => {
-            const configue = Configue({defaults: {A: '2', B: 42}})
+            const configue = Configue({defaults: {A: '2', B: 42}});
 
             // NOTE: code is interpreted from command line: -a !! (-a code, param of lab)
             expect(configue.get('A')).to.equal('2');
