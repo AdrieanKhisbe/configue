@@ -8,6 +8,7 @@
 [![Coverage Status][coverage-badge]][coverage-url]
 [![Code Climate][codeclimate-badge]][codeclimate-url]
 [![Dependency Status][david-badge]][david-url]
+[![NSP Status][nsp-badge]][nsp-url]
 [![bitHound Overalll Score][bithound-badge]][bithound-url]
 
 [Configue] is a node.js Config library to easily customize your app with argv, env, files and more.
@@ -311,3 +312,5 @@ and `firstHook`, `overridesHook`, `argvHook`, `envHook`, `filesHook`, `defaultsH
 [coverage-url]: https://codeclimate.com/github/AdrieanKhisbe/configue/coverage
 [bithound-badge]: https://www.bithound.io/github/AdrieanKhisbe/configue/badges/score.svg
 [bithound-url]: https://www.bithound.io/github/AdrieanKhisbe/configue
+[nsp-badge]: https://nodesecurity.io/orgs/adrieankhisbe/projects/ca973c87-f742-4956-80c9-b402b8a76adb/badge
+[nsp-url]: https://nodesecurity.io/orgs/adrieankhisbe/projects/ca973c87-f742-4956-80c9-b402b8a76adb
