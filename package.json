@@ -23,8 +23,6 @@
     "lint": "eslint lib test"
   },
   "dependencies": {
-    "async": "^2.2.0",
-    "bluebird": "^3.5.0",
     "joi": "^13.0.1",
     "lodash": "^4.2.0",
     "nconf": "^0.8.3"
