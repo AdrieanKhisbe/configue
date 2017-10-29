@@ -150,10 +150,8 @@ describe('Configue Core', () => {
 
         it('env config are forwarded to nconf', (done) => {
             const configue = Configue({env: ['PWD']});
-            const allEnv = configue.nconf.load(); //FIXME
             expect(configue.get('HOME')).to.be.undefined();
             done();
-
         });
         it('required keys are enforced by nconf', (done) => {
             try {
