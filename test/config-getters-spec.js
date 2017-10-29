@@ -78,6 +78,7 @@ describe('Configue Getters', () => {
             expect(configue.getAll('b', 'B')).to.equal([undefined, 42]);
             done();
         });
+
         it('get all value from array', (done) => {
             const configue = Configue({overrides: {A: '2', B: 42, C: false}});
 
@@ -120,6 +121,7 @@ describe('Configue Getters', () => {
 
             done();
         });
+
         it('load with complex model and default values', (done) => {
             const configue = Configue({defaults: {A: {a: 1, b: 2}, B: 42}});
 
@@ -154,6 +156,22 @@ describe('Configue Getters', () => {
         it('complex template, object not handled for now', (done) => {
             const configue = Configue({defaults: {A: '2', B: {b: 'b', c: 2}}});
             expect(configue.t`1+${'B'}=Nan`).to.equal('1+[object Object]=Nan');
+            done();
+        });
+
+    });
+
+    describe('getObject', () => {
+
+        it('basic getObject', (done) => {
+            const configue = Configue({defaults: {A: '2', B: 42}});
+            expect(configue.getObject('A', 'B')).to.equal({A: '2', B: 42});
+            done();
+        });
+
+        it('basic getObject from array', (done) => {
+            const configue = Configue({defaults: {A: '2', B: 42}});
+            expect(configue.getObject(['A', 'B'])).to.equal({A: '2', B: 42});
             done();
         });
 
