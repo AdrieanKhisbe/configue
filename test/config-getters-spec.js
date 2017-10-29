@@ -131,4 +131,32 @@ describe('Configue Getters', () => {
         });
     });
 
+    describe('template', () => {
+
+        it('basic template', (done) => {
+            const configue = Configue({defaults: {A: '2', B: 42}});
+            expect(configue.template`answer to life is ${'B'}`).to.equal('answer to life is 42');
+            done();
+        });
+
+        it('basic template via alias', (done) => {
+            const configue = Configue({defaults: {A: '2', B: 42}});
+            expect(configue.t`1+1=${'A'}`).to.equal('1+1=2');
+            done();
+        });
+
+        it('basic template with default', (done) => {
+            const configue = Configue({defaults: {A: '2', B: 42}});
+            expect(configue.t({A: 4, C: 1})`1+${'C'}=${'A'}`).to.equal('1+1=2');
+            done();
+        });
+
+        it('complex template, object not handled for now', (done) => {
+            const configue = Configue({defaults: {A: '2', B: {b: 'b', c: 2}}});
+            expect(configue.t`1+${'B'}=Nan`).to.equal('1+[object Object]=Nan');
+            done();
+        });
+
+    });
+
 });
