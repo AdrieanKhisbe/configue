@@ -175,6 +175,18 @@ describe('Configue Getters', () => {
             done();
         });
 
+        it('basic getObject with rename', (done) => {
+            const configue = Configue({defaults: {A: '2', B: 42}});
+            expect(configue.getObject(['A', 'a'], 'B')).to.equal({a: '2', B: 42});
+            done();
+        });
+
+        it('complex getObject with rename', (done) => {
+            const configue = Configue({defaults: {A: {alpha: 2, beta: 4}, B: 42}});
+            expect(configue.getObject(['A:alpha', 'alpha'], ['B', 'beta'])).to.equal({alpha: 2, beta: 42});
+            done();
+        });
+
     });
 
 });
