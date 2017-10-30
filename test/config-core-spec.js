@@ -10,6 +10,7 @@ const {describe, it} = lab;
 const Configue = require('../');
 
 const JSON_CONF_FILE = path.join(__dirname, 'data/config.json');
+const PROPERTIES_CONF_FILE = path.join(__dirname, 'data/config.properties');
 const JSON_CONF_FILE_BIS = path.join(__dirname, 'data/config-bis.json');
 const YAML_CONF_FILE = path.join(__dirname, 'data/config.yaml');
 
@@ -74,6 +75,7 @@ describe('Configue Core', () => {
         it('can load data from a json file', (done) => {
             const configue = Configue({files: [{file: JSON_CONF_FILE}]});
             expect(configue.get('key')).to.equal('json-config');
+            expect(configue.get('nested:key')).to.equal('nested');
             done();
         });
 
@@ -86,6 +88,7 @@ describe('Configue Core', () => {
             };
             const configue = Configue(configueOptions);
             expect(configue.get('key')).to.equal('yaml-config');
+            expect(configue.get('nested:key')).to.equal('nested');
             done();
         });
 
@@ -95,6 +98,7 @@ describe('Configue Core', () => {
             };
             const configue = Configue(configueOptions);
             expect(configue.get('key')).to.equal('yaml-config');
+            expect(configue.get('nested:key')).to.equal('nested');
             done();
         });
 
@@ -104,6 +108,18 @@ describe('Configue Core', () => {
             };
             const configue = Configue(configueOptions);
             expect(configue.get('key')).to.equal('yaml-config');
+            expect(configue.get('nested:key')).to.equal('nested');
+            done();
+        });
+
+        it('can load data from a properties file without saying explicitely it is one', (done) => {
+            const configueOptions = {
+                files: PROPERTIES_CONF_FILE
+            };
+            const configue = Configue(configueOptions);
+            console.log(configue.get('key'));
+            expect(configue.get('key')).to.equal('properties-config');
+            expect(configue.get('nested:key')).to.equal('nested');
             done();
         });
 

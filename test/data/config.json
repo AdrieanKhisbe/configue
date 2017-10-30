@@ -1,3 +1,6 @@
 {
-  "key": "json-config"
+  "key": "json-config",
+  "nested": {
+    "key": "nested"
+  }
 }

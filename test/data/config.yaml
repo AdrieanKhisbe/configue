@@ -1,2 +1,4 @@
 # Basic Yaml Config
 key: yaml-config
+nested:
+   key: nested
