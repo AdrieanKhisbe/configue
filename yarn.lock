@@ -1133,6 +1133,12 @@ natural-compare@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/natural-compare/-/natural-compare-1.4.0.tgz#4abebfeed7541f2c27acfb29bdbbd15c8d5ba4f7"
 
+nconf-properties@^0.2.3:
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/nconf-properties/-/nconf-properties-0.2.3.tgz#072e2a8c52706060d47423b8f24faf8bd0440f13"
+  dependencies:
+    properties "^1.2.1"
+
 nconf-yaml@^1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/nconf-yaml/-/nconf-yaml-1.0.2.tgz#fea065333cf42b77a5e8060517969799d4156575"
