@@ -2,7 +2,6 @@
 
 const Lab = require('lab');
 const {expect} = require('code');
-const path = require('path');
 
 const lab = exports.lab = Lab.script();
 const {describe, it} = lab;
@@ -25,8 +24,6 @@ describe('Configue Getters', () => {
 
         it('get nested value', (done) => {
             const configue = Configue({defaults: {root: {a: '2', b: 42}}});
-
-
             expect(configue.get('root')).to.equal({a: '2', b: 42});
             expect(configue.get('root:a')).to.equal('2');
             expect(configue.get('root:b')).to.equal(42);
@@ -35,16 +32,12 @@ describe('Configue Getters', () => {
 
         it('get defaultValue', (done) => {
             const configue = Configue({defaults: {A: '2', B: 42}});
-
-
             expect(configue.get('C', 'pasdefini')).to.equal('pasdefini');
             done();
         });
 
         it('get defaultValue if result is set undefined', (done) => {
             const configue = Configue({defaults: {idonotexist: undefined, zero: 0}});
-
-
             expect(configue.get('idonotexist', 'unlessItellsSo')).to.contain('unless');
             expect(configue.get('zero', 12)).to.equal(0);
             done();
@@ -91,7 +84,7 @@ describe('Configue Getters', () => {
         it('get value async with callback', (done) => {
             const configue = Configue({overrides: {A: '2', B: 42, C: false}});
             configue.getAsync('A', (err, res) => {
-                expect(err).to.be.null()
+                expect(err).to.be.null();
                 expect(res).to.equal('2');
                 done();
             });
@@ -99,8 +92,7 @@ describe('Configue Getters', () => {
 
         it('get value async without callback (hence returns promise)', (done) => {
             const configue = Configue({overrides: {A: '2', B: 42, C: false}});
-            configue.getAsync('A').
-                then(res => {
+            configue.getAsync('A').then(res => {
                 expect(res).to.equal('2');
                 done();
             });
@@ -108,8 +100,7 @@ describe('Configue Getters', () => {
 
         it('get value async with default value (hence returns promise)', (done) => {
             const configue = Configue({overrides: {A: '2', B: 42, C: false}});
-            configue.getAsync('D', 2).
-                then(res => {
+            configue.getAsync('D', 2).then(res => {
                 expect(res).to.equal(2);
                 done();
             });

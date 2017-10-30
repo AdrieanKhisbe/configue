@@ -22,6 +22,7 @@ describe('Configue Core', () => {
             expect(configue.resolved).to.be.true();
             done();
         });
+
         it('resolve is automatic unless defer', (done) => {
             const configue = Configue({defer: true});
             expect(configue.resolved).to.be.false();
