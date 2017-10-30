@@ -173,6 +173,25 @@ describe('Configue Core', () => {
         });
     });
 
+    describe('Configue file', () => {
+        it('can be specified in arguments', (done) => {
+            process.argv.push('--configue=test/data/config.json');
+            const configue = Configue({defaults: {key: 'default'}});
+            process.argv.pop();
+            expect(configue.get('key')).to.equal('json-config');
+            done();
+        });
+        it('take precedence over env variable', (done) => {
+            process.argv.push('--configue=test/data/config.json');
+            process.env.key = 'env-var';
+            // RISKY!!!!
+            const configue = Configue({defaults: {key: 'default'}});
+            process.argv.pop();
+            expect(configue.get('key')).to.equal('json-config');
+            process.env.key = undefined;
+            done();
+        });
+    });
 
     describe('Disable', () => {
 
@@ -229,6 +248,7 @@ describe('Configue Core', () => {
             expect(configue.get('when')).to.equal('RIGHT NOW');
             done();
         });
+
         it('first hook is runned to insert hook', (done) => {
             const configueOptions = {
                 overrides: {who: 'ME second!'},
