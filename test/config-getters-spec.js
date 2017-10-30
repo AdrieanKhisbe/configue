@@ -87,6 +87,33 @@ describe('Configue Getters', () => {
             done();
         });
 
+
+        it('get value async with callback', (done) => {
+            const configue = Configue({overrides: {A: '2', B: 42, C: false}});
+            configue.getAsync('A', (err, res) => {
+                expect(err).to.be.null()
+                expect(res).to.equal('2');
+                done();
+            });
+        });
+
+        it('get value async without callback (hence returns promise)', (done) => {
+            const configue = Configue({overrides: {A: '2', B: 42, C: false}});
+            configue.getAsync('A').
+                then(res => {
+                expect(res).to.equal('2');
+                done();
+            });
+        });
+
+        it('get value async with default value (hence returns promise)', (done) => {
+            const configue = Configue({overrides: {A: '2', B: 42, C: false}});
+            configue.getAsync('D', 2).
+                then(res => {
+                expect(res).to.equal(2);
+                done();
+            });
+        });
     });
 
     describe('Loader', () => {
