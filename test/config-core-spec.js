@@ -89,6 +89,24 @@ describe('Configue Core', () => {
             done();
         });
 
+        it('can load data from a yaml file without saying explicitely it is one', (done) => {
+            const configueOptions = {
+                files: YAML_CONF_FILE
+            };
+            const configue = Configue(configueOptions);
+            expect(configue.get('key')).to.equal('yaml-config');
+            done();
+        });
+
+        it('can load data from a yaml file without saying explicitely it is one in a list', (done) => {
+            const configueOptions = {
+                files: [YAML_CONF_FILE, JSON_CONF_FILE]
+            };
+            const configue = Configue(configueOptions);
+            expect(configue.get('key')).to.equal('yaml-config');
+            done();
+        });
+
         it('files are loaded in order', (done) => {
             const configueOptions = {
                 files: [{file: JSON_CONF_FILE},
