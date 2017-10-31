@@ -14,7 +14,7 @@ const configueOptions = {
     ]
 };
 
-const configue = Configue(configueOptions);
+const configue = new Configue(configueOptions);
 
 try {
     console.log(`Need to call resolve defer being true, so resolve is ${configue.resolved}`)

@@ -10,7 +10,7 @@ const configueOptions = {
     }
 };
 
-const configue = Configue(configueOptions);
+const configue = new Configue(configueOptions);
 try {
     const who = configue('who', 'World');
     const hook = configue('hook', 'none');

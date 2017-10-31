@@ -1,7 +1,7 @@
 'use strict';
 
 const Configue = require('configue');
-const configue = Configue();
+const configue = new Configue();
 
 try {
     const who = configue.get('who', 'World');

@@ -6,7 +6,7 @@ const Configue = require('configue');
 const server = new Hapi.Server();
 server.connection({port: 3000});
 
-const configue = Configue();
+const configue = new Configue();
 
 server.register({register: configue.plugin()}, (err) => {
     if (err) return console.log('Error loading plugins');
