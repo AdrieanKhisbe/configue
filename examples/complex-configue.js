@@ -17,6 +17,7 @@ module.exports = {
     }],
     defaults: {salute: 'hey', who: 'you', times: 1},
     models: {
-        hello: {hello: 'salute', target: 'who'}
+        hello: {hello: 'salute', target: 'who'},
+        bonjour: c => ({bonjour: c('salute'), cible: 'lemonde', langue: c('lang', 'fr')})
   }
 }
