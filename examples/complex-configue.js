@@ -15,5 +15,8 @@ module.exports = {
         file: './config.yaml',
         format: require('nconf-yaml')
     }],
-    defaults: {salute: 'hey', who: 'you', times: 1}
-};
+    defaults: {salute: 'hey', who: 'you', times: 1},
+    models: {
+        hello: {hello: 'salute', target: 'who'}
+  }
+}
