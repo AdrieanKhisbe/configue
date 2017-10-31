@@ -10,6 +10,7 @@ const {describe, it} = lab;
 const Configue = require('../');
 
 const JSON_CONF_FILE = path.join(__dirname, 'data/config.json');
+const JSON5_CONF_FILE = path.join(__dirname, 'data/config.json5');
 const PROPERTIES_CONF_FILE = path.join(__dirname, 'data/config.properties');
 const JSON_CONF_FILE_BIS = path.join(__dirname, 'data/config-bis.json');
 const YAML_CONF_FILE = path.join(__dirname, 'data/config.yaml');
@@ -75,6 +76,13 @@ describe('Configue Core', () => {
         it('can load data from a json file', (done) => {
             const configue = Configue({files: [{file: JSON_CONF_FILE}]});
             expect(configue.get('key')).to.equal('json-config');
+            expect(configue.get('nested:key')).to.equal('nested');
+            done();
+        });
+
+        it('can load data from a json5 file', (done) => {
+            const configue = Configue({files: JSON5_CONF_FILE});
+            expect(configue.get('key')).to.equal('json5-config');
             expect(configue.get('nested:key')).to.equal('nested');
             done();
         });

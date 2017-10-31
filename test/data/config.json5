@@ -1,0 +1,6 @@
+{
+  key: "json5-config",
+  nested: {
+    key: "nested"
+  }
+}
