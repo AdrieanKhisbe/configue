@@ -6,6 +6,17 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 Up to version [0.7.1] project was know has `hapi-configue`.
 
 ## [Unreleased][unreleased]
+### Added
+- template function
+- getObject factory
+- model system
+- file type deduction
+- specifying a config file through `--configue` option
+- getAsync function for asynchronous get
+
+### Changed
+- automatic resolving by default
+- postHook now needs to be synchronous
 
 ## [0.16.0] - 2017-04-03
 ### Added
