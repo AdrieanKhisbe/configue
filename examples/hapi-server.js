@@ -21,7 +21,7 @@ server.register({register: configue.plugin()}, (err) => {
     });
 
     server.start(function () {
-        console.log('Server running at:', server.info.uri);
-        console.log('With "who" as ' + who);
+        console.log(`Server running at: ${server.info.uri}`);
+        console.log(`With "who" as ${who}`);
     });
 });

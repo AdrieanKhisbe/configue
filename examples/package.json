@@ -15,8 +15,9 @@
   "author": "Adriean Khisbe <adriean.khisbe@live.fr> (https://github.com/AdrieanKhisbe/)",
   "license": "ISC",
   "dependencies": {
-    "hapi": "12.x.x",
     "configue": "..",
+    "express": "^4.16.2",
+    "hapi": "12.x.x",
     "nconf": "^0.8.2",
     "nconf-yaml": "^1.0.1"
   }

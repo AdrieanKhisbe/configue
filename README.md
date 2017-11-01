@@ -292,7 +292,7 @@ server.register({register: configue.plugin()}, (err) => {
       // ...
 })
 ```
-A more complete example is available in [`examples`](examples/basic-hapi-plugin.js) folder.
+A more complete example is available in [`examples`](examples/hapi-server.js) folder.
 
 Note it's possible to provide to `configue.plugin()` a `decorateName` so that you use a custom accessor on `server` or `request`.
 
