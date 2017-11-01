@@ -11,11 +11,7 @@ const configueOptions = {
 };
 
 const configue = new Configue(configueOptions);
-try {
-    const who = configue('who', 'World');
-    const hook = configue('hook', 'none');
+const who = configue('who', 'World');
+const hook = configue('hook', 'none');
 
-    console.log('Configue: {who: ' + who + ', hook: ' + hook + '}');
-} catch (err) {
-    console.error('Error resolving configue\n%j', err);
-}
+console.log(`Configue: {who: ${who}, hook: ${hook}}`);
