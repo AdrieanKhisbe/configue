@@ -287,8 +287,7 @@ server.register({register: configue.plugin()}, (err) => {
       // access to the config
       const config = server.configue('some'); // => 'config'
       const configGet = server.configue.get('some'); // => 'config'
-      const configGetAll = server.configue.getAll('some', 'undefined'); // => ['config', undefined]
-      const configGetFirst = server.configue.getFirst('get', 'some', 'not', 'undefined'); // => 'config'
+      // Any other call to server.configue.getAsync/getFirst/getAll/getObject/template/load
       // ...
 })
 ```
@@ -296,6 +295,11 @@ A more complete example is available in [`examples`](examples/hapi-server.js) fo
 
 Note it's possible to provide to `configue.plugin()` a `decorateName` so that you use a custom accessor on `server` or `request`.
 
+### Loading into express
+Configue can also be loaded into `express` via it's middleware you can obtain by `configue.middleware()` you just have
+to feed to app.use()`
+
+A example is available in the [`examples`](examples/express-server.js) folder.
 
 ## Configuration Recap
 Configue can be configured into two different way. Either using a config object or using a fluent builder.
