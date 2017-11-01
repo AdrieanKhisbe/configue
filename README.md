@@ -32,6 +32,7 @@ Quoting [nconf]:
 Here are the standard steps [Configue] does define:
 - `overrides` : properties that would take precedence on all other steps
 - `argv` : command line options
+- *configueFile* : file specified by `--configue` in argv if any.
 - `env` : environment variables
 - `file` : config files
 - `defaults` : default objects
@@ -40,6 +41,10 @@ The plugin loads the various configurations in order using _predefined steps_.
 
 It starts by parsing *argv* then goes through the *env* and the files options
 and finishes by loading the default config objects if any.
+
+If `--configue` option is specified, the config the specified file holds would
+be loaded after the *argv* and before the *env*. This is to enable you to save
+many options in many files, and specify at launch with options you want to use
 
 Hence why every option defined as an argument commandline will override defaults
 and environment variables.
@@ -66,7 +71,7 @@ See the following examples for concrete presentation.
 #### Basic Configue
 ```js
 const Configue = require('configue');
-const configue = new Configue()
+const configue = new Configue();
 
 const who = configue.get('who', 'World');
 console.log('Hello ' + who);
@@ -82,6 +87,7 @@ node basic.js --who=Woman
 # configue through Env
 export who=Man ; node basic.js
 who=Human node basic.js
+node basic.js --configue=my-who-conf.json
 ```
 
 The full example is available in the [`examples`](./examples/basic.js) folder.
@@ -187,6 +193,9 @@ const configue = new Configue(configueOptions);
 The files key can contain a single object or an array of objects containing a `file` key containing the path to the config file.
 The object can also reference a nconf plugin tasked with the formatting using the key `format`.
 
+Starting from 1.0 the formater to use can be automaticaly deduced for standard files. Supported extensions are
+`json`, `yaml`/`yml` but also `properties`/`ini` and `json5` In that case you just need to specify the name of the file.
+
 ```js
 const Configue = require('configue');
 
@@ -197,7 +206,8 @@ const configueOptions = {
         {
             file: './config.yaml',
             format: require('nconf-yaml')
-        }
+        },
+        'my-own.propeties'
     ]
 };
 

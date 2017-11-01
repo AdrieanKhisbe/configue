@@ -16,4 +16,4 @@ module.exports = {
         format: require('nconf-yaml')
     }],
     defaults: {salute: 'hey', who: 'you', times: 1}
-}
+};
