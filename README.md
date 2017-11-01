@@ -267,11 +267,10 @@ To do this, you need to register the plugin. It takes care to resolve the config
 const Hapi = require('hapi');
 const Configue = require('configue');
 
+const configue = new Configue({some: 'complex config with a model connexion'});
+
 const server = new Hapi.Server();
-server.connection({port: 3000});
-
-const configue = new Configue({some: 'config'});
-
+server.connection(configue._.connexion); // note usage of the model connexion with port in it.
 server.register({register: configue.plugin()}, (err) => {
       // starting the server or else
        

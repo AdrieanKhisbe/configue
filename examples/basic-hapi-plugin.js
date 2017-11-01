@@ -3,10 +3,10 @@
 const Hapi = require('hapi');
 const Configue = require('configue');
 
-const server = new Hapi.Server();
-server.connection({port: 3000});
+const configue = new Configue({models: {connexion: {port: 'PORT'}}}); //TODO 3000 default
 
-const configue = new Configue();
+const server = new Hapi.Server();
+server.connection(configue._.connexion);
 
 server.register({register: configue.plugin()}, (err) => {
     if (err) return console.log('Error loading plugins');
@@ -15,7 +15,8 @@ server.register({register: configue.plugin()}, (err) => {
 
     server.route({
         method: 'GET', path: '/', handler: function (request, reply) {
-            reply('Hello ' + who);
+            const salute = request.configue('salute', 'hello');
+            reply(`${salute} ${who}`);
         }
     });
 
