@@ -38,7 +38,7 @@ Here are the standard steps [Configue] does define:
 
 The plugin loads the various configurations in order using _predefined steps_.
 
-It starts by parsing argv then goes through the env and the files options
+It starts by parsing *argv* then goes through the *env* and the files options
 and finishes by loading the default config objects if any.
 
 Hence why every option defined as an argument commandline will override defaults
@@ -46,46 +46,31 @@ and environment variables.
 
 ## Installation
 
-Just add `configue` has a dependency installing it with npm.
+Just add `configue` has a dependency installing it with npm, or with yarn.
 
     npm install --save configue
+    
+    yarn add configue
 
 ## Usage
 
 ### How To
 
 To use _Configue_ you need first to create an instance passing the option to the `Configue(opts)`
-constructor.
-Once done, you'll first need to `resolve` the config, to ensure all values are loaded in the store.
-The function takes a callback that is fired when the config is loaded
+constructor. Resolving of the config is now done synchronously and automaticly unless you specify
+the `defer: true` option. In case of an error it will throw an Error.
 
 See the following examples for concrete presentation.
 
 ### Basic usage without customization
-
-#### With Callback
+#### Basic Configue
 ```js
 const Configue = require('configue');
-const configue = Configue()
+const configue = new Configue()
 
-configue.resolve((err) => {
-    if (err) return console.error('Something bad happened\n%j', err);
+const who = configue.get('who', 'World');
+console.log('Hello ' + who);
 
-    const who = configue.get('who', 'World');
-    console.log('Hello ' + who);
-});
-```
-#### WithPromises
-```js
-const Configue = require('configue');
-const configue = Configue()
-
-configue.resolve()
-    .then(() => {
-        const who = configue.get('who', 'World');
-        console.log('I know that "who" is ' + who);
-        })
-    .catch((err) => console.error('Something bad happened\n%j', err))
 ```
 
 #### Passing By Options
@@ -101,7 +86,10 @@ who=Human node basic.js
 
 The full example is available in the [`examples`](./examples/basic.js) folder.
 
-#### Retrieving values
+### Retrieving values
+You can retrieve values from the store in different manner, `get` is the most simplee one
+
+#### Simple `get`
 
 To retrieve a configue value, use the `get` method on the config holder.
 It takes has argument the key of the argument. For nested value you need to
@@ -113,7 +101,61 @@ configue.get('defined4sure')
 configue.get('some:nested:value')
 configue.get('mightBeUndefined', 'default')
 ```
-You can also retrieve a list of value with `getAll`, or the first non undefined value from a list with `getFirst
+
+You can also retrieve a list of value with `getAll`, or the first non undefined value from a list with `getFirst`
+
+```js
+configue.getAll('defined4sure', 'some:nested:value')
+configue.getAll(['defined4sure', 'some:nested:value'])
+
+configue.getFirst('defined4sure', 'some:nested:value')
+configue.getFirst(['defined4sure', 'some:nested:value'], optionalDefaultValue)
+```
+
+#### Retrieving Specified Object
+
+When you can to retrieve several values in the same time you can forge object so that they have structure you need.
+
+##### Load and getObject for ponctual retrieval
+The two main methods are `load` and `getObject`
+- `load` by default return the whole merged config as an object. But you can give him a model that would be used 
+  to craft an object. The model is a object whose leaves are configue keys, or array of configue key:
+    ex: `{serverConfig: {host: 'app:server:host', port: 'PORT'}, ...}`
+- `getObject` that takes a list of key, and return an object formed by key / values
+
+```js
+const {serverConfig} = configue.load({serverConfig: {host: 'app:server:host', port: 'PORT'}, extraOptions: "..."});
+
+const {file, prefix} = configue.getObject('file', 'prefix');
+```
+##### *Models* for frequent usage
+There are case where the forged object are to be used several times, and you dont want to query them over and over.
+To do that you can predefined *models* in the configuration. These would be populated once during automatic resolved,
+and they would be made accessible under the `_` key.
+
+```js
+const configue = new Configue({models: {
+    serverConfig: {host: 'app:server:host', port: 'PORT'},
+    otherModel:{a:'a', b:'...'}}});
+//...
+console.log(configue._.serverConfig) // => host: ..., port: ...
+```
+
+#### Template string
+One last way you can get config value is via the `configue.template` (aliased to `configue.t`).
+This is a template function you can prefix a template string. The interpolated values will be keys of the
+configue and then remplaced by their value:
+
+```js
+console.log(configue.t`I will say ${'salute'} to ${'who'}`); 
+// => I will say Hello to You     
+// (supposing called with --salute=Hello --who=You)
+```
+You can defined default values by passing a default object to the `template` method:
+```js
+console.log(configue.t({times: 2, who: 'World'})`I will say ${'salute'} to ${'who'} ${'times'} times`); 
+// => I will say Hello to You 2 times
+```
 
 ### Usage with customization of the configuration workflow
 
@@ -137,10 +179,7 @@ const configueOptions = {
 
 };
 
-const configue = Configue(configueOptions)
-configue.resolve((err) => {
-    // Your code here
-});
+const configue = new Configue(configueOptions);
 ```
 
 #### Specifying Files
@@ -162,10 +201,7 @@ const configueOptions = {
     ]
 };
 
-const configue = Configue(configueOptions)
-configue.resolve((err) => {
-    // Your code here
-});
+const configue = new Configue(configueOptions);
 ````
 
 Note that if only one file is needed, its path can be directly given as options.
@@ -175,7 +211,7 @@ Note that if only one file is needed, its path can be directly given as options.
 The argv and env steps can be skipped using the `disable` object in `options`.
 
 ```js
-const configue = Configue({ disable: { argv: true }});
+const configue = new Configue({ disable: { argv: true }});
 // ...
 ```
 
@@ -190,7 +226,7 @@ function that take `nconf` and a callback as parameters.
 The special hooks `first` enables you to respectively apply a function on nconf at the very beginning.
 
 ```js
-const configue = Configue({
+const configue = new Configue({
         postHooks: {
             first: function first(nconf, done){
                 // Your code here
@@ -217,7 +253,7 @@ const configueOptions = { customWorkflow: function(nconf, done){
   // my own config setting
 }};
 
-const configue = Configue(configueOptions)
+const configue = new Configue(configueOptions);
 ```
 
 ### Loading into Hapi
@@ -234,7 +270,7 @@ const Configue = require('configue');
 const server = new Hapi.Server();
 server.connection({port: 3000});
 
-const configue = Configue({some: 'config'})
+const configue = new Configue({some: 'config'});
 
 server.register({register: configue.plugin()}, (err) => {
       // starting the server or else
@@ -243,7 +279,7 @@ server.register({register: configue.plugin()}, (err) => {
       const config = server.configue('some'); // => 'config'
       const configGet = server.configue.get('some'); // => 'config'
       const configGetAll = server.configue.getAll('some', 'undefined'); // => ['config', undefined]
-      const configGetFirst = server.configue.getFirst('get', 'some'); // => 'config'
+      const configGetFirst = server.configue.getFirst('get', 'some', 'not', 'undefined'); // => 'config'
       // ...
 })
 ```
