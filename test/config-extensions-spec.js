@@ -37,7 +37,7 @@ describe('Hapi plugin', () => {
             });
         });
 
-        it('take care to do the resolve', (done) => {
+        it('take care to do the resolve if needed', (done) => {
             const server = new Hapi.Server();
             server.connection();
 
@@ -136,6 +136,39 @@ describe('Hapi plugin', () => {
                 });
                 server.inject('/');
             });
+        });
+    });
+
+});
+
+describe('Express MiddleWare', () => {
+    it('expose configue handler', (done) => {
+        const configue = new Configue({defaults: {r: 2, d: 2}});
+        const middleware = configue.middleware();
+
+        const req = {}, res = {};
+        middleware(req, res, () => {
+            expect(res).to.equal({});
+            expect(req.configue).to.be.a.function();
+            expect(req.configue.get).to.be.a.function();
+            expect(req.configue.t).to.be.a.function();
+            expect(req.configue('r')).to.equal(2);
+            done();
+        });
+    });
+
+    it('expose configue handler with a custom name', (done) => {
+        const configue = new Configue({defaults: {r: 2, d: 2}});
+        const middleware = configue.middleware('conf');
+
+        const req = {}, res = {};
+        middleware(req, res, () => {
+            expect(res).to.equal({});
+            expect(req.conf).to.be.a.function();
+            expect(req.conf.get).to.be.a.function();
+            expect(req.conf.t).to.be.a.function();
+            expect(req.conf('r')).to.equal(2);
+            done();
         });
     });
 
