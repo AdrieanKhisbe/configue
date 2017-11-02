@@ -186,7 +186,7 @@ describe('Configue Core', () => {
 
     describe('Options', () => {
         it('argv are forwarded to nconf', (done) => {
-            const configue = Configue({argv: {'key': {default: 'some-value'}}});
+            const configue = Configue({argv: {key: {default: 'some-value'}}});
             expect(configue.get('key')).to.equal('some-value');
             done();
         });
