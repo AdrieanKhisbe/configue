@@ -27,7 +27,7 @@
     "joi": "^12.0.0",
     "json5": "^0.5.1",
     "lodash": "^4.2.0",
-    "nconf": "^0.8.3",
+    "nconf": "https://github.com/indexzero/nconf.git",
     "nconf-properties": "^0.2.3"
   },
   "devDependencies": {
