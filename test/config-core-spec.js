@@ -265,7 +265,6 @@ describe('Configue Core', () => {
 
     });
 
-
     describe('Post Hooks', () => {
 
         it('enable to insert hook', (done) => {
@@ -343,4 +342,19 @@ describe('Configue Core', () => {
 
     });
 
+
+  describe('Predefined Models', () => {
+    it('can be simply defined', (done) => {
+      const configue = new Configue({
+        defaults: {A: {a: 1, b: 2}, B: 42},
+        models: {
+          universe: c => ({a: c('A:a'), b: c.t`the answer is ${'B'}`}),
+          simple: {a: 'A:a', b: ['B:b', 'A:b']}
+        }
+      });
+      expect(configue._.simple).to.equal({a: 1, b:2});
+      expect(configue._.universe).to.equal({a:1, b: 'the answer is 42'});
+      done();
+    });
+  });
 });
