@@ -197,11 +197,28 @@ describe('Configue Core', () => {
             done();
         });
 
-        it('env config are forwarded to nconf', (done) => {
+        it('env config are forwarded to nconf if whitelist', (done) => {
             const configue = Configue({env: ['PWD']});
             expect(configue.get('HOME')).to.be.undefined();
             done();
         });
+
+        it('env config are forwarded to nconf if separator', (done) => {
+            process.env.A_B = '42';
+            const configue = Configue({env: '_'});
+            process.env.A_B = undefined;
+            expect(configue.get('A:B')).to.be.equal('42');
+            done();
+        });
+
+        it('env config are forwarded to nconf if object', (done) => {
+            process.env.A_B = '42';
+            const configue = Configue({env: {separator: '_'}});
+            process.env.A_B = undefined;
+            expect(configue.get('A:B')).to.be.equal('42');
+            done();
+        });
+
         it('required keys are enforced by nconf', (done) => {
             try {
                 const configue = Configue.defaults({A: 1}).required(['A', 'B']).get();
@@ -218,6 +235,17 @@ describe('Configue Core', () => {
             } catch (err) {
                 done(new Error('Error should not be triggered'));
             }
+        });
+
+        it('parse and transform are activated', (done) => {
+            process.argv.push('--one=2');
+            process.env.universe = '42';
+            const configue = Configue.parse(true).get();
+            process.argv.pop();
+            process.env.universe = undefined;
+            expect(configue.get('one')).to.equal(2);
+            expect(configue.get('universe')).to.equal(42);
+            done();
         });
 
         it('parse and transform are activated', (done) => {
