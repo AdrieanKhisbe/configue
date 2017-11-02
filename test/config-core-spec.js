@@ -8,6 +8,7 @@ const lab = exports.lab = Lab.script();
 const {describe, it} = lab;
 
 const Configue = require('../');
+const Yargs = require('yargs');
 
 const JSON_CONF_FILE = path.join(__dirname, 'data/config.json');
 const JSON5_CONF_FILE = path.join(__dirname, 'data/config.json5');
@@ -190,6 +191,11 @@ describe('Configue Core', () => {
             expect(configue.get('key')).to.equal('some-value');
             done();
         });
+        it('argv can be a yargs instance', (done) => {
+            const configue = Configue({argv: Yargs(process.argv.slice(2)).defaults('toto', 'titi')});
+            expect(configue.get('toto')).to.equal('titi');
+            done();
+        });
 
         it('env config are forwarded to nconf', (done) => {
             const configue = Configue({env: ['PWD']});
@@ -212,6 +218,16 @@ describe('Configue Core', () => {
             } catch (err) {
                 done(new Error('Error should not be triggered'));
             }
+        });
+
+        it('parse and transform are activated', (done) => {
+            process.argv.push('--one=2');
+            const configue = Configue.parse(true)
+                .transform(({key,value}) => ({key, value: `this is ${value + 2}`}))
+                .get();
+            process.argv.pop();
+            expect(configue.get('one')).to.equal('this is 4');
+            done();
         });
     });
 
