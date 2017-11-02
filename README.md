@@ -3,7 +3,6 @@
 > ***CONFIGUE ALL THE THINGS \o/***
 
 [![npm version][npm-badge]][npm-url]
-[![experimental][experimental-badge]][experimental-url]
 [![Build Status][travis-badge]][travis-url]
 [![Coverage Status][coverage-badge]][coverage-url]
 [![Code Climate][codeclimate-badge]][codeclimate-url]
@@ -353,8 +352,6 @@ and `firstHook`, `overridesHook`, `argvHook`, `envHook`, `filesHook`, `defaultsH
 [travis-url]: https://travis-ci.org/AdrieanKhisbe/configue
 [david-badge]: https://david-dm.org/AdrieanKhisbe/configue.svg
 [david-url]: https://david-dm.org/AdrieanKhisbe/configue
-[experimental-badge]: https://img.shields.io/badge/stability-experimental-DD5F0A.svg
-[experimental-url]: https://nodejs.org/api/documentation.html#documentation_stability_index
 [codeclimate-badge]: https://codeclimate.com/github/AdrieanKhisbe/configue/badges/gpa.svg
 [codeclimate-url]: https://codeclimate.com/github/AdrieanKhisbe/configue
 [coverage-badge]: https://codeclimate.com/github/AdrieanKhisbe/configue/badges/coverage.svg
