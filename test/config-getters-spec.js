@@ -112,7 +112,6 @@ describe('Configue Getters', () => {
         it('simple load', (done) => {
             const configue = Configue({defaults: {A: '2', B: 42}});
 
-
             const config = configue.load();
             expect(config.A).to.equal('2');
             expect(config.B).to.equal(42);
@@ -123,7 +122,6 @@ describe('Configue Getters', () => {
         it('load with simple model', (done) => {
             const configue = Configue({defaults: {A: '2', B: 42}});
 
-
             const config = configue.load({a: 'A', b: 'B'});
             expect(config).to.equal({a: '2', b: 42});
 
@@ -133,19 +131,26 @@ describe('Configue Getters', () => {
         it('load with complex model', (done) => {
             const configue = Configue({defaults: {A: {a: 1, b: 2}, B: 42}});
 
-
             const config = configue.load({a: 'A:a', b: {b: 'B'}});
             expect(config).to.equal({a: 1, b: {b: 42}});
 
             done();
         });
 
-        it('load with complex model and default values', (done) => {
+        it('load with complex model and multiple values', (done) => {
             const configue = Configue({defaults: {A: {a: 1, b: 2}, B: 42}});
-
 
             const config = configue.load({a: ['a:a', 'A:a'], b: {b: ['B', 'A']}});
             expect(config).to.equal({a: 1, b: {b: 42}});
+
+            done();
+        });
+
+        it('load with complex model and multiple values', (done) => {
+            const configue = Configue({defaults: {A: {a: 1, b: 2}, B: 42}});
+
+            const config = configue.load(c => ({a: c('A:a'), b: c.t`answer is ${'B'}`}));
+            expect(config).to.equal({a: 1, b: 'answer is 42'});
 
             done();
         });
