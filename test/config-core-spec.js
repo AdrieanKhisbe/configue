@@ -163,6 +163,7 @@ describe('Configue Core', () => {
         });
 
     });
+
     describe('Overrides', () => {
         it('can be defined', (done) => {
             const configue = Configue({overrides: {one: 1}});
@@ -237,7 +238,7 @@ describe('Configue Core', () => {
             }
         });
 
-        it('parse and transform are activated', (done) => {
+        it('parse is activated', (done) => {
             process.argv.push('--one=2');
             process.env.universe = '42';
             const configue = Configue.parse(true).get();
@@ -386,6 +387,27 @@ describe('Configue Core', () => {
 
     });
 
+    describe('Argv', () => {
+        it('can be directly accessed from the configue', (done) => {
+            process.argv.push('--one=two');
+            const configue = Configue.get();
+            process.argv.pop();
+            expect(configue.argv.one).to.equal('two');
+            done();
+        });
+
+        it('cannot be directly accessed if custom workflow is used', (done) => {
+            const configue = new Configue({customWorkflow: nconf => nconf.set('workflow', 'custom')});
+            expect(configue.argv).to.be.undefined();
+            done();
+        });
+
+        it('can be directly accessed if custom workflow set a _yargs', (done) => {
+            const configue = new Configue({customWorkflow: nconf => nconf._yargs = {argv: 'stub'}});
+            expect(configue.argv).to.equal('stub');
+            done();
+        });
+    });
 
   describe('Predefined Models', () => {
     it('can be simply defined', (done) => {
