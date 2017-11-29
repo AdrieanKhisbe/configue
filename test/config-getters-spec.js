@@ -7,8 +7,37 @@ const lab = exports.lab = Lab.script();
 const {describe, it} = lab;
 
 const Configue = require('../');
+const {formatKey} = require('../lib/configue-getters');
 
 describe('Configue Getters', () => {
+
+    describe('FormatKey', () => {
+
+        it('does nothing for normal keys', (done) => {
+            expect(formatKey('toto')).to.equal('toto');
+            expect(formatKey('titi-toto')).to.equal('titi-toto');
+            done();
+        });
+
+        it('does nothing for nconf keys with ":"', (done) => {
+            expect(formatKey('toto:titi')).to.equal('toto:titi');
+            expect(formatKey('titi:toto')).to.equal('titi:toto');
+            done();
+        });
+
+        it('transform keys with dot in them', (done) => {
+            expect(formatKey('toto.titi')).to.equal('toto:titi');
+            expect(formatKey('titi.toto')).to.equal('titi:toto');
+            done();
+        });
+
+        it('transform keys passed in an array', (done) => {
+            expect(formatKey(['toto','titi'])).to.equal('toto:titi');
+            expect(formatKey(['titi','toto'])).to.equal('titi:toto');
+            done();
+        });
+
+    });
 
     describe('Getter', () => {
 
