@@ -22,11 +22,35 @@ describe('Configue Getters', () => {
 
         });
 
+        it('get value', (done) => {
+            const configue = Configue({defaults: {A: '2', B: 42}});
+
+            // NOTE: code is interpreted from command line: -a !! (-a code, param of lab)
+            expect(configue.get('A')).to.equal('2');
+            expect(configue.get('B')).to.equal(42);
+            done();
+
+        });
+
         it('get nested value', (done) => {
             const configue = Configue({defaults: {root: {a: '2', b: 42}}});
             expect(configue.get('root')).to.equal({a: '2', b: 42});
             expect(configue.get('root:a')).to.equal('2');
             expect(configue.get('root:b')).to.equal(42);
+            done();
+        });
+
+        it('get nested value with array', (done) => {
+            const configue = Configue({defaults: {root: {a: '2', b: 42}}});
+            expect(configue.get(['root', 'a'])).to.equal('2');
+            expect(configue.get(['root', 'b'])).to.equal(42);
+            done();
+        });
+
+        it('get nested value with dot', (done) => {
+            const configue = Configue({defaults: {root: {a: '2', b: 42}}});
+            expect(configue.get('root.a')).to.equal('2');
+            expect(configue.get('root.b')).to.equal(42);
             done();
         });
 
