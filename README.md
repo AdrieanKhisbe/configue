@@ -162,6 +162,16 @@ console.log(configue.t({times: 2, who: 'World'})`I will say ${'salute'} to ${'wh
 // => I will say Hello to You 2 times
 ```
 
+#### Argv / Env direct access
+For ease of the the `argv` and `env` can be directly accessible from the *configue* instance:
+
+```js
+console.log(configue.argv.host)
+console.log(configue.env.HOME);
+```
+
+Note that values are neither parsed nor transformed.
+
 ### Usage with customization of the configuration workflow
 
 #### Passing options to nconf
@@ -264,6 +274,9 @@ const configueOptions = { customWorkflow: function(nconf, done){
 
 const configue = new Configue(configueOptions);
 ```
+
+If you use a `yargs` instance, you can assign it to `nconf._yargs` so that `argv`
+is directly accessible from `configue.argv
 
 ### Loading into Hapi
 

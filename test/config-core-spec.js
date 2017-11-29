@@ -387,8 +387,8 @@ describe('Configue Core', () => {
 
     });
 
-    describe('Argv', () => {
-        it('can be directly accessed from the configue', (done) => {
+    describe('Argv and Env direct access', () => {
+        it('argv can be directly accessed from the configue', (done) => {
             process.argv.push('--one=two');
             const configue = Configue.get();
             process.argv.pop();
@@ -396,17 +396,26 @@ describe('Configue Core', () => {
             done();
         });
 
-        it('cannot be directly accessed if custom workflow is used', (done) => {
+        it('argv cannot be directly accessed if custom workflow is used', (done) => {
             const configue = new Configue({customWorkflow: nconf => nconf.set('workflow', 'custom')});
             expect(configue.argv).to.be.undefined();
             done();
         });
 
-        it('can be directly accessed if custom workflow set a _yargs', (done) => {
+        it('argv can be directly accessed if custom workflow set a _yargs', (done) => {
             const configue = new Configue({customWorkflow: nconf => nconf._yargs = {argv: 'stub'}});
             expect(configue.argv).to.equal('stub');
             done();
         });
+
+        it('env can be directly accessed', (done) => {
+            process.env.universe = '42';
+            const configue = new Configue();
+            expect(configue.env.universe).to.equal('42');
+            process.env.universe = undefined;
+            done();
+        });
+
     });
 
   describe('Predefined Models', () => {
