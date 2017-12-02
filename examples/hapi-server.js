@@ -3,7 +3,11 @@
 const Hapi = require('hapi');
 const Configue = require('configue');
 
-const configue = new Configue({models: {connexion: {port: 'PORT'}}});
+const configue = new Configue({
+    models: {connexion: {port: 'port'}},
+    normalize: 'camelCase',
+    defaults: {host: 'localhost', port: 3000}
+});
 
 const server = new Hapi.Server();
 server.connection(configue._.connexion);

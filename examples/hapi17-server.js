@@ -1,7 +1,7 @@
 'use strict';
 
 const Hapi = require('hapi');
-const Configue = require('..');
+const Configue = require('configue');
 
 const configue = new Configue({
     models: {serverOptions: {host: 'host', port: 'port'}},
@@ -21,7 +21,7 @@ server.route({
 
 const start = async () => {
     try {
-        await server.register(configue.plugin().new);
+        await server.register(configue.plugin17());
         await server.start();
     }
     catch (err) {
