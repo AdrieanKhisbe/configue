@@ -1,6 +1,6 @@
 {
   "name": "configue",
-  "version": "0.16.0",
+  "version": "1.0.0-beta",
   "engines": {
     "node": ">=6.0.0"
   },
