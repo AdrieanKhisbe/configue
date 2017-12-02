@@ -61,7 +61,7 @@ Just add `configue` has a dependency installing it with npm, or with yarn.
 ### How To
 
 To use _Configue_ you need first to create an instance passing the option to the `Configue(opts)`
-constructor. Resolving of the config is now done synchronously and automaticly unless you specify
+constructor. Resolving of the config is now done synchronously and automatically unless you specify
 the `defer: true` option. In case of an error it will throw an Error.
 
 See the following examples for concrete presentation.
@@ -96,7 +96,7 @@ You can retrieve values from the store in different manner, `get` is the most si
 
 #### Simple `get`
 
-To retrieve a configue value, use the `get` method on the config holder.
+To retrieve a *configue* value, use the `get` method on the config holder.
 It takes has argument the key of the argument. For nested value you need to
 use `:` to deep access to value.
 It's also possible to specify a default value in case key is `undefined`.
@@ -149,7 +149,7 @@ console.log(configue._.serverConfig) // => host: ..., port: ...
 #### Template string
 One last way you can get config value is via the `configue.template` (aliased to `configue.t`).
 This is a template function you can prefix a template string. The interpolated values will be keys of the
-configue and then remplaced by their value:
+*configue* and then replaced by their value:
 
 ```js
 console.log(configue.t`I will say ${'salute'} to ${'who'}`); 
@@ -177,9 +177,9 @@ Note that values are neither parsed nor transformed.
 #### Specifying Files
 
 The files key can contain a single object or an array of objects containing a `file` key containing the path to the config file.
-The object can also reference a nconf plugin tasked with the formatting using the key `format`.
+The object can also reference a *nconf* plugin tasked with the formatting using the key `format`.
 
-Starting from 1.0 the formater to use can be automaticaly deduced for standard files. Supported extensions are
+Starting from 1.0 the formatter to use can be automatically deduced for standard files. Supported extensions are
 `json`, `yaml`/`yml` but also `properties`/`ini` and `json5` In that case you just need to specify the name of the file.
 
 ```js
@@ -234,7 +234,7 @@ which is convenient to pass simple json from the command line.
 
 Also a `normalize` option enables you to make the variable names uniform with the same case, while using the idiomatic
 case for the argv flag name and env variable. (for instance `--my-var` and `MY_VAR`).
-This option accept as config the name of case function of lodash, the most usefull behing `camelCase` which will
+This option accept as config the name of case function of lodash, the most useful being `camelCase` which will
 transform our both variable into `myVar` as we would like name the javascript variable.
 (other options are `kebabCase`, `startCase`, `snakeCase`,`upperCase`, `lowerCase`)
 
@@ -297,8 +297,8 @@ is directly accessible from `configue.argv
 
 ### Loading into Hapi
 
-Thought _Configue_ is usable without hapi, (it was originally just a _Hapi_ plugin),
-it can be easily loaded in hapi to have the _configue_ being easily accessible from
+Thought _Configue_ is usable without hapi`, (it was originally just a _Hapi_ plugin),
+it can be easily loaded in `hapi` to have the _configue_ being easily accessible from
 the server, or the request.
 
 To do this, you need to register the plugin. It takes care to resolve the config if
@@ -325,17 +325,17 @@ A more complete example is available in [`examples`](examples/hapi-server.js) fo
 
 Note it's possible to provide to `configue.plugin()` a `decorateName` so that you use a custom accessor on `server` or `request`.
 
-**Warning**: the original plugin is made for the pre 17 version of hapi. If you are using hapi17 or beyond,
+**Warning**: the original plugin is made for the pre 17 version of `. If you are using hapi17 or beyond,
 please retrive the plugin with the `plugin17()` method as you can see in the [example server](examples/hapi17-server.js).
 
 ### Loading into express
 Configue can also be loaded into `express` via it's middleware you can obtain by `configue.middleware()` you just have
-to feed to app.use()`
+to feed to `app.use()`
 
 A example is available in the [`examples`](examples/express-server.js) folder.
 
 ## Configuration Recap
-Configue can be configured into two different way. Either using a config object or using a fluent builder.
+Configue can be configured in two different way. Either using a config object or using a fluent builder.
 
 ### Configuration Object
 Here is a recap of how the configuration should look like. All options are optional:
