@@ -299,9 +299,10 @@ is directly accessible from `configue.argv
 
 Thought _Configue_ is usable without hapi, (it was originally just a _Hapi_ plugin),
 it can be easily loaded in hapi to have the _configue_ being easily accessible from
-the server, or on the request.
+the server, or the request.
 
-To do this, you need to register the plugin. It takes care to resolve the config.
+To do this, you need to register the plugin. It takes care to resolve the config if
+was not done due to defer.
 ```js
 const Hapi = require('hapi');
 const Configue = require('configue');
@@ -323,6 +324,9 @@ server.register({register: configue.plugin()}, (err) => {
 A more complete example is available in [`examples`](examples/hapi-server.js) folder.
 
 Note it's possible to provide to `configue.plugin()` a `decorateName` so that you use a custom accessor on `server` or `request`.
+
+**Warning**: the original plugin is made for the pre 17 version of hapi. If you are using hapi17 or beyond,
+please retrive the plugin with the `plugin17()` method as you can see in the [example server](examples/hapi17-server.js).
 
 ### Loading into express
 Configue can also be loaded into `express` via it's middleware you can obtain by `configue.middleware()` you just have
