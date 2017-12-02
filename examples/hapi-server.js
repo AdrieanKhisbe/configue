@@ -3,7 +3,7 @@
 const Hapi = require('hapi');
 const Configue = require('configue');
 
-const configue = new Configue({models: {connexion: {port: 'PORT'}}}); //TODO 3000 default
+const configue = new Configue({models: {connexion: {port: 'PORT'}}});
 
 const server = new Hapi.Server();
 server.connection(configue._.connexion);
