@@ -138,7 +138,25 @@ describe('Hapi plugin', () => {
             });
         });
     });
-
+    describe('Hapi17', () => {
+        it('can be (fakely) regiistered ', (done) => {
+            const configue = new Configue();
+            const server = {log(){}, decorate(type){ expect(type).to.match(/server|request/)}};
+            configue.plugin17().register(server);
+            done();
+        });
+        it('handle failure in the resolve', (done) => {
+            const configue = Configue({defer: true, customWorkflow: nconf => {throw new Error('init failed');}});
+            const server = {};
+            try {
+                configue.plugin17().register(server);
+                done(new Error('exception was not triggered'));
+            } catch(err) {
+                expect(err.message).to.equal('init failed');
+                done();
+            }
+        });
+    });
 });
 
 describe('Express MiddleWare', () => {
