@@ -92,7 +92,7 @@ node basic.js --configue=my-who-conf.json
 The full example is available in the [`examples`](./examples/basic.js) folder.
 
 ### Retrieving values
-You can retrieve values from the store in different manner, `get` is the most simplee one
+You can retrieve values from the store in different manner, `get` is the most simple one
 
 #### Simple `get`
 
@@ -174,28 +174,6 @@ Note that values are neither parsed nor transformed.
 
 ### Usage with customization of the configuration workflow
 
-#### Passing options to nconf
-You can provide options arguments to `argv` (`yargs`underneath), and `env` in order to customize the behavior 
-around command line argument and environment variables.
-For more in depth readings see nconf options [here][nconf-options-argv-env]
-
-```js
-const Configue = require('configue');
-
-const configueOptions = {
-    argv: { f: {
-                 alias: 'file',
-                 demandOption: true,
-                 default: '/etc/passwd',
-                 describe: 'x marks the spot',
-                 type: 'string'
-                 }},
-    env: ["HOME", "PWD"] // whitelist
-
-};
-
-const configue = new Configue(configueOptions);
-```
 
 #### Specifying Files
 
@@ -224,6 +202,29 @@ const configue = new Configue(configueOptions);
 ````
 
 Note that if only one file is needed, its path can be directly given as options.
+
+#### Passing options to nconf to configure argv and env
+You can provide options arguments to `argv` (`yargs`underneath), and `env` in order to customize the behavior 
+around command line argument and environment variables.
+For more in depth readings see nconf options [here][nconf-options-argv-env]
+
+```js
+const Configue = require('configue');
+
+const configueOptions = {
+    argv: { f: {
+                 alias: 'file',
+                 demandOption: true,
+                 default: '/etc/passwd',
+                 describe: 'x marks the spot',
+                 type: 'string'
+                 }},
+    env: ["HOME", "PWD"] // whitelist
+
+};
+
+const configue = new Configue(configueOptions);
+```
 
 #### Disabling Steps
 
