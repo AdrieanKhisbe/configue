@@ -216,7 +216,7 @@ const configueOptions = {
             file: './config.yaml',
             format: require('nconf-yaml')
         },
-        'my-own.propeties'
+        'my-own.properties'
     ]
 };
 
