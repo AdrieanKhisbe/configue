@@ -4,26 +4,24 @@ const Hapi = require('hapi');
 const Configue = require('..');
 
 const configue = new Configue({
-    models: {connexion: {port: 'port'}},
+    models: {serverOptions: {host: 'host', port: 'port'}},
     normalize: 'camelCase',
-    defaults: {port: 3000}
+    defaults: {host: 'localhost', port: 3000}
 });
 
-const server = new Hapi.Server();
-server.connection(configue._.connexion);
+const server = new Hapi.Server(configue._.serverOptions);
 
 server.route({
-    method: 'GET', path: '/', handler: function (request, reply) {
+    method: 'GET', path: '/', handler(request) {
         const who = server.configue('who', 'World');
         const salute = request.configue('salute', 'hello');
-        reply(`${salute} ${who}`);
+        return `${salute} ${who}`;
     }
 });
 
 const start = async () => {
-
     try {
-        await server.register(configue.plugin.new());
+        await server.register(configue.plugin().new);
         await server.start();
     }
     catch (err) {
@@ -31,7 +29,7 @@ const start = async () => {
         process.exit(1);
     }
     console.log(`Server running at: ${server.info.uri}`);
-    console.log(`With "who" as ${who}`);
+    console.log(configue.t`With "who" as ${'who'}`);
 };
 
 start();
