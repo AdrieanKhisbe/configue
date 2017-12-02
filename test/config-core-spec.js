@@ -260,6 +260,48 @@ describe('Configue Core', () => {
         });
     });
 
+    describe('normalize', () => {
+
+        it('invalid case are rejected', (done) => {
+           try {
+             const configue = Configue.normalize('wtfCase').get();
+             done(new Error('Exception not triggered'));
+           } catch (err) {
+               expect(err.message).to.match(/"normalize" is not allowed/);
+               done();
+           }
+        });
+
+        it('works well for argv and env with camelCase', (done) => {
+            process.argv.push('--one-two=douze');
+            process.env.FOUR_TWO = '42';
+            const configue = Configue.normalize('camelCase').get();
+            process.argv.pop();
+            process.env.FOUR_TWO = undefined;
+
+            expect(configue.get('oneTwo')).to.equal('douze');
+            expect(configue.get('fourTwo')).to.equal('42');
+            expect(configue.get('one-two')).to.equal(undefined);
+            expect(configue.get('FOUR_TWO')).to.equal(undefined);
+            done();
+        });
+
+        it('works well for argv and env with lowerCase', (done) => {
+            process.argv.push('--one-TWO=douze');
+            process.env.FOUR_TWO = '42';
+            const configue = Configue.normalize('lowerCase').get();
+            process.argv.pop();
+            process.env.FOUR_TWO = undefined;
+
+            expect(configue.get('one two')).to.equal('douze');
+            expect(configue.get('four two')).to.equal('42');
+            expect(configue.get('one-two')).to.equal(undefined);
+            expect(configue.get('FOUR_TWO')).to.equal(undefined);
+            done();
+        });
+
+    });
+
     describe('Configue file', () => {
         it('can be specified in arguments', (done) => {
             process.argv.push('--configue=test/data/config.json');
