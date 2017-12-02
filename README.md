@@ -174,7 +174,6 @@ Note that values are neither parsed nor transformed.
 
 ### Usage with customization of the configuration workflow
 
-
 #### Specifying Files
 
 The files key can contain a single object or an array of objects containing a `file` key containing the path to the config file.
@@ -225,6 +224,23 @@ const configueOptions = {
 
 const configue = new Configue(configueOptions);
 ```
+
+#### Joint options of argv and env to process the values
+It is possible to process the raw values you can get from the `argv` and `env` step, with the **parse**, **normalize**
+and **transform** options.
+
+First you can specify to parse values with the `parse` option. Argv and Env value will be then parse,
+which is convenient to pass simple json from the command line.
+
+Also a `normalize` option enables you to make the variable names uniform with the same case, while using the idiomatic
+case for the argv flag name and env variable. (for instance `--my-var` and `MY_VAR`).
+This option accept as config the name of case function of lodash, the most usefull behing `camelCase` which will
+transform our both variable into `myVar` as we would like name the javascript variable.
+(other options are `kebabCase`, `startCase`, `snakeCase`,`upperCase`, `lowerCase`)
+
+If you have more complex processing of the env/arg variable name or value, you can use the `transform` option,
+which accept a function `({key, value}) => ({key:someKey, value:someValue})` that will be passed to nconf.
+(cf [nconf doc][nconf-transform])
 
 #### Disabling Steps
 
@@ -359,6 +375,7 @@ and `firstHook`, `overridesHook`, `argvHook`, `envHook`, `filesHook`, `defaultsH
 [github-repo]: https://github.com/AdrieanKhisbe/configue
 [nconf]: https://github.com/indexzero/nconf
 [nconf-options-argv-env]: https://github.com/indexzero/nconf#argv
+[nconf-transform]: https://github.com/indexzero/nconf#transform-functionobj
 
 [npm-badge]: https://img.shields.io/npm/v/configue.svg
 [npm-url]: https://npmjs.com/package/configue
