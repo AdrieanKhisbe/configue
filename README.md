@@ -354,8 +354,12 @@ Here is a recap of how the configuration should look like. All options are optio
 - `required`: list of key that are required one way or another
 - `postHooks`: an object of (`step`: function hook)
     step being one of `first`, `overrides`, `argv`, `env`, `files` `defaults`
+- `parse`: boolean to request parsing of argv/env value
+- `transform`: a function to process argv and env values
+- `normalize`: the case name in whoch you want keys to be converted
 
-For more details you can see the `internals.schema` in the `configue.js` file around the line 100
+
+For more details you can see the `internals.schema` in the `configue-core.js` file around the line 60
 
 ### Fluent builder
 
@@ -371,7 +375,7 @@ const configue = Configue.defaults({a: 1})
 ```
 
 Here is the builder function list, the function name being the name of the key in he object config (except the postHooks function):
-`argv`, `customWorkflow`, `defaults`, `overrides`, `disable`, `env`, `files`, `required`
+`argv`, `customWorkflow`, `defaults`, `overrides`, `disable`, `env`, `files`, `required`, `transform`, `parse`, `normalize`
 and `firstHook`, `overridesHook`, `argvHook`, `envHook`, `filesHook`, `defaultsHook`
 
 
