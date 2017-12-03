@@ -10,9 +10,7 @@
 [![NSP Status][nsp-badge]][nsp-url]
 [![bitHound Overalll Score][bithound-badge]][bithound-url]
 
-[Configue] is a node.js Config library to easily customize your app with argv, env, files and more.
-
-It's a wrapper on [nconf] node hierarchical config tool.
+[Configue] is a *node.js* config library to easily customize your app with argv, env, files and more.
 
 It defines a *conventional workflow* to load a config from environment variables,
 command line arguments, files, that you can easily *configure* and *extend*.
@@ -22,7 +20,7 @@ command line arguments, files, that you can easily *configure* and *extend*.
 [Configue] builds up on [nconf] and its
 [Hierarchical configuration](https://github.com/indexzero/nconf#hierarchical-configuration) system.
 
-It defines a list of _configuration step_ that are executed in order.
+It defines a list of _configuration steps_ that are executed in order.
 Every property defined on a steps will shadow the same key in the following steps.
 
 Quoting [nconf]:
