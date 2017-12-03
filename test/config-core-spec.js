@@ -204,19 +204,9 @@ describe('Configue Core', () => {
             done();
         });
 
-        it('env config are forwarded to nconf if separator', (done) => {
-            process.env.A_B = '42';
-            const configue = Configue({env: '_'});
-            process.env.A_B = undefined;
-            expect(configue.get('A:B')).to.be.equal('42');
-            done();
-        });
-
         it('env config are forwarded to nconf if object', (done) => {
-            process.env.A_B = '42';
-            const configue = Configue({env: {separator: '_'}});
-            process.env.A_B = undefined;
-            expect(configue.get('A:B')).to.be.equal('42');
+            const configue = Configue({env: {whitelist: ['HOME']}});
+            expect(configue.get('PWD')).to.be.undefined();
             done();
         });
 
@@ -259,6 +249,35 @@ describe('Configue Core', () => {
             done();
         });
     });
+
+
+    describe('separator', () => {
+        it('can be defined globally for env and argv with a string', (done) => {
+            process.argv.push('--one__two=douze');
+            process.env.four__two = '42';
+            const configue = new Configue({separator: '__'});
+            process.argv.pop();
+            process.env.four__two = undefined;
+
+            expect(configue.get('one:two')).to.equal('douze');
+            expect(configue.get('four:two')).to.equal('42');
+            done();
+        });
+
+        it('can be defined globally for env and argv with a regex', (done) => {
+            process.argv.push('--one--two=douze');
+            process.env.four__two = '42';
+            const configue = new Configue({separator: /--|__/});
+            process.argv.pop();
+            process.env.four__two = undefined;
+
+            expect(configue.get('one:two')).to.equal('douze');
+            expect(configue.get('four:two')).to.equal('42');
+            done();
+        });
+
+    });
+
 
     describe('normalize', () => {
 
