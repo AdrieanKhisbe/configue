@@ -1,4 +1,7 @@
 .travis.yml
 .coverage.sh
+.codeclimate.yml
+.eslintignore
+.eslintrc
 examples
-features
+tmp
