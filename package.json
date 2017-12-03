@@ -6,6 +6,7 @@
   },
   "repository": "https://github.com/AdrieanKhisbe/configue",
   "main": "lib/configue.js",
+  "author": "Adrien Becchis (https://github.com/AdrieanKhisbe)",
   "contributors": [
     "Adrien Becchis (https://github.com/AdrieanKhisbe)",
     "Maxime Lequain (https://github.com/mlequain)"
