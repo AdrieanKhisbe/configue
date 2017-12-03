@@ -225,13 +225,16 @@ const configue = new Configue(configueOptions);
 
 #### Joint options of argv and env to process the values
 It is possible to process the raw values you can get from the `argv` and `env` step, with the **parse**, **separator**
-**normalize** and **transform** options.
+**ignorePrefix**, **normalize** and **transform** options.
 
 First you can specify to parse values with the **`parse`** option. Argv and Env value will be then parse,
 which is convenient to pass simple json from the command line.
 
 A **`separator`** option is there to indicate the token that will be used to split a key and consider it as a nested value.
 This affects both the argv and env step. The value can be either a string, or a regexp suc as `'__'` or `/__|--/`
+
+With **`ignorePrefix`** you can list of prefix for argv and env variable you want to be removed. This is particulary useful
+with environment variables that are prefixed with your app name.
 
 Also a **`normalize`** option enables you to make the variable names uniform with the same case, while using the idiomatic
 case for the argv flag name and env variable. (for instance `--my-var` and `MY_VAR`).
@@ -241,7 +244,7 @@ transform our both variable into `myVar` as we would like name the javascript va
 
 If you have more complex processing of the env/arg variable name or value, you can use the **`transform`** option,
 which accept a function `({key, value}) => ({key:someKey, value:someValue})` that will be passed to nconf. (cf [nconf doc][nconf-transform])
-This is one is not to be used with the `normalize` option.
+This will happen after the ignore prefix, and before the case normalisation.
 
 #### Disabling Steps
 
@@ -355,7 +358,8 @@ Here is a recap of how the configuration should look like. All options are optio
     step being one of `first`, `overrides`, `argv`, `env`, `files` `defaults`
 - `parse`: boolean to request parsing of argv/env value
 - `transform`: a function to process argv and env values
-- `normalize`: the case name in whoch you want keys to be converted
+- `normalize`: the case name in which you want keys to be converted
+- `ignorePrefix`: a prefix or list of them you want to be remove from key name
 
 
 For more details you can see the `internals.schema` in the `configue-core.js` file around the line 60
@@ -368,8 +372,9 @@ This consist in chaining a list of configuration methods before to retrieve the 
 Here is a simple example:
 
 ```js
-const configue = Configue.defaults({a: 1})
-            .env(["HOME"])
+const configue = Configue.defaults({a: 1, b: '2'})
+            .parse(true)
+            .normalize('camelCase')
             .get();
 ```
 
