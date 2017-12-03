@@ -284,6 +284,39 @@ describe('Configue Core', () => {
 
     });
 
+    describe('ignorePrefix', () => {
+       it('works well for a single prefix', (done) => {
+           process.env.MY_SUPER_APP_PORT = '3024';
+           const configue = new Configue({ignorePrefix: 'MY_SUPER_APP_'});
+           process.env.MY_SUPER_APP_PORT = undefined;
+
+           expect(configue.get('PORT')).to.equal('3024');
+           done();
+       }) ;
+
+       it('works well for a multiple prefix', (done) => {
+           process.env.MY_SUPER_APP_PORT = '3024';
+           process.env.MY_APP_HOST = 'localhost';
+           const configue = new Configue({ignorePrefix: ['MY_SUPER_APP_', 'MY_APP_']});
+           process.env.MY_SUPER_APP_PORT = undefined;
+
+           expect(configue.get('PORT')).to.equal('3024');
+           expect(configue.get('HOST')).to.equal('localhost');
+           done();
+       }) ;
+
+       it('works well along with other transformers', (done) => {
+           process.env.MY_APP_PORT = '3024';
+           process.env.MY_APP_HOST = 'localhost';
+           const configue = new Configue({ignorePrefix: 'MY_APP', normalize: 'camelCase'});
+           process.env.MY_SUPER_APP_PORT = undefined;
+
+           expect(configue.get('port')).to.equal('3024');
+           expect(configue.get('host')).to.equal('localhost');
+           done();
+       }) ;
+    });
+
     describe('separator', () => {
         it('can be defined globally for env and argv with a string', (done) => {
             process.argv.push('--one__two=douze');
