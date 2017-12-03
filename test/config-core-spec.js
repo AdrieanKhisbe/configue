@@ -278,7 +278,6 @@ describe('Configue Core', () => {
 
     });
 
-
     describe('normalize', () => {
 
         it('invalid case are rejected', (done) => {
@@ -318,6 +317,19 @@ describe('Configue Core', () => {
             expect(configue.get('FOUR_TWO')).to.equal(undefined);
             done();
         });
+
+        it('works well along with the separator option', (done) => {
+            process.argv.push('--One--Two=douze');
+            process.env.FOUR__TWO = '42';
+            const configue = new Configue({separator: /--|__/, normalize: 'camelCase'});
+            process.argv.pop();
+            process.env.FOUR__TWO = undefined;
+
+            expect(configue.get('one:two')).to.equal('douze');
+            expect(configue.get('four:two')).to.equal('42');
+            done();
+        });
+
 
     });
 
