@@ -321,12 +321,15 @@ describe('Configue Core', () => {
         it('works well along with the separator option', (done) => {
             process.argv.push('--One--Two=douze');
             process.env.FOUR__TWO = '42';
+            process.env.NO_SEP = '__';
             const configue = new Configue({separator: /--|__/, normalize: 'camelCase'});
             process.argv.pop();
             process.env.FOUR__TWO = undefined;
+            process.env.NO_SEP = undefined;
 
             expect(configue.get('one:two')).to.equal('douze');
             expect(configue.get('four:two')).to.equal('42');
+            expect(configue.get('noSep')).to.equal('__');
             done();
         });
 
