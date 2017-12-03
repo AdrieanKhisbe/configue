@@ -226,21 +226,24 @@ const configue = new Configue(configueOptions);
 ```
 
 #### Joint options of argv and env to process the values
-It is possible to process the raw values you can get from the `argv` and `env` step, with the **parse**, **normalize**
-and **transform** options.
+It is possible to process the raw values you can get from the `argv` and `env` step, with the **parse**, **separator**
+**normalize** and **transform** options.
 
-First you can specify to parse values with the `parse` option. Argv and Env value will be then parse,
+First you can specify to parse values with the **`parse`** option. Argv and Env value will be then parse,
 which is convenient to pass simple json from the command line.
 
-Also a `normalize` option enables you to make the variable names uniform with the same case, while using the idiomatic
+A **`separator`** option is there to indicate the token that will be used to split a key and consider it as a nested value.
+This affects both the argv and env step. The value can be either a string, or a regexp suc as `'__'` or `/__|--/`
+
+Also a **`normalize`** option enables you to make the variable names uniform with the same case, while using the idiomatic
 case for the argv flag name and env variable. (for instance `--my-var` and `MY_VAR`).
 This option accept as config the name of case function of lodash, the most useful being `camelCase` which will
 transform our both variable into `myVar` as we would like name the javascript variable.
 (other options are `kebabCase`, `startCase`, `snakeCase`,`upperCase`, `lowerCase`)
 
-If you have more complex processing of the env/arg variable name or value, you can use the `transform` option,
-which accept a function `({key, value}) => ({key:someKey, value:someValue})` that will be passed to nconf.
-(cf [nconf doc][nconf-transform])
+If you have more complex processing of the env/arg variable name or value, you can use the **`transform`** option,
+which accept a function `({key, value}) => ({key:someKey, value:someValue})` that will be passed to nconf. (cf [nconf doc][nconf-transform])
+This is one is not to be used with the `normalize` option.
 
 #### Disabling Steps
 
@@ -343,11 +346,9 @@ Here is a recap of how the configuration should look like. All options are optio
 - `customWorkflow`: a function manipulating the `nconf`. This option is exclusive of all others
 - `argv`: Config object for `yargv`, a map of config key with an object values (`alias`, `demandOption`, `default`,`describe`, `type`)
 - `env`: The options for the `nconf.env` method that can be:
-  - a string: separator for nested keys
   - an array of string, the whitelisted env method
-  - an object with key: `separator`, `match`, `whitelist
-- `disable`: A object with key `argv` and/or `env` attach to a boolean indicated whether the step shouldbe disable. 
-        Default to true.
+  - an object with key: `match`, `whitelist
+- `disable`: A object with key `argv` and/or `env` attach to a boolean indicated whether the step should be disable.
 - `files`: file or list of files. (object `file`, `format`)
 - `defaults`: Object of key mapped to default values. (or array of them)
 - `overrides`: Object of key mapped to overrides values.
@@ -375,7 +376,7 @@ const configue = Configue.defaults({a: 1})
 ```
 
 Here is the builder function list, the function name being the name of the key in he object config (except the postHooks function):
-`argv`, `customWorkflow`, `defaults`, `overrides`, `disable`, `env`, `files`, `required`, `transform`, `parse`, `normalize`
+`argv`, `customWorkflow`, `defaults`, `overrides`, `disable`, `env`, `files`, `required`, `transform`, `parse`, `normalize`, `separator`
 and `firstHook`, `overridesHook`, `argvHook`, `envHook`, `filesHook`, `defaultsHook`
 
 
