@@ -1062,7 +1062,7 @@ kind-of@^3.0.2:
   dependencies:
     is-buffer "^1.1.5"
 
-lab@^14.3.1:
+lab@^14.3.2:
   version "14.3.2"
   resolved "https://registry.yarnpkg.com/lab/-/lab-14.3.2.tgz#77dc567043bebffaaa2e20630a1bc45bcaf95eec"
   dependencies:
