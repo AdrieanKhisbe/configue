@@ -16,6 +16,7 @@ Up to version [0.7.1] project was know has `hapi-configue`.
 - parse options for argv and env
 - tranform options for argv and env
 - case convert options for argv and env
+- separator joint option
 ### Changed
 - automatic resolving by default
 - postHook now needs to be synchronous
