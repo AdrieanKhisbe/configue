@@ -186,7 +186,7 @@ describe('Configue Core', () => {
 
     });
 
-    describe('Options', () => {
+    describe('Diverses Options', () => {
         it('argv are forwarded to nconf', (done) => {
             const configue = Configue({argv: {key: {default: 'some-value'}}});
             expect(configue.get('key')).to.equal('some-value');
@@ -250,6 +250,39 @@ describe('Configue Core', () => {
         });
     });
 
+    describe('transform', () => {
+
+        const fooTransformer = ({key, value}) => ({key, value: value + 'foo'});
+        const barTransformer = ({key, value}) => ({key, value: value + 'bar'});
+
+        it('can be defined with a single transformer', (done) => {
+            process.argv.push('--one=one');
+            const configue = new Configue({transform: fooTransformer});
+            process.argv.pop();
+
+            expect(configue.get('one')).to.equal('onefoo');
+            done();
+        });
+
+        it('can be defined with ordered transformer', (done) => {
+            process.argv.push('--one=one');
+            const configue = new Configue({transform: [fooTransformer, barTransformer]});
+            process.argv.pop();
+
+            expect(configue.get('one')).to.equal('onefoobar');
+            done();
+        });
+
+        it('can be defined along with normalize', (done) => {
+            process.argv.push('--ONE-TWO=douze');
+            const configue = new Configue({transform: [fooTransformer, barTransformer], normalize:'camelCase'});
+            process.argv.pop();
+
+            expect(configue.get('oneTwo')).to.equal('douzefoobar');
+            done();
+        });
+
+    });
 
     describe('separator', () => {
         it('can be defined globally for env and argv with a string', (done) => {
@@ -332,7 +365,6 @@ describe('Configue Core', () => {
             expect(configue.get('noSep')).to.equal('__');
             done();
         });
-
 
     });
 
