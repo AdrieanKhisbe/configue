@@ -1197,9 +1197,9 @@ nconf-properties@^0.2.3:
   dependencies:
     properties "^1.2.1"
 
-nconf-yaml@^1.0.1:
+nconf-yaml@^1.0.2:
   version "1.0.2"
-  resolved "https://registry.yarnpkg.com/nconf-yaml/-/nconf-yaml-1.0.2.tgz#fea065333cf42b77a5e8060517969799d4156575"
+  resolved "https://registry.npmjs.org/nconf-yaml/-/nconf-yaml-1.0.2.tgz#fea065333cf42b77a5e8060517969799d4156575"
   dependencies:
     js-yaml "^3.2.3"
 
