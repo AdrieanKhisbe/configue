@@ -30,7 +30,8 @@
     "lodash": "^4.2.0",
     "nconf": "https://github.com/indexzero/nconf.git",
     "nconf-properties": "^0.2.3",
-    "nconf-yaml": "^1.0.2"
+    "nconf-yaml": "^1.0.2",
+    "yargs": "^10.0.3"
   },
   "devDependencies": {
     "code": "^4.1.0",
