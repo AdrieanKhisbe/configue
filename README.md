@@ -38,13 +38,12 @@ The plugin loads the various configurations in order using _predefined steps_.
 
 It starts by parsing *argv* then goes through the *env* and the files options
 and finishes by loading the default config objects if any.
+Hence why every option defined as an argument commandline will override defaults
+and environment variables.
 
 If `--configue` option is specified, the config the specified file holds would
 be loaded after the *argv* and before the *env*. This is to enable you to save
-many options in many files, and specify at launch with options you want to use
-
-Hence why every option defined as an argument commandline will override defaults
-and environment variables.
+many options in many files, and specify at launch with options you want to use.
 
 ## Installation
 
@@ -90,18 +89,21 @@ node basic.js --configue=my-who-conf.json
 The full example is available in the [`examples`](./examples/basic.js) folder.
 
 ### Retrieving values
-You can retrieve values from the store in different manner, `get` is the most simple one
+You can retrieve values from the store in different manner, `get` is the most simple one.
 
 #### Simple `get`
 
 To retrieve a *configue* value, use the `get` method on the config holder.
 It takes has argument the key of the argument. For nested value you need to
-use `:` to deep access to value.
+use `:` or `.` to deep access to value, or you can an array of keys.
+
 It's also possible to specify a default value in case key is `undefined`.
 
 ```js
 configue.get('defined4sure')
 configue.get('some:nested:value')
+configue.get('some.other.nested.value')
+configue.get(['yet', 'another', 'nested','value'])
 configue.get('mightBeUndefined', 'default')
 ```
 
@@ -110,6 +112,7 @@ You can also retrieve a list of value with `getAll`, or the first non undefined 
 ```js
 configue.getAll('defined4sure', 'some:nested:value')
 configue.getAll(['defined4sure', 'some:nested:value'])
+configue.getAll(['some.other.nested.value', ['yet', 'another', 'nested','value']])
 
 configue.getFirst('defined4sure', 'some:nested:value')
 configue.getFirst(['defined4sure', 'some:nested:value'], optionalDefaultValue)
