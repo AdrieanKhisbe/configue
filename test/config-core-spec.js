@@ -401,14 +401,17 @@ describe('Configue Core', () => {
 
         it('normalize works with the env whitelist option', (done) => {
             process.env.NO_SEP = 'no sep';
+            process.env.CAMEL_CASE = 'camelCase';
             const configue = new Configue({
                 normalize: 'camelCase',
                 env: {
-                    whitelist: ['NO_SEP']
+                    whitelist: ['NO_SEP', 'CAMEL_CASE']
                 },
             });
             process.env.NO_SEP = undefined;
+            process.env.CAMEL_CASE = undefined;
             expect(configue.get('noSep')).to.equal('no sep');
+            expect(configue.get('camelCase')).to.equal('camelCase');
             done();
         });
 
