@@ -399,6 +399,19 @@ describe('Configue Core', () => {
             done();
         });
 
+        it('normalize works with the env whitelist option', (done) => {
+            process.env.NO_SEP = 'no sep';
+            const configue = new Configue({
+                normalize: 'camelCase',
+                env: {
+                    whitelist: ['NO_SEP']
+                },
+            });
+            process.env.NO_SEP = undefined;
+            expect(configue.get('noSep')).to.equal('no sep');
+            done();
+        });
+
     });
 
     describe('Configue file', () => {
