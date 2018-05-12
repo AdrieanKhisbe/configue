@@ -32,6 +32,7 @@
     "nconf-properties": "^0.2.3",
     "nconf-yaml": "^1.0.2",
     "shortstop": "^1.0.3",
+    "shortstop-handlers": "^1.0.1",
     "yargs": "^11.0.0"
   },
   "devDependencies": {
