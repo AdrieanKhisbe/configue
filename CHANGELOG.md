@@ -7,6 +7,9 @@ Up to version [0.7.1] project was know has `hapi-configue`.
 
 ## [Unreleased][unreleased]
 *Nothing So Far*
+## [1.0.1] - 2018-05-12
+### Changed
+- Updated dependencies
 ## [1.0.0] - 2017-12-18
 ### Added
 - template function
@@ -144,7 +147,8 @@ Up to version [0.7.1] project was know has `hapi-configue`.
 ## [0.1.0] - 2015-12-01
 - Initial Release
 
-[unreleased]: https://github.com/AdrieanKhisbe/hapi-configue/compare/v1.0.0...HEAD
+[unreleased]: https://github.com/AdrieanKhisbe/hapi-configue/compare/v1.0.1...HEAD
+[1.0.1]: https://github.com/AdrieanKhisbe/hapi-configue/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/AdrieanKhisbe/hapi-configue/compare/v0.16.0...v1.0.0
 [0.16.0]: https://github.com/AdrieanKhisbe/hapi-configue/compare/v0.15.0...v0.16.0
 [0.15.0]: https://github.com/AdrieanKhisbe/hapi-configue/compare/v0.14.1...v0.15.0
