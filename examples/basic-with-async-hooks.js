@@ -15,10 +15,9 @@ const configueOptions = {
     }
 };
 
-Configue.withOptions(configueOptions).resolve()
-    .then(configue => {
-    const who = configue('who', 'World');
-    const hook = configue('hook', 'none');
+Configue.withOptions(configueOptions).resolve(configue => {
+    const who = configue.get('who', 'World');
+    const hook = configue.get('hook', 'none');
 
     console.log(`Configue: {who: ${who}, hook: ${hook}}`);
 });
