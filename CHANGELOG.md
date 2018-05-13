@@ -7,9 +7,12 @@ Up to version [0.7.1] project was know has `hapi-configue`.
 
 ## [Unreleased][unreleased]
 *Nothing So Far*
+## [1.1.0] - 2018-05-13
 ### Added
-- restore async resolve (hence async promice based hook)
+- restore async resolve (hence async promise based hooks)
 - add support for shortstop protocols in values
+- `resolve` getter in fluent builder
+- `withOptions` method on the fluent builder
 
 ## [1.0.1] - 2018-05-12
 ### Changed
@@ -151,7 +154,8 @@ Up to version [0.7.1] project was know has `hapi-configue`.
 ## [0.1.0] - 2015-12-01
 - Initial Release
 
-[unreleased]: https://github.com/AdrieanKhisbe/hapi-configue/compare/v1.0.1...HEAD
+[unreleased]: https://github.com/AdrieanKhisbe/hapi-configue/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/AdrieanKhisbe/hapi-configue/compare/v1.0.1...v1.1.0
 [1.0.1]: https://github.com/AdrieanKhisbe/hapi-configue/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/AdrieanKhisbe/hapi-configue/compare/v0.16.0...v1.0.0
 [0.16.0]: https://github.com/AdrieanKhisbe/hapi-configue/compare/v0.15.0...v0.16.0

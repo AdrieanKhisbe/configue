@@ -134,7 +134,7 @@ configue.getFirst(['defined4sure', 'some:nested:value'], optionalDefaultValue)
 
 When you can to retrieve several values in the same time you can forge object so that they have structure you need.
 
-##### Load and getObject for ponctual retrieval
+##### Load and getObject for punctual retrieval
 The two main methods are `load` and `getObject`
 - `load` by default return the whole merged config as an object. But you can give him a model that would be used 
   to craft an object. The model is a object whose leaves are configue keys, or array of configue key:
