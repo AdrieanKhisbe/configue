@@ -215,22 +215,27 @@ const configue = new Configue(configueOptions);
 
 Note that if only one file is needed, its path can be directly given as options.
 
-#### Using Shortstop protocols`
+#### Using Shortstop protocols
 
-TODO: 
-- WHAT is SHORTSTOP
-- SOME EXAMPLE
+Shortstop is a library that help transform json values by interpreting their content.
+Quoting documentation:
+> it enables the use of protocols and handlers to enable identification and special handling of json values.
 
-To enable it, you just need to have `{async: true, shortstop: true}` in your configue config object.
+For instance value with the standard `env` and `file` protocol,
+`env:MY_ENV_VARIABLE` will be replaced with the value of `MY_ENV_VARIABLE` while value `file:/some/path` will be
+resolved with the content of the given file.
+For more details refer to the [shortstop] project.
+
+To enable it, you just need to have `{async: true, shortstop: true}` in your *Configue* config object.
 
 By default *Configue* comes empowered with the protocols from [shortstop-handlers]:
 `env`, `file`, `path`, `exec`, `base64`, `require`.
 
 You can customize behavior of shortstop by passing a config object as option
-You can add extra protocols via the `protocols` options, by passing an object `{$protocolName: $handler}
-You can also precise the baseDir for `file`, `path`, `exec`, `require` default handler. (default being current working directory)
+You can add extra protocols via the `protocols` options, by passing an object `{$protocolName: $handler}`
+You can also precise the `baseDir` for `file`, `path`, `exec`, `require` default handler. (default being current working directory)
 If you don't want the default protocols, use the `noDefaultProtocols` option.
-By default the Buffer are stringified, but you can choose to preserve them with the `preserveBuffer` option.
+By default the Buffer are stringified by *Configue*, but you can choose to preserve them with the `preserveBuffer` option.
 
 #### Passing options to nconf to configure argv and env
 You can provide options arguments to `argv` (`yargs`underneath), and `env` in order to customize the behavior 
@@ -299,17 +304,17 @@ The special hooks `first` enables you to respectively apply a function on nconf 
 
 ```js
 const configue = new Configue({
-        postHooks: {
-            first: function first(nconf){
-                // Your code here
-            },
-            overrides: function postOverrides(nconf){
-                // Your code here
-            },
-            argv: function postArgv(nconf){
-                // Your code here
-            }
+    postHooks: {
+        first: function first(nconf){
+            // Your code here
+        },
+        overrides: function postOverrides(nconf){
+            // Your code here
+        },
+        argv: function postArgv(nconf){
+            // Your code here
         }
+    }
 });
 // Your code here
 ```
@@ -392,14 +397,17 @@ Here is a recap of how the configuration should look like. All options are optio
 - `transform`: a function to process argv and env values
 - `normalize`: the case name in which you want keys to be converted
 - `ignorePrefix`: a prefix or list of them you want to be remove from key name
-
+- `shortstop`: to activate and customize the shortstop protocols
+- `async`: to activate async mode which will defer resolve
+- `defer`: to defer automatic resolve in sync mode
 
 For more details you can see the `internals.schema` in the `configue-core.js` file around the line 60
 
 ### Fluent builder
 
 Instead to use the configuration object provided to the `Configue` constructor, you can use the fluent builder.
-This consist in chaining a list of configuration methods before to retrieve the instance to a `get` method.
+This consist in chaining a list of configuration methods before to retrieve the instance to a `get` method or via a
+`resolve` method.
 
 Here is a simple example:
 
@@ -409,10 +417,20 @@ const configue = Configue.defaults({a: 1, b: '2'})
             .normalize('camelCase')
             .get();
 ```
+You can provide a portion of option with the `withOption` method as you can see in this example using `resolve`:
 
-Here is the builder function list, the function name being the name of the key in he object config (except the postHooks function):
-`argv`, `customWorkflow`, `defaults`, `overrides`, `disable`, `env`, `files`, `required`, `transform`, `parse`, `normalize`, `separator`
-and `firstHook`, `overridesHook`, `argvHook`, `envHook`, `filesHook`, `defaultsHook`
+```js
+Configue.defaults({a: 1, b: '2'})
+        .withOptions({parse: true, normalize: 'camelCase'})
+        .shortstop(true)
+        .resolve(configue => {
+            // here goes your code
+        });
+```
+
+Here is the builder function list, the function name being the name of the key in he object config (except the postHooks function and `withOptions`):
+`argv`, `async`, `customWorkflow`, `defaults`, `overrides`, `disable`, `env`, `files`, `required`, `transform`, `parse`, `normalize`, `separator`, `shortstop`
+and `firstHook`, `overridesHook`, `argvHook`, `envHook`, `filesHook`, `defaultsHook`, `withOptions`
 
 
 [Configue]: https://github.com/AdrieanKhisbe/configue
