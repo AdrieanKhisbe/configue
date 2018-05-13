@@ -7,6 +7,10 @@ Up to version [0.7.1] project was know has `hapi-configue`.
 
 ## [Unreleased][unreleased]
 *Nothing So Far*
+### Added
+- restore async resolve (hence async promice based hook)
+- add support for shortstop protocols in values
+
 ## [1.0.1] - 2018-05-12
 ### Changed
 - Updated dependencies

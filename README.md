@@ -59,7 +59,8 @@ Just add `configue` has a dependency installing it with `npm`, or with `yarn`.
 
 To use _Configue_ you need first to create an instance passing the option to the `Configue(opts)`
 constructor. Resolving of the config is now done synchronously and automatically unless you specify
-the `defer: true` option. In case of an error it will throw an Error.
+the `defer: true` option, or if you opt in for an async resolve.
+In case of a problem with the configue options it will throw an Error.
 
 See the following examples for concrete presentation.
 
@@ -73,6 +74,17 @@ const who = configue.get('who', 'World');
 console.log('Hello ' + who);
 
 ```
+#### Basic Async Configue
+```js
+const Configue = require('configue');
+const configue = new Configue({async: true});
+configue.resolve().then(() => {
+    const who = configue.get('who', 'World');
+    console.log('Hello ' + who);
+})
+```
+
+Async resolve is necessary for some advanced features like async hooks and [shortstop] protocols.
 
 #### Passing By Options
 You can specify the `who` configue in different manners.
@@ -203,6 +215,23 @@ const configue = new Configue(configueOptions);
 
 Note that if only one file is needed, its path can be directly given as options.
 
+#### Using Shortstop protocols`
+
+TODO: 
+- WHAT is SHORTSTOP
+- SOME EXAMPLE
+
+To enable it, you just need to have `{async: true, shortstop: true}` in your configue config object.
+
+By default *Configue* comes empowered with the protocols from [shortstop-handlers]:
+`env`, `file`, `path`, `exec`, `base64`, `require`.
+
+You can customize behavior of shortstop by passing a config object as option
+You can add extra protocols via the `protocols` options, by passing an object `{$protocolName: $handler}
+You can also precise the baseDir for `file`, `path`, `exec`, `require` default handler. (default being current working directory)
+If you don't want the default protocols, use the `noDefaultProtocols` option.
+By default the Buffer are stringified, but you can choose to preserve them with the `preserveBuffer` option.
+
 #### Passing options to nconf to configure argv and env
 You can provide options arguments to `argv` (`yargs`underneath), and `env` in order to customize the behavior 
 around command line argument and environment variables.
@@ -234,7 +263,7 @@ First you can specify to parse values with the **`parse`** option. Argv and Env 
 which is convenient to pass simple json from the command line.
 
 A **`separator`** option is there to indicate the token that will be used to split a key and consider it as a nested value.
-This affects both the argv and env step. The value can be either a string, or a regexp suc as `'__'` or `/__|--/`
+This affects both the argv and env step. The value can be either a string, or a regexp such as `'__'` or `/__|--/`
 
 With **`ignorePrefix`** you can list of prefix for argv and env variable you want to be removed. This is particulary useful
 with environment variables that are prefixed with your app name.
@@ -254,7 +283,7 @@ This will happen after the ignore prefix, and before the case normalisation.
 The argv and env steps can be skipped using the `disable` object in `options`.
 
 ```js
-const configue = new Configue({ disable: { argv: true }});
+const configue = new Configue({disable: { argv: true }});
 // ...
 ```
 
@@ -262,8 +291,9 @@ There is no disabling for `overrides`, `files` and `default`; you just have to d
 
 #### Step hooks
 
-Every step (`overrides`, `argv`, `env`, `files`, `defaults`)has a post hook available.
+Every step (`overrides`, `argv`, `env`, `files`, `defaults`) has a post hook available.
 Those can be defined using the `postHooks` key and accept a function that take `nconf`.
+In async mode those hooks can be asynchronous by returning a Promise.
 
 The special hooks `first` enables you to respectively apply a function on nconf at the very beginning.
 
@@ -390,6 +420,8 @@ and `firstHook`, `overridesHook`, `argvHook`, `envHook`, `filesHook`, `defaultsH
 [nconf]: https://github.com/indexzero/nconf
 [nconf-options-argv-env]: https://github.com/indexzero/nconf#argv
 [nconf-transform]: https://github.com/indexzero/nconf#transform-functionobj
+[shortstop]: https://github.com/krakenjs/shortstop
+[shortstop-handlers]: https://github.com/krakenjs/shortstop-handlers
 
 [npm-badge]: https://img.shields.io/npm/v/configue.svg
 [npm-url]: https://npmjs.com/package/configue
