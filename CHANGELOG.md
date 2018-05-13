@@ -7,6 +7,11 @@ Up to version [0.7.1] project was know has `hapi-configue`.
 
 ## [Unreleased][unreleased]
 *Nothing So Far*
+## [1.1.1] - 2018-05-13
+### Changed
+- diverses refactors
+  - split main core file
+  - introduce helper function
 ## [1.1.0] - 2018-05-13
 ### Added
 - restore async resolve (hence async promise based hooks)
@@ -154,7 +159,8 @@ Up to version [0.7.1] project was know has `hapi-configue`.
 ## [0.1.0] - 2015-12-01
 - Initial Release
 
-[unreleased]: https://github.com/AdrieanKhisbe/hapi-configue/compare/v1.1.0...HEAD
+[unreleased]: https://github.com/AdrieanKhisbe/hapi-configue/compare/v1.1.1...HEAD
+[1.1.1]: https://github.com/AdrieanKhisbe/hapi-configue/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/AdrieanKhisbe/hapi-configue/compare/v1.0.1...v1.1.0
 [1.0.1]: https://github.com/AdrieanKhisbe/hapi-configue/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/AdrieanKhisbe/hapi-configue/compare/v0.16.0...v1.0.0
