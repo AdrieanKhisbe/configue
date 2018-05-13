@@ -2,6 +2,14 @@
   "name": "configue",
   "version": "1.0.1",
   "description": "Configue is a config library to easily customize your app from argv, env, files and more.",
+  "keywords": [
+    "configuration",
+    "config",
+    "settings",
+    "key value store",
+    "nconf",
+    "shortstop"
+  ],
   "engines": {
     "node": ">=6.0.0"
   },
