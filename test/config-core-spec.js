@@ -20,7 +20,7 @@ describe('Configue Core', () => {
 
     describe('Resolving', () => {
 
-        it('resolve is automatic', (done) => {
+        it('resolve is automatic by default', (done) => {
             const configue = Configue();
             expect(configue.resolved).to.be.true();
             done();
@@ -29,10 +29,24 @@ describe('Configue Core', () => {
         it('resolve is automatic unless defer', (done) => {
             const configue = Configue({defer: true});
             expect(configue.resolved).to.be.false();
-            configue.resolve();
-
-            expect(configue.resolved).to.be.true();
             done();
+        });
+
+        it('resolve is automatic unless async', (done) => {
+            const configue = Configue({async: true});
+            expect(configue.resolved).to.be.false();
+            done();
+        });
+
+        it('resolve can be performed asynchrounously', (done) => {
+            const configue = Configue({async: true});
+            configue.resolve()
+                .then(cnfg => {
+
+                    expect(configue).to.be.equal(cnfg);
+                    expect(configue.resolved).to.be.true();
+                    done();
+                });
         });
 
         it('resolve is executed once', (done) => {
@@ -44,6 +58,17 @@ describe('Configue Core', () => {
             expect(configue.resolved).to.be.true();
             // can't test a resolve with change value since dynamic access to argv and env
             done();
+        });
+        it('resolve is executed once', (done) => {
+            const configue = Configue({async: true, defaults: {A: 1}});
+            expect(configue.resolved).to.be.false();
+            configue.resolve()
+                .then(cfg => cfg.resolve()) // coverage ensure that we don't have ran a second times
+                .then(cfg => {
+                    expect(cfg.resolved).to.be.true();
+                    // can't test a resolve with change value since dynamic access to argv and env
+                    done();
+                });
         });
     });
 
@@ -57,6 +82,15 @@ describe('Configue Core', () => {
             }
         });
         // TODO maybe add some valid schema
+        it('presevent usage of shortstop without async mode', (done) => {
+            try {
+                const configue = Configue({shortstop: true});
+                done(new Error('Exception not triggered'));
+            } catch (err) {
+                expect(err.message).to.equal('Shortstop usage requires async mode');
+                done();
+            }
+        });
     });
 
     describe('Files', () => {
@@ -242,7 +276,7 @@ describe('Configue Core', () => {
         it('parse and transform are activated', (done) => {
             process.argv.push('--one=2');
             const configue = Configue.parse(true)
-                .transform(({key,value}) => ({key, value: `this is ${value + 2}`}))
+                .transform(({key, value}) => ({key, value: `this is ${value + 2}`}))
                 .get();
             process.argv.pop();
             expect(configue.get('one')).to.equal('this is 4');
@@ -275,7 +309,7 @@ describe('Configue Core', () => {
 
         it('can be defined along with normalize', (done) => {
             process.argv.push('--ONE-TWO=douze');
-            const configue = new Configue({transform: [fooTransformer, barTransformer], normalize:'camelCase'});
+            const configue = new Configue({transform: [fooTransformer, barTransformer], normalize: 'camelCase'});
             process.argv.pop();
 
             expect(configue.get('oneTwo')).to.equal('douzefoobar');
@@ -285,36 +319,36 @@ describe('Configue Core', () => {
     });
 
     describe('ignorePrefix', () => {
-       it('works well for a single prefix', (done) => {
-           process.env.MY_SUPER_APP_PORT = '3024';
-           const configue = new Configue({ignorePrefix: 'MY_SUPER_APP_'});
-           process.env.MY_SUPER_APP_PORT = undefined;
+        it('works well for a single prefix', (done) => {
+            process.env.MY_SUPER_APP_PORT = '3024';
+            const configue = new Configue({ignorePrefix: 'MY_SUPER_APP_'});
+            process.env.MY_SUPER_APP_PORT = undefined;
 
-           expect(configue.get('PORT')).to.equal('3024');
-           done();
-       }) ;
+            expect(configue.get('PORT')).to.equal('3024');
+            done();
+        });
 
-       it('works well for a multiple prefix', (done) => {
-           process.env.MY_SUPER_APP_PORT = '3024';
-           process.env.MY_APP_HOST = 'localhost';
-           const configue = new Configue({ignorePrefix: ['MY_SUPER_APP_', 'MY_APP_']});
-           process.env.MY_SUPER_APP_PORT = undefined;
+        it('works well for a multiple prefix', (done) => {
+            process.env.MY_SUPER_APP_PORT = '3024';
+            process.env.MY_APP_HOST = 'localhost';
+            const configue = new Configue({ignorePrefix: ['MY_SUPER_APP_', 'MY_APP_']});
+            process.env.MY_SUPER_APP_PORT = undefined;
 
-           expect(configue.get('PORT')).to.equal('3024');
-           expect(configue.get('HOST')).to.equal('localhost');
-           done();
-       }) ;
+            expect(configue.get('PORT')).to.equal('3024');
+            expect(configue.get('HOST')).to.equal('localhost');
+            done();
+        });
 
-       it('works well along with other transformers', (done) => {
-           process.env.MY_APP_PORT = '3024';
-           process.env.MY_APP_HOST = 'localhost';
-           const configue = new Configue({ignorePrefix: 'MY_APP', normalize: 'camelCase'});
-           process.env.MY_SUPER_APP_PORT = undefined;
+        it('works well along with other transformers', (done) => {
+            process.env.MY_APP_PORT = '3024';
+            process.env.MY_APP_HOST = 'localhost';
+            const configue = new Configue({ignorePrefix: 'MY_APP', normalize: 'camelCase'});
+            process.env.MY_SUPER_APP_PORT = undefined;
 
-           expect(configue.get('port')).to.equal('3024');
-           expect(configue.get('host')).to.equal('localhost');
-           done();
-       }) ;
+            expect(configue.get('port')).to.equal('3024');
+            expect(configue.get('host')).to.equal('localhost');
+            done();
+        });
     });
 
     describe('separator', () => {
@@ -347,13 +381,13 @@ describe('Configue Core', () => {
     describe('normalize', () => {
 
         it('invalid case are rejected', (done) => {
-           try {
-             const configue = Configue.normalize('wtfCase').get();
-             done(new Error('Exception not triggered'));
-           } catch (err) {
-               expect(err.message).to.match(/"normalize" is not allowed/);
-               done();
-           }
+            try {
+                const configue = Configue.normalize('wtfCase').get();
+                done(new Error('Exception not triggered'));
+            } catch (err) {
+                expect(err.message).to.match(/"normalize" is not allowed/);
+                done();
+            }
         });
 
         it('works well for argv and env with camelCase', (done) => {
@@ -435,6 +469,18 @@ describe('Configue Core', () => {
             process.env.key = undefined;
             done();
         });
+        it('works in async mode', (done) => {
+            process.argv.push('--configue=test/data/config.json');
+            process.env.key = 'env-var';
+            // RISKY!!!!
+            const configue = Configue({defaults: {key: 'default'}, async: true});
+            configue.resolve().then(() => {
+                expect(configue.get('key')).to.equal('json-config');
+                process.argv.pop();
+                process.env.key = undefined;
+                done();
+            });
+        });
     });
 
     describe('Disable', () => {
@@ -463,6 +509,20 @@ describe('Configue Core', () => {
             process.env.who = undefined;
 
             done();
+        });
+
+        it('enable to disabe env in async mode', (done) => {
+            process.argv.push('--who=YO');
+            process.env.who = 'NO';
+            // RISKY!!!!
+
+            Configue.withOptions({disable: {argv: true, env: true}}).resolve(configue => {
+                expect(configue.get('who')).to.equal(undefined);
+
+                process.argv.pop();
+                process.env.who = undefined;
+                done();
+            });
         });
 
     });
@@ -527,6 +587,33 @@ describe('Configue Core', () => {
         });
     });
 
+    describe('Shortstop', () => {
+        it('performs transformation as expected', (done) => {
+            Configue.shortstop(true).defaults({b64: 'base64:YmFzZTY0'}).resolve(configue => {
+                expect(configue.get('b64')).to.equal('base64');
+                done();
+            });
+        });
+        it('performs transformation as expected unless not activated', (done) => {
+            Configue.shortstop(false).defaults({b64: 'base64:YmFzZTY0'}).resolve(configue => {
+                expect(configue.get('b64')).to.equal('base64:YmFzZTY0');
+                done();
+            });
+        });
+        it('does not include protocols if defaults deactivated', (done) => {
+            Configue.shortstop({noDefaultProtocols: true}).defaults({b64: 'base64:YmFzZTY0'}).resolve(configue => {
+                expect(configue.get('b64')).to.equal('base64:YmFzZTY0');
+                done();
+            });
+        });
+        it('trigger an error if resolve fail', (done) => {
+            Configue.shortstop(true).defaults({file: 'file:/does/not/exist'}).resolve().catch(err => {
+                expect(err.message).to.equal("ENOENT: no such file or directory, open '/does/not/exist'");
+                done();
+            });
+        });
+    });
+
     describe('CustomWorkflow', () => {
 
         it('accept a custom workflow', (done) => {
@@ -540,6 +627,21 @@ describe('Configue Core', () => {
             expect(configue.get('workflow')).to.equal('custom');
             expect(configue.get('key')).to.not.exist();
             done();
+        });
+
+        it('accept an async custom workflow', (done) => {
+            const configueOptions = {
+                customWorkflow: nconf => Promise.resolve('custom-async')
+                    .then(workflow => nconf.set('workflow', workflow))
+            };
+            process.argv.push('--workflow=default');
+            process.env.key = 'value';
+
+            Configue.withOptions(configueOptions).resolve(configue => {
+                expect(configue.get('workflow')).to.equal('custom-async');
+                expect(configue.get('key')).to.not.exist();
+                done();
+            });
         });
 
     });
@@ -575,18 +677,18 @@ describe('Configue Core', () => {
 
     });
 
-  describe('Predefined Models', () => {
-    it('can be simply defined', (done) => {
-      const configue = new Configue({
-        defaults: {A: {a: 1, b: 2}, B: 42},
-        models: {
-          universe: c => ({a: c('A:a'), b: c.t`the answer is ${'B'}`}),
-          simple: {a: 'A:a', b: ['B:b', 'A:b']}
-        }
-      });
-      expect(configue._.simple).to.equal({a: 1, b:2});
-      expect(configue._.universe).to.equal({a:1, b: 'the answer is 42'});
-      done();
+    describe('Predefined Models', () => {
+        it('can be simply defined', (done) => {
+            const configue = new Configue({
+                defaults: {A: {a: 1, b: 2}, B: 42},
+                models: {
+                    universe: c => ({a: c('A:a'), b: c.t`the answer is ${'B'}`}),
+                    simple: {a: 'A:a', b: ['B:b', 'A:b']}
+                }
+            });
+            expect(configue._.simple).to.equal({a: 1, b: 2});
+            expect(configue._.universe).to.equal({a: 1, b: 'the answer is 42'});
+            done();
+        });
     });
-  });
 });
