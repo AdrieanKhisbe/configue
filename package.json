@@ -1,6 +1,7 @@
 {
   "name": "configue",
   "version": "1.0.1",
+  "description": "Configue is a config library to easily customize your app from argv, env, files and more.",
   "engines": {
     "node": ">=6.0.0"
   },
