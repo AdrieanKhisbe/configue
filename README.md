@@ -10,7 +10,7 @@
 [![NSP Status][nsp-badge]][nsp-url]
 [![bitHound Overalll Score][bithound-badge]][bithound-url]
 
-[Configue] is a *node.js* config library to easily customize your app with argv, env, files and more.
+[Configue] is a *node.js* config library to easily customize your app from argv, env, files and more.
 
 It defines a *conventional workflow* to load a config from environment variables,
 command line arguments, files, that you can easily *configure* and *extend*.
@@ -47,7 +47,7 @@ many options in many files, and specify at launch with options you want to use.
 
 ## Installation
 
-Just add `configue` has a dependency installing it with npm, or with yarn.
+Just add `configue` has a dependency installing it with `npm`, or with `yarn`.
 
     npm install --save configue
     
@@ -263,21 +263,20 @@ There is no disabling for `overrides`, `files` and `default`; you just have to d
 #### Step hooks
 
 Every step (`overrides`, `argv`, `env`, `files`, `defaults`)has a post hook available.
-Those can be defined using the `postHooks` key and accept a
-function that take `nconf` and a callback as parameters.
+Those can be defined using the `postHooks` key and accept a function that take `nconf`.
 
 The special hooks `first` enables you to respectively apply a function on nconf at the very beginning.
 
 ```js
 const configue = new Configue({
         postHooks: {
-            first: function first(nconf, done){
+            first: function first(nconf){
                 // Your code here
             },
-            overrides: function postOverrides(nconf, done){
+            overrides: function postOverrides(nconf){
                 // Your code here
             },
-            argv: function postArgv(nconf, done){
+            argv: function postArgv(nconf){
                 // Your code here
             }
         }
@@ -332,7 +331,7 @@ A more complete example is available in [`examples`](examples/hapi-server.js) fo
 
 Note it's possible to provide to `configue.plugin()` a `decorateName` so that you use a custom accessor on `server` or `request`.
 
-**Warning**: the original plugin is made for the pre 17 version of `. If you are using hapi17 or beyond,
+**Warning**: the original plugin is made for the pre 17 version of `hapi`. If you are using `hapi@17 or beyond,
 please retrive the plugin with the `plugin17()` method as you can see in the [example server](examples/hapi17-server.js).
 
 ### Loading into express
