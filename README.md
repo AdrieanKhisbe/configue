@@ -15,6 +15,36 @@
 It defines a *conventional workflow* to load a config from environment variables,
 command line arguments, files, that you can easily *configure* and *extend*.
 
+#### Table of Content
+- [About Configue](#about-configue)
+- [Installation](#installation)
+- [Usage](#usage)
+  * [How To](#how-to)
+  * [Basic usage without customization](#basic-usage-without-customization)
+    + [Basic Configue](#basic-configue)
+    + [Basic Async Configue](#basic-async-configue)
+    + [Passing By Options](#passing-by-options)
+  * [Retrieving values](#retrieving-values)
+    + [Simple `get`](#simple-get)
+    + [Retrieving Specified Object](#retrieving-specified-object)
+      - [Load and getObject for punctual retrieval](#load-and-getobject-for-punctual-retrieval)
+      - [*Models* for frequent usage](#models-for-frequent-usage)
+    + [Template string](#template-string)
+    + [Argv / Env direct access](#argv--env-direct-access)
+  * [Usage with customization of the configuration workflow](#usage-with-customization-of-the-configuration-workflow)
+    + [Specifying Files](#specifying-files)
+    + [Using Shortstop protocols](#using-shortstop-protocols)
+    + [Passing options to nconf to configure argv and env](#passing-options-to-nconf-to-configure-argv-and-env)
+    + [Joint options of argv and env to process the values](#joint-options-of-argv-and-env-to-process-the-values)
+    + [Disabling Steps](#disabling-steps)
+    + [Step hooks](#step-hooks)
+    + [Custom Workflow](#custom-workflow)
+  * [Loading into Hapi](#loading-into-hapi)
+  * [Loading into express](#loading-into-express)
+- [Configuration Recap](#configuration-recap)
+  * [Configuration Object](#configuration-object)
+  * [Fluent builder](#fluent-builder)
+
 ## About Configue
 
 [Configue] builds up on [nconf] and its
