@@ -20,4 +20,4 @@ module.exports = {
         hello: {hello: 'salute', target: 'who'},
         bonjour: c => ({bonjour: c('salute'), cible: 'lemonde', langue: c('lang', 'fr')})
   }
-}
+};
