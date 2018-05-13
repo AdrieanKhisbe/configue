@@ -608,7 +608,7 @@ describe('Configue Core', () => {
         });
         it('trigger an error if resolve fail', (done) => {
             Configue.shortstop(true).defaults({file: 'file:/does/not/exist'}).resolve().catch(err => {
-                expect(err.message).to.equal("ENOENT: no such file or directory, open '/does/not/exist'");
+                expect(err.message).to.equal('ENOENT: no such file or directory, open \'/does/not/exist\'');
                 done();
             });
         });

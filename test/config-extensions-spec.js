@@ -141,7 +141,7 @@ describe('Hapi plugin', () => {
     describe('Hapi17', () => {
         it('can be (fakely) regiistered ', (done) => {
             const configue = new Configue();
-            const server = {log(){}, decorate(type){ expect(type).to.match(/server|request/)}};
+            const server = {log(){}, decorate(type){ expect(type).to.match(/server|request/);}};
             configue.plugin17().register(server);
             done();
         });
