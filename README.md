@@ -96,7 +96,7 @@ In case of a problem with the configue options it will throw an Error.
 See the following examples for concrete presentation.
 [↥]
 ### Basic usage without customization
-#### Basic Configue
+#### Basic Configue[↥]
 ```js
 const Configue = require('configue');
 const configue = new Configue();
