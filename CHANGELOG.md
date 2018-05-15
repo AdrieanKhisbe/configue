@@ -7,6 +7,9 @@ Up to version [0.7.1] project was know has `hapi-configue`.
 
 ## [Unreleased][unreleased]
 *Nothing So Far*
+## [1.1.2] - 2018-05-15
+### Added
+- Improved README with return to top links
 ## [1.1.1] - 2018-05-13
 ### Changed
 - diverses refactors
@@ -159,7 +162,8 @@ Up to version [0.7.1] project was know has `hapi-configue`.
 ## [0.1.0] - 2015-12-01
 - Initial Release
 
-[unreleased]: https://github.com/AdrieanKhisbe/hapi-configue/compare/v1.1.1...HEAD
+[unreleased]: https://github.com/AdrieanKhisbe/hapi-configue/compare/v1.1.2...HEAD
+[1.1.2]: https://github.com/AdrieanKhisbe/hapi-configue/compare/v1.1.1...v1.1.2
 [1.1.1]: https://github.com/AdrieanKhisbe/hapi-configue/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/AdrieanKhisbe/hapi-configue/compare/v1.0.1...v1.1.0
 [1.0.1]: https://github.com/AdrieanKhisbe/hapi-configue/compare/v1.0.0...v1.0.1
