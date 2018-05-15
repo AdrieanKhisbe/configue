@@ -45,7 +45,7 @@ command line arguments, files, that you can easily *configure* and *extend*.
   * [Configuration Object](#configuration-object)
   * [Fluent builder](#fluent-builder)
 
-## About Configue
+## About Configue[↥]
 
 [Configue] builds up on [nconf] and its
 [Hierarchical configuration](https://github.com/indexzero/nconf#hierarchical-configuration) system.
@@ -74,8 +74,8 @@ and environment variables.
 If `--configue` option is specified, the config the specified file holds would
 be loaded after the *argv* and before the *env*. This is to enable you to save
 many options in many files, and specify at launch with options you want to use.
-[↥]
-## Installation
+
+## Installation[↥]
 
 Just add `configue` has a dependency installing it with `npm`, or with `yarn`.
 
@@ -83,10 +83,10 @@ Just add `configue` has a dependency installing it with `npm`, or with `yarn`.
     
     yarn add configue
 
-[↥]
-## Usage
 
-### How To
+## Usage[↥]
+
+### How To[↥]
 
 To use _Configue_ you need first to create an instance passing the option to the `Configue(opts)`
 constructor. Resolving of the config is now done synchronously and automatically unless you specify
@@ -94,8 +94,8 @@ the `defer: true` option, or if you opt in for an async resolve.
 In case of a problem with the configue options it will throw an Error.
 
 See the following examples for concrete presentation.
-[↥]
-### Basic usage without customization
+
+### Basic usage without customization[↥]
 #### Basic Configue[↥]
 ```js
 const Configue = require('configue');
@@ -104,8 +104,8 @@ const configue = new Configue();
 const who = configue.get('who', 'World');
 console.log('Hello ' + who);
 ```
-[↥]
-#### Basic Async Configue
+
+#### Basic Async Configue[↥]
 ```js
 const Configue = require('configue');
 const configue = new Configue({async: true});
@@ -116,8 +116,8 @@ configue.resolve().then(() => {
 ```
 
 Async resolve is necessary for some advanced features like async hooks and [shortstop] protocols.
-[↥]
-#### Passing By Options
+
+#### Passing By Options[↥]
 You can specify the `who` configue in different manners.
 Here are some:
 
@@ -130,11 +130,11 @@ node basic.js --configue=my-who-conf.json
 ```
 
 The full example is available in the [`examples`](./examples/basic.js) folder.
-[↥]
-### Retrieving values
+
+### Retrieving values[↥]
 You can retrieve values from the store in different manner, `get` is the most simple one.
-[↥]
-#### Simple `get`
+
+#### Simple `get`[↥]
 
 To retrieve a *configue* value, use the `get` method on the config holder.
 It takes has argument the key of the argument. For nested value you need to
@@ -160,12 +160,12 @@ configue.getAll(['some.other.nested.value', ['yet', 'another', 'nested','value']
 configue.getFirst('defined4sure', 'some:nested:value')
 configue.getFirst(['defined4sure', 'some:nested:value'], optionalDefaultValue)
 ```
-[↥]
-#### Retrieving Specified Object
+
+#### Retrieving Specified Object[↥]
 
 When you can to retrieve several values in the same time you can forge object so that they have structure you need.
-[↥]
-##### Load and getObject for punctual retrieval
+
+##### Load and getObject for punctual retrieval[↥]
 The two main methods are `load` and `getObject`
 - `load` by default return the whole merged config as an object. But you can give him a model that would be used 
   to craft an object. The model is a object whose leaves are configue keys, or array of configue key:
@@ -177,8 +177,8 @@ const {serverConfig} = configue.load({serverConfig: {host: 'app:server:host', po
 
 const {file, prefix} = configue.getObject('file', 'prefix');
 ```
-[↥]
-##### *Models* for frequent usage
+
+##### *Models* for frequent usage[↥]
 There are case where the forged object are to be used several times, and you dont want to query them over and over.
 To do that you can predefined *models* in the configuration. These would be populated once during automatic resolved,
 and they would be made accessible under the `_` key.
@@ -190,8 +190,8 @@ const configue = new Configue({models: {
 //...
 console.log(configue._.serverConfig) // => host: ..., port: ...
 ```
-[↥]
-#### Template string
+
+#### Template string[↥]
 One last way you can get config value is via the `configue.template` (aliased to `configue.t`).
 This is a template function you can prefix a template string. The interpolated values will be keys of the
 *configue* and then replaced by their value:
@@ -206,20 +206,20 @@ You can defined default values by passing a default object to the `template` met
 console.log(configue.t({times: 2, who: 'World'})`I will say ${'salute'} to ${'who'} ${'times'} times`); 
 // => I will say Hello to You 2 times
 ```
-[↥]
-#### Argv / Env direct access
+
+#### Argv / Env direct access[↥]
 For ease of the the `argv` and `env` can be directly accessible from the *configue* instance:
 
 ```js
 console.log(configue.argv.host)
 console.log(configue.env.HOME);
 ```
-[↥]
+
 Note that values are neither parsed nor transformed.
 
-### Usage with customization of the configuration workflow
-[↥]
-#### Specifying Files
+### Usage with customization of the configuration workflow[↥]
+
+#### Specifying Files[↥]
 
 The files key can contain a single object or an array of objects containing a `file` key containing the path to the config file.
 The object can also reference a *nconf* plugin tasked with the formatting using the key `format`.
@@ -246,8 +246,8 @@ const configue = new Configue(configueOptions);
 ````
 
 Note that if only one file is needed, its path can be directly given as options.
-[↥]
-#### Using Shortstop protocols
+
+#### Using Shortstop protocols[↥]
 
 Shortstop is a library that help transform json values by interpreting their content.
 Quoting documentation:
@@ -268,8 +268,8 @@ You can add extra protocols via the `protocols` options, by passing an object `{
 You can also precise the `baseDir` for `file`, `path`, `exec`, `require` default handler. (default being current working directory)
 If you don't want the default protocols, use the `noDefaultProtocols` option.
 By default the Buffer are stringified by *Configue*, but you can choose to preserve them with the `preserveBuffer` option.
-[↥]
-#### Passing options to nconf to configure argv and env
+
+#### Passing options to nconf to configure argv and env[↥]
 You can provide options arguments to `argv` (`yargs`underneath), and `env` in order to customize the behavior 
 around command line argument and environment variables.
 For more in depth readings see nconf options [here][nconf-options-argv-env]
@@ -291,8 +291,8 @@ const configueOptions = {
 
 const configue = new Configue(configueOptions);
 ```
-[↥]
-#### Joint options of argv and env to process the values
+
+#### Joint options of argv and env to process the values[↥]
 It is possible to process the raw values you can get from the `argv` and `env` step, with the **parse**, **separator**
 **ignorePrefix**, **normalize** and **transform** options.
 
@@ -314,8 +314,8 @@ transform our both variable into `myVar` as we would like name the javascript va
 If you have more complex processing of the env/arg variable name or value, you can use the **`transform`** option,
 which accept a function `({key, value}) => ({key:someKey, value:someValue})` that will be passed to nconf. (cf [nconf doc][nconf-transform])
 This will happen after the ignore prefix, and before the case normalisation.
-[↥]
-#### Disabling Steps
+
+#### Disabling Steps[↥]
 
 The argv and env steps can be skipped using the `disable` object in `options`.
 
@@ -325,8 +325,8 @@ const configue = new Configue({disable: { argv: true }});
 ```
 
 There is no disabling for `overrides`, `files` and `default`; you just have to don't provide the matching option.
-[↥]
-#### Step hooks
+
+#### Step hooks[↥]
 
 Every step (`overrides`, `argv`, `env`, `files`, `defaults`) has a post hook available.
 Those can be defined using the `postHooks` key and accept a function that take `nconf`.
@@ -350,8 +350,8 @@ const configue = new Configue({
 });
 // Your code here
 ```
-[↥]
-#### Custom Workflow
+
+#### Custom Workflow[↥]
 
 If needed you can have your full custom configuration workflow,
 simply by providing an object with the single key `customWorkflow`
@@ -367,8 +367,8 @@ const configue = new Configue(configueOptions);
 
 If you use a `yargs` instance, you can assign it to `nconf._yargs` so that `argv`
 is directly accessible from `configue.argv
-[↥]
-### Loading into Hapi
+
+### Loading into Hapi[↥]
 
 Thought _Configue_ is usable without hapi`, (it was originally just a _Hapi_ plugin),
 it can be easily loaded in `hapi` to have the _configue_ being easily accessible from
@@ -400,17 +400,17 @@ Note it's possible to provide to `configue.plugin()` a `decorateName` so that yo
 
 **Warning**: the original plugin is made for the pre 17 version of `hapi`. If you are using `hapi@17 or beyond,
 please retrive the plugin with the `plugin17()` method as you can see in the [example server](examples/hapi17-server.js).
-[↥]
-### Loading into express
+
+### Loading into express[↥]
 Configue can also be loaded into `express` via it's middleware you can obtain by `configue.middleware()` you just have
 to feed to `app.use()`
 
 A example is available in the [`examples`](examples/express-server.js) folder.
-[↥]
-## Configuration Recap
+
+## Configuration Recap[↥]
 Configue can be configured in two different way. Either using a config object or using a fluent builder.
-[↥]
-### Configuration Object
+
+### Configuration Object[↥]
 Here is a recap of how the configuration should look like. All options are optional:
 
 - `customWorkflow`: a function manipulating the `nconf`. This option is exclusive of all others
@@ -434,8 +434,8 @@ Here is a recap of how the configuration should look like. All options are optio
 - `defer`: to defer automatic resolve in sync mode
 
 For more details you can see the `internals.schema` in the `configue-core.js` file around the line 60
-[↥]
-### Fluent builder
+
+### Fluent builder[↥]
 
 Instead to use the configuration object provided to the `Configue` constructor, you can use the fluent builder.
 This consist in chaining a list of configuration methods before to retrieve the instance to a `get` method or via a
@@ -463,6 +463,7 @@ Configue.defaults({a: 1, b: '2'})
 Here is the builder function list, the function name being the name of the key in he object config (except the postHooks function and `withOptions`):
 `argv`, `async`, `customWorkflow`, `defaults`, `overrides`, `disable`, `env`, `files`, `required`, `transform`, `parse`, `normalize`, `separator`, `shortstop`
 and `firstHook`, `overridesHook`, `argvHook`, `envHook`, `filesHook`, `defaultsHook`, `withOptions`
+
 [↥]
 
 [↥]: #configue
