@@ -249,7 +249,7 @@ Note that if only one file is needed, its path can be directly given as options.
 
 #### Using Shortstop protocols[↥]
 
-Shortstop is a library that help transform json values by interpreting their content.
+[Shortstop][shortstop] is a library that help transform json values by interpreting their content.
 Quoting documentation:
 > it enables the use of protocols and handlers to enable identification and special handling of json values.
 
@@ -268,6 +268,9 @@ You can add extra protocols via the `protocols` options, by passing an object `{
 You can also precise the `baseDir` for `file`, `path`, `exec`, `require` default handler. (default being current working directory)
 If you don't want the default protocols, use the `noDefaultProtocols` option.
 By default the Buffer are stringified by *Configue*, but you can choose to preserve them with the `preserveBuffer` option.
+
+For an example of configuration refer to the [following examples](examples/async-with-shortstop.js) using
+[this json file](examples/config-with-shortstops.json) as part of the config.
 
 #### Passing options to nconf to configure argv and env[↥]
 You can provide options arguments to `argv` (`yargs`underneath), and `env` in order to customize the behavior 
