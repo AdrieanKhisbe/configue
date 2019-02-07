@@ -37,7 +37,7 @@
     "bluebird": "^3.5.1",
     "joi": "^12.0.0",
     "json5": "^1.0.1",
-    "lodash": "^4.17.10",
+    "lodash": "^4.17.11",
     "nconf": "^0.10.0",
     "nconf-properties": "^0.2.3",
     "nconf-yaml": "^1.0.2",
