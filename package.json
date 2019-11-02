@@ -11,7 +11,7 @@
     "shortstop"
   ],
   "engines": {
-    "node": ">=6.0.0"
+    "node": ">=8.10.0"
   },
   "repository": "https://github.com/AdrieanKhisbe/configue",
   "homepage": "https://github.com/AdrieanKhisbe/configue#readme",
