@@ -13,6 +13,7 @@
   "engines": {
     "node": ">=8.10.0"
   },
+  "license": "MIT",
   "repository": "https://github.com/AdrieanKhisbe/configue",
   "homepage": "https://github.com/AdrieanKhisbe/configue#readme",
   "main": "src/configue.js",
@@ -53,7 +54,6 @@
     "hapi": "^16.6.2",
     "nyc": "^14.1.1"
   },
-  "license": "BSD-3-Clause",
   "ava": {
     "files": [
       "test/**/*.test.js"
