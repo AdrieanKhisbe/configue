@@ -1,3 +1,7 @@
 {
-  "extends": ["plugin:@-k/base"]
+  "extends": ["plugin:@-k/base"],
+  "rules": {
+    "lodash-fp/use-fp": "warn",
+    "prefer-rest-params": "warn"
+  }
 }

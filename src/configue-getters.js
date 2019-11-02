@@ -9,10 +9,10 @@ const {getPaths} = require('./configue-common');
  * @param key the key as array or string
  * @returns string formated to be accepted by nconf
  */
-function formatKey(key){
-    if(_.isArray(key)) return key.join(':');
-    else if (key.includes('.') && ! key.includes(':')) return key.replace('.', ':');
-    return key;
+function formatKey(key) {
+  if (_.isArray(key)) return key.join(':');
+  else if (key.includes('.') && !key.includes(':')) return key.replace('.', ':');
+  return key;
 }
 
 /**
@@ -22,8 +22,8 @@ function formatKey(key){
  * @returns {*} value or default
  */
 function get(key, defaultValue) {
-    const result = this.nconf.get(formatKey(key));
-    return result === undefined ? defaultValue : result;
+  const result = this.nconf.get(formatKey(key));
+  return result === undefined ? defaultValue : result;
 }
 
 /**
@@ -36,12 +36,13 @@ function get(key, defaultValue) {
  * @returns {*} A promise if no callback given
  */
 function getAsync(key, defaultOrCallback) {
-    if(typeof defaultOrCallback === 'function') {
-        this.nconf.get(formatKey(key), defaultOrCallback);
-    } else {
-        return Promise.fromCallback(cb =>
-            this.nconf.get(formatKey(key), (err, res) => cb(err, res|| defaultOrCallback)));
-    }
+  if (typeof defaultOrCallback === 'function') {
+    this.nconf.get(formatKey(key), defaultOrCallback);
+  } else {
+    return Promise.fromCallback(cb =>
+      this.nconf.get(formatKey(key), (err, res) => cb(err, res || defaultOrCallback))
+    );
+  }
 }
 
 /**
@@ -54,13 +55,13 @@ function getAsync(key, defaultOrCallback) {
  * @param defaultValue default value
  * @returns {*} first defined value
  */
-function getFirst (keys, defaultValue) {
-    const arrayGiven = Array.isArray(keys);
-    for(const key of arrayGiven ? keys : Array.from(arguments)) {
-        const result = this.nconf.get(formatKey(key));
-        if (result !== undefined) return result;
-    }
-    return arrayGiven ? defaultValue : undefined;
+function getFirst(keys, defaultValue) {
+  const arrayGiven = Array.isArray(keys);
+  for (const key of arrayGiven ? keys : [...arguments]) {
+    const result = this.nconf.get(formatKey(key));
+    if (result !== undefined) return result;
+  }
+  return arrayGiven ? defaultValue : undefined;
 }
 
 /**
@@ -71,20 +72,20 @@ function getFirst (keys, defaultValue) {
  * @param keys all keys that are to be fetched
  * @returns {Array} array of fetched values
  */
-function getAll (keys) {
-    return (Array.isArray(keys)? keys : Array.from(arguments))
-        .map((key) => this.nconf.get(formatKey(key)));
+function getAll(keys) {
+  return (Array.isArray(keys) ? keys : [...arguments]).map(key => this.nconf.get(formatKey(key)));
 }
 
 const configueTemplate = (configue, defaults = {}) => (chains, ...keys) => {
-    return _.reduce(
-        (acc, [chain, key]) => {
-            const base = acc + chain;
-            if (!key) return base;
-            return base + configue.get(formatKey(key), _.get(key, defaults));
-        },
-        '',
-        _.zip(chains, keys));
+  return _.reduce(
+    (acc, [chain, key]) => {
+      const base = acc + chain;
+      if (!key) return base;
+      return base + configue.get(formatKey(key), _.get(key, defaults));
+    },
+    '',
+    _.zip(chains, keys)
+  );
 };
 
 /**
@@ -102,9 +103,9 @@ const configueTemplate = (configue, defaults = {}) => (chains, ...keys) => {
  * @returns {Function|string} The template string populated or the function with default to serve as template string function
  */
 function template(defaultOrChain, ...keys) {
-    return _.isPlainObject(defaultOrChain)
-        ? configueTemplate(this, defaultOrChain)
-        : configueTemplate(this)(defaultOrChain, ...keys);
+  return _.isPlainObject(defaultOrChain)
+    ? configueTemplate(this, defaultOrChain)
+    : configueTemplate(this)(defaultOrChain, ...keys);
 }
 
 /**
@@ -112,16 +113,20 @@ function template(defaultOrChain, ...keys) {
  * @param args the keys to form object with
  * @returns {object} the forged object
  */
-function getObject (...args) {
-    const keys = args.length === 1 && Array.isArray(_.first(args)) ? _.first(args): args;
-    return _.reduce((memo, key) => {
-        const [fromKey, toKey] = Array.isArray(key)? key : [key, key];
-        return _.set(toKey, this.get(fromKey), memo);
-    }, {}, keys);
+function getObject(...args) {
+  const keys = args.length === 1 && Array.isArray(_.first(args)) ? _.first(args) : args;
+  return _.reduce(
+    (memo, key) => {
+      const [fromKey, toKey] = Array.isArray(key) ? key : [key, key];
+      return _.set(toKey, this.get(fromKey), memo);
+    },
+    {},
+    keys
+  );
 }
 
-const populateObj = (configue, obj, paths) => _.reduce(
-    (memo, path) => _.set(path, configue.getFirst(_.get(path, obj)), memo), {}, paths);
+const populateObj = (configue, obj, paths) =>
+  _.reduce((memo, path) => _.set(path, configue.getFirst(_.get(path, obj)), memo), {}, paths);
 
 // TODO (maybe) List of key!! (filter) -> its a getALL!!
 /**
@@ -135,21 +140,33 @@ const populateObj = (configue, obj, paths) => _.reduce(
  * @returns {*} all the config or a partial model
  */
 function load(model) {
-    return model ?
-        _.isFunction(model)? model(makeConfigGetter(this)): populateObj(this, model, getPaths(model))
-        : this.nconf.load();
+  return model
+    ? _.isFunction(model)
+      ? model(makeConfigGetter(this))
+      : populateObj(this, model, getPaths(model))
+    : this.nconf.load();
 }
 
 function makeConfigGetter(configue) {
   const configGetter = configue.get.bind(configue);
   configGetter.get = configGetter;
-  configGetter.getFirst  = configue.getFirst.bind(configue);
-  configGetter.getAll  = configue.getAll.bind(configue);
-  configGetter.getObject  = configue.getObject.bind(configue);
-  configGetter.load  = configue.load.bind(configue);
-  configGetter.template  = configue.template.bind(configue);
+  configGetter.getFirst = configue.getFirst.bind(configue);
+  configGetter.getAll = configue.getAll.bind(configue);
+  configGetter.getObject = configue.getObject.bind(configue);
+  configGetter.load = configue.load.bind(configue);
+  configGetter.template = configue.template.bind(configue);
   configGetter.t = configGetter.template;
   return configGetter;
 }
 
-module.exports = {formatKey, get, getAsync, getFirst, getAll, template, getObject, load, makeConfigGetter};
+module.exports = {
+  formatKey,
+  get,
+  getAsync,
+  getFirst,
+  getAll,
+  template,
+  getObject,
+  load,
+  makeConfigGetter
+};
