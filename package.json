@@ -28,7 +28,7 @@
     "url": "https://github.com/AdrieanKhisbe/configue/issues"
   },
   "scripts": {
-    "test": "lab -a code -v -P spec -t 90 -c",
+    "test": "ava",
     "coverage": "lab -r lcov -o coverage/lab.lcov -r html -o coverage/index.html",
     "publish-coverage": "codeclimate-test-reporter < coverage/lab.lcov",
     "lint": "eslint lib test"
@@ -46,11 +46,15 @@
     "yargs": "^11.0.0"
   },
   "devDependencies": {
-    "code": "^4.1.0",
+    "ava": "^2.4.0",
     "codecov": "^3.6.1",
     "eslint": "^4.10.0",
-    "hapi": "^16.6.2",
-    "lab": "^14.3.4"
+    "hapi": "^16.6.2"
   },
-  "license": "BSD-3-Clause"
+  "license": "BSD-3-Clause",
+  "ava": {
+    "files": [
+      "test/**/*.test.js"
+    ]
+  }
 }
