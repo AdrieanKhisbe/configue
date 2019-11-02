@@ -8,6 +8,12 @@ Up to version [0.7.1] project was know has `hapi-configue`.
 ## [Unreleased][unreleased]
 *Nothing So Far*
 
+## [1.3.0] - 2019-11-02
+pull request #16
+### Changed
+- replace shortstop by protocall
+- add `protocall` option to replace `shortstop` on long run
+
 ## [1.2.0] - 2019-11-02
 ### Added
 - Improved README with return to top links
@@ -173,7 +179,8 @@ Up to version [0.7.1] project was know has `hapi-configue`.
 ## [0.1.0] - 2015-12-01
 - Initial Release
 
-[unreleased]: https://github.com/AdrieanKhisbe/configue/compare/v1.2.0...HEAD
+[unreleased]: https://github.com/AdrieanKhisbe/configue/compare/v1.3.0...HEAD
+[1.3.0]: https://github.com/AdrieanKhisbe/configue/compare/v1.2.0...v1.3.0
 [1.2.0]: https://github.com/AdrieanKhisbe/configue/compare/v1.1.2...v1.2.0
 [1.1.2]: https://github.com/AdrieanKhisbe/configue/compare/v1.1.1...v1.1.2
 [1.1.1]: https://github.com/AdrieanKhisbe/configue/compare/v1.1.0...v1.1.1
