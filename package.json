@@ -2,6 +2,9 @@
   "name": "configue",
   "version": "1.1.2",
   "description": "Configue is a config library to easily customize your app from argv, env, files and more.",
+  "license": "MIT",
+  "repository": "https://github.com/AdrieanKhisbe/configue",
+  "homepage": "https://github.com/AdrieanKhisbe/configue#readme",
   "keywords": [
     "configuration",
     "config",
@@ -13,18 +16,15 @@
   "engines": {
     "node": ">=8.10.0"
   },
-  "license": "MIT",
-  "repository": "https://github.com/AdrieanKhisbe/configue",
-  "homepage": "https://github.com/AdrieanKhisbe/configue#readme",
   "main": "src/configue.js",
   "author": "Adrien Becchis (https://github.com/AdrieanKhisbe)",
+  "maintainers": [
+    "Adrien Becchis (https://github.com/AdrieanKhisbe)"
+  ],
   "contributors": [
     "Adrien Becchis (https://github.com/AdrieanKhisbe)",
     "Maxime Lequain (https://github.com/mlequain)"
   ],
-  "publishConfig": {
-    "registry": "http://registry.npmjs.org/"
-  },
   "bugs": {
     "url": "https://github.com/AdrieanKhisbe/configue/issues"
   },
