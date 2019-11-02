@@ -5,10 +5,7 @@
 [![npm version][npm-badge]][npm-url]
 [![Build Status][travis-badge]][travis-url]
 [![Coverage Status][coverage-badge]][coverage-url]
-[![Code Climate][codeclimate-badge]][codeclimate-url]
 [![Dependency Status][david-badge]][david-url]
-[![NSP Status][nsp-badge]][nsp-url]
-[![bitHound Overalll Score][bithound-badge]][bithound-url]
 
 [Configue] is a *node.js* config library to easily customize your app from argv, env, files and more.
 
@@ -484,11 +481,5 @@ and `firstHook`, `overridesHook`, `argvHook`, `envHook`, `filesHook`, `defaultsH
 [travis-url]: https://travis-ci.org/AdrieanKhisbe/configue
 [david-badge]: https://david-dm.org/AdrieanKhisbe/configue.svg
 [david-url]: https://david-dm.org/AdrieanKhisbe/configue
-[codeclimate-badge]: https://codeclimate.com/github/AdrieanKhisbe/configue/badges/gpa.svg
-[codeclimate-url]: https://codeclimate.com/github/AdrieanKhisbe/configue
-[coverage-badge]: https://codeclimate.com/github/AdrieanKhisbe/configue/badges/coverage.svg
-[coverage-url]: https://codeclimate.com/github/AdrieanKhisbe/configue/coverage
-[bithound-badge]: https://www.bithound.io/github/AdrieanKhisbe/configue/badges/score.svg
-[bithound-url]: https://www.bithound.io/github/AdrieanKhisbe/configue
-[nsp-badge]: https://nodesecurity.io/orgs/adrieankhisbe/projects/ca973c87-f742-4956-80c9-b402b8a76adb/badge
-[nsp-url]: https://nodesecurity.io/orgs/adrieankhisbe/projects/ca973c87-f742-4956-80c9-b402b8a76adb
+[coverage-badge]: https://codecov.io/gh/AdrieanKhisbe/configue/branch/master/graph/badge.svg)](
+[coverage-url]: https://codecov.io/gh/AdrieanKhisbe/configue

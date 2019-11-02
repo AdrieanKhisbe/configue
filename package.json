@@ -47,7 +47,7 @@
   },
   "devDependencies": {
     "code": "^4.1.0",
-    "codeclimate-test-reporter": "^0.5.0",
+    "codecov": "^3.6.1",
     "eslint": "^4.10.0",
     "hapi": "^16.6.2",
     "lab": "^14.3.4"
