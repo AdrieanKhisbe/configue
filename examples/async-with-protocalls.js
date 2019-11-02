@@ -1,10 +1,10 @@
-const Configue = require('../lib/configue');
+const Configue = require('configue');
 
 const configueOptions = {
   async: true,
   disable: {env: true},
-  shortstop: true,
-  files: [{file: './config-with-shortstops.json'}]
+  protocall: true,
+  files: [{file: './config-with-protocalls.json'}]
 };
 
 Configue.withOptions(configueOptions)
