@@ -1,5 +1,3 @@
-'use strict';
-
 const path = require('path');
 const Yargs = require('yargs');
 const _ = require('lodash');

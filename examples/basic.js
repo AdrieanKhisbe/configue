@@ -1,5 +1,3 @@
-'use strict';
-
 const Configue = require('configue');
 
 const configue = new Configue();

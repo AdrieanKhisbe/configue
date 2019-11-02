@@ -1,5 +1,3 @@
-'use strict';
-
 const Configue = require('../lib/configue');
 
 const configueOptions = {

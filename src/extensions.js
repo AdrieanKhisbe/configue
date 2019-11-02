@@ -1,6 +1,4 @@
-'use strict';
-
-const {makeConfigGetter} = require('./configue-getters');
+const {makeConfigGetter} = require('./core/getters');
 
 const rawHapiPlugin = function(configue, decorateName = 'configue') {
   /**

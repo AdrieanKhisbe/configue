@@ -1,5 +1,5 @@
 const test = require('ava');
-const Configue = require('../src/configue');
+const Configue = require('../src');
 
 test('get is working fine as factory method', t => {
   const configue = Configue.get();

@@ -1,12 +1,10 @@
-'use strict';
-
 const Joi = require('joi');
 const _ = require('lodash');
 const Promise = require('bluebird');
 const shortstop = require('shortstop');
 const shortstopHandlers = require('shortstop-handlers');
-const {getPaths} = require('./configue-common');
-const {applyDefaultWorkflow, applyDefaultWorkflowAsync} = require('./configue-core-workflow');
+const {getPaths} = require('./utils');
+const {applyDefaultWorkflow, applyDefaultWorkflowAsync} = require('./workflows');
 
 const Configue = (module.exports = function Configue(options = {}) {
   if (!(this instanceof Configue)) {

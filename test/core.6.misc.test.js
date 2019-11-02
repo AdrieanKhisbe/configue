@@ -1,5 +1,5 @@
 const test = require('ava');
-const Configue = require('../src/configue');
+const Configue = require('../src');
 
 // argv-env-access-and-prefedined-models
 

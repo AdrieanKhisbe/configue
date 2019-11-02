@@ -1,5 +1,5 @@
 const test = require('ava');
-const Configue = require('../src/configue');
+const Configue = require('../src');
 
 const fooTransformer = ({key, value}) => ({key, value: `${value}foo`});
 const barTransformer = ({key, value}) => ({key, value: `${value}bar`});

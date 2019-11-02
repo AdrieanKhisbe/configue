@@ -1,5 +1,3 @@
-'use strict';
-
 const Configue = require('configue');
 
 Configue.disable({env: true})

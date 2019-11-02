@@ -1,8 +1,6 @@
-'use strict';
-
 const _ = require('lodash/fp');
 const Promise = require('bluebird');
-const {getPaths} = require('./configue-common');
+const {getPaths} = require('./utils');
 
 /**
  * Format the key to a nconf compatible format

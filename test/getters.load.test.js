@@ -1,5 +1,5 @@
 const test = require('ava');
-const Configue = require('../src/configue');
+const Configue = require('../src');
 
 test('simple load', t => {
   const configue = Configue({defaults: {A: '2', B: 42}});

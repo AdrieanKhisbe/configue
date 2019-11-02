@@ -1,6 +1,6 @@
 const test = require('ava');
 const Yargs = require('yargs');
-const Configue = require('../src/configue');
+const Configue = require('../src');
 
 test('detect wrong option item', t => {
   t.throws(() => Configue({this: 'is-junk'}));

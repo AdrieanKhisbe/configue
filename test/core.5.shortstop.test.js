@@ -1,5 +1,5 @@
 const test = require('ava');
-const Configue = require('../src/configue');
+const Configue = require('../src');
 
 test('shortstop performs transformation as expected', async t => {
   const configue = await Configue.shortstop(true)

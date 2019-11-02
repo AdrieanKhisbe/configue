@@ -1,9 +1,7 @@
-'use strict';
-
-const Configue = require('./configue-core');
-const addBuilder = require('./configue-builder');
-const {get, getAsync, getFirst, getAll, template, getObject, load} = require('./configue-getters');
-const {hapiPlugin, hapi17Plugin, expressMiddleware} = require('./configue-extensions');
+const Configue = require('./core/configue');
+const addBuilder = require('./core/builder');
+const {get, getAsync, getFirst, getAll, template, getObject, load} = require('./core/getters');
+const {hapiPlugin, hapi17Plugin, expressMiddleware} = require('./extensions');
 
 addBuilder(Configue);
 
