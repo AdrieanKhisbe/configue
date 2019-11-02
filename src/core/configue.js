@@ -1,8 +1,7 @@
 const Joi = require('joi');
 const _ = require('lodash');
 const Promise = require('bluebird');
-const shortstop = require('shortstop');
-const shortstopHandlers = require('shortstop-handlers');
+const protocall = require('protocall');
 const {getPaths} = require('./utils');
 const {applyDefaultWorkflow, applyDefaultWorkflowAsync} = require('./workflows');
 
@@ -18,11 +17,14 @@ const Configue = (module.exports = function Configue(options = {}) {
   const settings = (this.settings = _.clone(options));
   this.resolved = false;
   this.async = options.async;
-  if (settings.shortstop) this.shortstopResolver = createShortstopResolver(settings.shortstop);
+
+  if (settings.protocall) this.protocallResolver = createProtocallResolver(settings.protocall);
+  if (settings.shortstop) this.protocallResolver = createProtocallResolver(settings.shortstop);
 
   const results = Joi.validate(settings, configueOptionsSchema);
   if (results.error) throw results.error;
-  if (settings.shortstop && !settings.async) throw new Error('Shortstop usage requires async mode');
+  if ((settings.shortstop || settings.protocall) && !settings.async)
+    throw new Error('Protocall(Shortstop) usage requires async mode');
   nconf.use('memory');
   nconf.clear();
 
@@ -49,11 +51,11 @@ Configue.prototype.resolve = function() {
       : Promise.resolve(applyDefaultWorkflowAsync(this.nconf, this.settings))
     )
       .then(() => {
-        if (this.settings.shortstop) {
-          return resolveShortstops(
+        if (this.settings.protocall) {
+          return resolveProtocalls(
             this.nconf,
-            this.shortstopResolver,
-            this.settings.shortstop.preserveBuffer
+            this.protocallResolver,
+            this.settings.protocall.preserveBuffer
           );
         }
       })
@@ -102,6 +104,16 @@ const configueOptionsSchema = [
     separator: [Joi.string(), Joi.object().type(RegExp)],
     ignorePrefix: [Joi.string(), Joi.array().items(Joi.string())],
     shortstop: [
+      // TODO: mark as deprecated
+      Joi.boolean(),
+      Joi.object().keys({
+        protocols: Joi.object(),
+        preserveBuffer: Joi.boolean(),
+        noDefaultProtocols: Joi.boolean(),
+        baseDir: Joi.string()
+      })
+    ],
+    protocall: [
       Joi.boolean(),
       Joi.object().keys({
         protocols: Joi.object(),
@@ -137,30 +149,17 @@ const configueOptionsSchema = [
   })
 ];
 
-const defaultShotstopResolvers = baseDir => ({
-  file: shortstopHandlers.file(baseDir),
-  path: shortstopHandlers.path(baseDir),
-  env: shortstopHandlers.env(),
-  base64: shortstopHandlers.base64(),
-  exec: shortstopHandlers.exec(baseDir),
-  glob: shortstopHandlers.glob(baseDir),
-  require: shortstopHandlers.require(baseDir)
-});
-
-const createShortstopResolver = options => {
-  const shortstopResolver = shortstop.create();
-  const resolvers = _.assign(
-    {},
-    _.get(options, 'noDefaultProtocols')
-      ? {}
-      : defaultShotstopResolvers(_.get(options, 'baseDir', process.cwd())),
-    _.get(options, 'protocols', {})
+const createProtocallResolver = options => {
+  const protocallResolver = _.get(options, 'noDefaultProtocols')
+    ? protocall.create()
+    : protocall.getDefaultResolver(_.get(options, 'baseDir', process.cwd()));
+  _.forEach(_.get(options, 'protocols', {}), (handler, protocol) =>
+    protocallResolver.use(protocol, handler)
   );
-  _.forEach(resolvers, (handler, protocol) => shortstopResolver.use(protocol, handler));
-  return shortstopResolver;
+  return protocallResolver;
 };
 
-const resolveShortstops = (nconf, resolver, preseveBuffer) => {
+const resolveProtocalls = (nconf, resolver, preseveBuffer) => {
   const originalValues = nconf.load();
   return Promise.fromCallback(callback => {
     resolver.resolve(originalValues, (err, resolvedValues) => {

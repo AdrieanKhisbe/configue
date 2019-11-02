@@ -50,16 +50,18 @@ test('resolve method builder with chained then', async t => {
   const configue = await Configue.shortstop(true).resolve();
   t.deepEqual(configue.settings, {
     async: true,
-    shortstop: true
+    protocall: true
   });
   t.assert(configue.resolved);
 });
 
-test('resolve method builder with passed continuation', async t => {
-  const configue = await Configue.shortstop(true).resolve();
-  t.deepEqual(configue.settings, {
-    async: true,
-    shortstop: true
+test.cb('resolve method builder with passed continuation', t => {
+  Configue.shortstop(true).resolve(configue => {
+    t.deepEqual(configue.settings, {
+      async: true,
+      protocall: true
+    });
+    t.assert(configue.resolved);
+    t.end();
   });
-  t.assert(configue.resolved);
 });

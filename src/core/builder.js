@@ -26,11 +26,12 @@ module.exports = function extendWithFluentBuilder(Configue) {
       return Configue;
     };
   });
-  Configue.shortstop = opt => {
-    Configue._options.shortstop = opt;
+  Configue.protocall = opt => {
+    Configue._options.protocall = opt;
     if (opt) Configue._options.async = true;
     return Configue;
   };
+  Configue.shortstop = Configue.protocall;
   ['first', 'overrides', 'argv', 'env', 'files', 'defaults'].forEach(hook => {
     Configue[`${hook}Hook`] = opt => {
       _.set(Configue._options, `postHooks.${hook}`, opt);

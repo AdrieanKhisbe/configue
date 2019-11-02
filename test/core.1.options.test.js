@@ -7,7 +7,7 @@ test('detect wrong option item', t => {
 });
 // TODO maybe add some valid schema
 test('presevent usage of shortstop without async mode', t => {
-  t.throws(() => Configue({shortstop: true}), 'Shortstop usage requires async mode');
+  t.throws(() => Configue({shortstop: true}), 'Protocall(Shortstop) usage requires async mode');
 });
 
 test('argv are forwarded to nconf', t => {
