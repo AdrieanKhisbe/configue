@@ -481,5 +481,5 @@ and `firstHook`, `overridesHook`, `argvHook`, `envHook`, `filesHook`, `defaultsH
 [travis-url]: https://travis-ci.org/AdrieanKhisbe/configue
 [david-badge]: https://david-dm.org/AdrieanKhisbe/configue.svg
 [david-url]: https://david-dm.org/AdrieanKhisbe/configue
-[coverage-badge]: https://codecov.io/gh/AdrieanKhisbe/configue/branch/master/graph/badge.svg)](
+[coverage-badge]: https://codecov.io/gh/AdrieanKhisbe/configue/branch/master/graph/badge.svg
 [coverage-url]: https://codecov.io/gh/AdrieanKhisbe/configue
