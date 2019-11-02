@@ -46,9 +46,10 @@
     "yargs": "^11.0.0"
   },
   "devDependencies": {
+    "@-k/eslint-plugin": "^0.2.0",
     "ava": "^2.4.0",
     "codecov": "^3.6.1",
-    "eslint": "^4.10.0",
+    "eslint": "^6.6.0",
     "hapi": "^16.6.2",
     "nyc": "^14.1.1"
   },
