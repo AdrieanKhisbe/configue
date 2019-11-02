@@ -9,6 +9,9 @@ test('detect wrong option item', t => {
 test('presevent usage of shortstop without async mode', t => {
   t.throws(() => Configue({shortstop: true}), 'Protocall(Shortstop) usage requires async mode');
 });
+test('presevent usage of protocall without async mode', t => {
+  t.throws(() => Configue({protocall: true}), 'Protocall(Shortstop) usage requires async mode');
+});
 
 test('argv are forwarded to nconf', t => {
   const configue = Configue({argv: {key: {default: 'some-value'}}});
