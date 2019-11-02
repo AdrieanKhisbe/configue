@@ -1,6 +1,6 @@
 const test = require('ava');
 const _ = require('lodash/fp');
-const Configue = require('../lib/configue');
+const Configue = require('../src/configue');
 
 
 test.cb('expose configue handler', t => {

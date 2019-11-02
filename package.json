@@ -15,7 +15,7 @@
   },
   "repository": "https://github.com/AdrieanKhisbe/configue",
   "homepage": "https://github.com/AdrieanKhisbe/configue#readme",
-  "main": "lib/configue.js",
+  "main": "src/configue.js",
   "author": "Adrien Becchis (https://github.com/AdrieanKhisbe)",
   "contributors": [
     "Adrien Becchis (https://github.com/AdrieanKhisbe)",
@@ -31,7 +31,7 @@
     "test": "ava",
     "coverage": "lab -r lcov -o coverage/lab.lcov -r html -o coverage/index.html",
     "publish-coverage": "codeclimate-test-reporter < coverage/lab.lcov",
-    "lint": "eslint lib test"
+    "lint": "eslint src test"
   },
   "dependencies": {
     "bluebird": "^3.5.1",

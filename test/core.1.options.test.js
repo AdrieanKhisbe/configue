@@ -1,5 +1,5 @@
 const test = require('ava');
-const Configue = require('../lib/configue');
+const Configue = require('../src/configue');
 const Yargs = require('yargs');
 
 test('detect wrong option item', t => {

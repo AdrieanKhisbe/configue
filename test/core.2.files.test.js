@@ -1,5 +1,5 @@
 const test = require('ava');
-const Configue = require('../lib/configue');
+const Configue = require('../src/configue');
 const path = require('path');
 
 const JSON_CONF_FILE = path.join(__dirname, 'data/config.json');

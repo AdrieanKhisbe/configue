@@ -1,5 +1,5 @@
 const test = require('ava');
-const Configue = require('../lib/configue');
+const Configue = require('../src/configue');
 
 test('resolve is automatic by default', t => {
     const configue = Configue();

@@ -1,5 +1,5 @@
 const test = require('ava');
-const {formatKey} = require('../lib/configue-getters');
+const {formatKey} = require('../src/configue-getters');
 
 test('does nothing for normal keys', t => {
     t.is(formatKey('toto'), 'toto');

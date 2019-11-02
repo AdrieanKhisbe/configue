@@ -1,7 +1,7 @@
 const test = require('ava');
 const _ = require('lodash');
 const Hapi = require('hapi');
-const Configue = require('../lib/configue');
+const Configue = require('../src/configue');
 
 
 test.cb('hapi register expose configue handler', t => {

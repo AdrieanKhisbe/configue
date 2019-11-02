@@ -1,5 +1,5 @@
 const test = require('ava');
-const Configue = require('../lib/configue');
+const Configue = require('../src/configue');
 
 test('shortstop performs transformation as expected', async t => {
     const configue = await Configue.shortstop(true).defaults({b64: 'base64:YmFzZTY0'}).resolve();

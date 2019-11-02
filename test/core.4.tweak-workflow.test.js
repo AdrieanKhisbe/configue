@@ -1,5 +1,5 @@
 const test = require('ava');
-const Configue = require('../lib/configue');
+const Configue = require('../src/configue');
 test('enable to disable argv', t => {
     process.argv.push('--who=YO');
     process.env.who = 'NO';
