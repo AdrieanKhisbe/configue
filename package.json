@@ -29,7 +29,7 @@
     "url": "https://github.com/AdrieanKhisbe/configue/issues"
   },
   "scripts": {
-    "lint": "eslint src test",
+    "lint": "eslint .",
     "test:only": "ava",
     "test": "npm run lint && nyc npm run test:only",
     "publish-coverage": "codecov"

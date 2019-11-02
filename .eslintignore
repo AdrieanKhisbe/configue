@@ -1,1 +1,5 @@
 **/*{.,-}min.js
+coverage
+.nyc_output
+tmp
+private

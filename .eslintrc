@@ -3,5 +3,14 @@
   "rules": {
     "lodash-fp/use-fp": "warn",
     "prefer-rest-params": "warn"
-  }
+  },
+  "overrides": [
+    {
+      "files": "examples/*.js",
+      "rules": {
+        "import/no-unresolved": "off",
+        "unicorn/no-process-exit": "off"
+      }
+    }
+  ]
 }
