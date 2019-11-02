@@ -28,10 +28,10 @@
     "url": "https://github.com/AdrieanKhisbe/configue/issues"
   },
   "scripts": {
-    "test": "ava",
-    "coverage": "lab -r lcov -o coverage/lab.lcov -r html -o coverage/index.html",
-    "publish-coverage": "codeclimate-test-reporter < coverage/lab.lcov",
-    "lint": "eslint src test"
+    "lint": "eslint src test",
+    "test:only": "ava",
+    "test": "npm run lint && nyc npm run test:only",
+    "publish-coverage": "codecov"
   },
   "dependencies": {
     "bluebird": "^3.5.1",
@@ -49,7 +49,8 @@
     "ava": "^2.4.0",
     "codecov": "^3.6.1",
     "eslint": "^4.10.0",
-    "hapi": "^16.6.2"
+    "hapi": "^16.6.2",
+    "nyc": "^14.1.1"
   },
   "license": "BSD-3-Clause",
   "ava": {

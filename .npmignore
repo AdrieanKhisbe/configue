@@ -1,7 +1,9 @@
 .travis.yml
 .coverage.sh
-.codeclimate.yml
+coverage
 .eslintignore
 .eslintrc
 examples
 tmp
+private
+.nyc_output
