@@ -1,15 +1,22 @@
 # Change Log
 
 All notable changes to *configue* will be documented in this file.
-This project adheres to [Semantic Versioning](http://semver.org/).
+This project adheres to [Semantic Versioning](http://semver.org/)
 
 Up to version [0.7.1] project was know has `hapi-configue`.
 
 ## [Unreleased][unreleased]
 *Nothing So Far*
 
+## [1.3.1] - 2019-11-18
+Pull request [#17]
+### Changed
+- refactor with `protocall` v2 with promise support
+- use `fp` flavor of `lodash`
+- drop `hapi` as dev dependency. (was used in test for plugin)
+
 ## [1.3.0] - 2019-11-02
-pull request #16
+Pull request [#16]
 ### Changed
 - replace shortstop by protocall
 - add `protocall` option to replace `shortstop` on long run
@@ -179,7 +186,10 @@ pull request #16
 ## [0.1.0] - 2015-12-01
 - Initial Release
 
-[unreleased]: https://github.com/AdrieanKhisbe/configue/compare/v1.3.0...HEAD
+[#17]: https://github.com/AdrieanKhisbe/configue/pull/17
+[#16]: https://github.com/AdrieanKhisbe/configue/pull/16
+[unreleased]: https://github.com/AdrieanKhisbe/configue/compare/v1.3.1...HEAD
+[1.3.1]: https://github.com/AdrieanKhisbe/configue/compare/v1.3.0...v1.3.1
 [1.3.0]: https://github.com/AdrieanKhisbe/configue/compare/v1.2.0...v1.3.0
 [1.2.0]: https://github.com/AdrieanKhisbe/configue/compare/v1.1.2...v1.2.0
 [1.1.2]: https://github.com/AdrieanKhisbe/configue/compare/v1.1.1...v1.1.2
