@@ -151,29 +151,25 @@ const configueOptionsSchema = [
 
 const createProtocallResolver = options => {
   const protocallResolver = _.get(options, 'noDefaultProtocols')
-    ? protocall.create()
+    ? new protocall.Resolver()
     : protocall.getDefaultResolver(_.get(options, 'baseDir', process.cwd()));
-  _.forEach(_.get(options, 'protocols', {}), (handler, protocol) =>
-    protocallResolver.use(protocol, handler)
-  );
+
+  if (_.has(options, 'protocols')) protocallResolver.use(options.protocols);
+
   return protocallResolver;
 };
 
 const resolveProtocalls = (nconf, resolver, preseveBuffer) => {
   const originalValues = nconf.load();
-  return Promise.fromCallback(callback => {
-    resolver.resolve(originalValues, (err, resolvedValues) => {
-      if (err) return callback(err);
-      const paths = getPaths(originalValues);
-      _.forEach(paths, path => {
-        const resolvedValue = _.get(resolvedValues, path);
-        if (_.get(originalValues, path) !== resolvedValue)
-          nconf.set(
-            path.join(':'),
-            _.isBuffer(resolvedValue) && !preseveBuffer ? resolvedValue.toString() : resolvedValue
-          );
-      });
-      callback(null);
+  return resolver.resolve(originalValues).then(resolvedValues => {
+    const paths = getPaths(originalValues);
+    _.forEach(paths, path => {
+      const resolvedValue = _.get(resolvedValues, path);
+      if (_.get(originalValues, path) !== resolvedValue)
+        nconf.set(
+          path.join(':'),
+          _.isBuffer(resolvedValue) && !preseveBuffer ? resolvedValue.toString() : resolvedValue
+        );
     });
   });
 };
