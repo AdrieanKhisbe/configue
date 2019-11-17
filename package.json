@@ -43,7 +43,7 @@
     "nconf-properties": "^0.2.3",
     "nconf-yaml": "^1.0.2",
     "protocall": "^2.0.0",
-    "yargs": "^14.2.0"
+    "yargs": "^15.0.1"
   },
   "devDependencies": {
     "@-k/eslint-plugin": "^0.2.0",
