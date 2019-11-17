@@ -68,7 +68,6 @@ test('can load data from a properties file without saying explicitely it is one'
     files: PROPERTIES_CONF_FILE
   };
   const configue = Configue(configueOptions);
-  console.log(configue.get('key'));
   t.is(configue.get('key'), 'properties-config');
   t.is(configue.get('nested:key'), 'nested');
 });

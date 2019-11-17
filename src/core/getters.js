@@ -53,13 +53,13 @@ function getAsync(key, defaultOrCallback) {
  * @param defaultValue default value
  * @returns {*} first defined value
  */
-function getFirst(keys, defaultValue) {
-  const arrayGiven = Array.isArray(keys);
-  for (const key of arrayGiven ? keys : [...arguments]) {
+function getFirst(keys, defaultValue, ...rest) {
+  const hasDefault = _.isArray(keys) && _.isEmpty(rest);
+  for (const key of hasDefault ? keys : [keys, defaultValue, ...rest]) {
     const result = this.nconf.get(formatKey(key));
     if (result !== undefined) return result;
   }
-  return arrayGiven ? defaultValue : undefined;
+  return hasDefault ? defaultValue : undefined;
 }
 
 /**
@@ -70,8 +70,10 @@ function getFirst(keys, defaultValue) {
  * @param keys all keys that are to be fetched
  * @returns {Array} array of fetched values
  */
-function getAll(keys) {
-  return (Array.isArray(keys) ? keys : [...arguments]).map(key => this.nconf.get(formatKey(key)));
+function getAll(...keys) {
+  return (Array.isArray(_.head(keys)) ? _.head(keys) : keys).map(key =>
+    this.nconf.get(formatKey(key))
+  );
 }
 
 const configueTemplate = (configue, defaults = {}) => (chains, ...keys) => {
