@@ -1,5 +1,5 @@
 const Joi = require('joi');
-const _ = require('lodash');
+const _ = require('lodash/fp');
 const Promise = require('bluebird');
 const protocall = require('protocall');
 const {getPaths} = require('./utils');
@@ -41,7 +41,7 @@ Configue.prototype.resolve = function() {
 
   const completeSetup = () => {
     this.resolved = true;
-    this.argv = _.get(this.nconf, '_yargs.argv');
+    this.argv = _.get('_yargs.argv', this.nconf);
     this.env = process.env;
     this.populateModels();
   };
@@ -73,10 +73,7 @@ Configue.prototype.resolve = function() {
  * Populate defined models
  */
 Configue.prototype.populateModels = function() {
-  this._ = {};
-  _.map(this.settings.models, (value, key) => {
-    this._[key] = this.load(value);
-  });
+  this._ = _.mapValues(value => this.load(value), this.settings.models);
 };
 
 /**
@@ -150,11 +147,11 @@ const configueOptionsSchema = [
 ];
 
 const createProtocallResolver = options => {
-  const protocallResolver = _.get(options, 'noDefaultProtocols')
+  const protocallResolver = _.get('noDefaultProtocols', options)
     ? new protocall.Resolver()
-    : protocall.getDefaultResolver(_.get(options, 'baseDir', process.cwd()));
+    : protocall.getDefaultResolver(_.getOr(process.cwd(), 'baseDir', options));
 
-  if (_.has(options, 'protocols')) protocallResolver.use(options.protocols);
+  if (_.has('protocols', options)) protocallResolver.use(options.protocols);
 
   return protocallResolver;
 };
@@ -163,13 +160,13 @@ const resolveProtocalls = (nconf, resolver, preseveBuffer) => {
   const originalValues = nconf.load();
   return resolver.resolve(originalValues).then(resolvedValues => {
     const paths = getPaths(originalValues);
-    _.forEach(paths, path => {
-      const resolvedValue = _.get(resolvedValues, path);
-      if (_.get(originalValues, path) !== resolvedValue)
+    for (const path of paths) {
+      const resolvedValue = _.get(path, resolvedValues);
+      if (_.get(path, originalValues) !== resolvedValue)
         nconf.set(
           path.join(':'),
           _.isBuffer(resolvedValue) && !preseveBuffer ? resolvedValue.toString() : resolvedValue
         );
-    });
+    }
   });
 };

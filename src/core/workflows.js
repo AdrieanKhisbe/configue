@@ -1,6 +1,6 @@
 const path = require('path');
 const Yargs = require('yargs');
-const _ = require('lodash');
+const _ = require('lodash/fp');
 const Promise = require('bluebird');
 
 /**
@@ -63,7 +63,8 @@ const STEPS = ['overrides', 'argv', 'env', 'files', 'defaults'];
  * @returns {Function}
  */
 const processHook = (nconf, hooks, stepName) => {
-  if (_.has(hooks, stepName)) return hooks[stepName](nconf);
+  const hook = _.get(stepName, hooks);
+  if (hook) return hook(nconf);
 };
 
 /**
@@ -104,18 +105,13 @@ const getTransformForIgnorePrefix = prefix => {
 
 const getTransformer = options => {
   const transformers = [];
-  if (options.ignorePrefix) {
-    if (_.isArray(options.ignorePrefix))
-      _.forEach(options.ignorePrefix, prefix =>
-        transformers.push(getTransformForIgnorePrefix(prefix))
-      );
-    else transformers.push(getTransformForIgnorePrefix(options.ignorePrefix));
-  }
+  if (options.ignorePrefix)
+    transformers.push(..._.flatten([options.ignorePrefix]).map(getTransformForIgnorePrefix));
   if (options.transform) transformers.push(options.transform);
   if (options.normalize)
     transformers.push(getTransformForNormalize(options.normalize, options.separator));
   if (_.isEmpty(transformers)) return;
-  return kv => _.reduce(_.flatten(transformers), (acc, transformer) => transformer(acc), kv);
+  return kv => _.flatten(transformers).reduce((acc, transformer) => transformer(acc), kv);
 };
 
 const promiseIfNeeded = options => (options.async ? Promise.resolve() : undefined);
@@ -126,11 +122,11 @@ const promiseIfNeeded = options => (options.async ? Promise.resolve() : undefine
  * @param options - plugin options
  */
 const loadArgv = (nconf, options) => {
-  if (_.has(options, 'disable.argv')) return promiseIfNeeded(options);
+  if (_.has('disable.argv', options)) return promiseIfNeeded(options);
 
   const argOpts = options.argv || {};
   // craft own yargs if needed that is transmit to nconf
-  const yargs = _.has(argOpts, 'argv') ? argOpts : Yargs(process.argv.slice(2)).options(argOpts);
+  const yargs = _.has('argv', argOpts) ? argOpts : Yargs(process.argv.slice(2)).options(argOpts);
   yargs.separator = options.separator;
   if (options.parse !== undefined) yargs.parseValues = options.parse;
 
@@ -152,7 +148,7 @@ const loadArgv = (nconf, options) => {
  * @param options - plugin options
  */
 const loadEnv = (nconf, options) => {
-  if (_.has(options, 'disable.env')) return promiseIfNeeded(options);
+  if (_.has('disable.env', options)) return promiseIfNeeded(options);
 
   const envOpts = _.isArray(options.env) ? {whitelist: options.env} : options.env || {};
   envOpts.parseValues = options.parse;
@@ -160,7 +156,7 @@ const loadEnv = (nconf, options) => {
 
   const transformer = getTransformer(options);
   if (options.normalize) {
-    envOpts.whitelist = _.map(envOpts.whitelist, _[options.normalize]);
+    envOpts.whitelist = _.map(_[options.normalize], envOpts.whitelist);
   }
 
   if (transformer) envOpts.transform = transformer;
@@ -199,12 +195,12 @@ const nconfFormatForFile = file => {
 const loadFiles = (nconf, options) => {
   const files = options.files;
   if (Array.isArray(files) && files.length > 0) {
-    files.forEach(file => {
-      const path = typeof files[0] === 'string' ? file : file.file;
+    for (const file of files) {
+      const path = _.getOr(file, 'file', file);
       // file(.file) is used as namespace for nconf
       const formater = file.format || nconfFormatForFile(path);
       nconf.file(path, formater ? {file: path, format: formater} : file);
-    });
+    }
   } else if (typeof files === 'string' && files.length > 0) {
     const formater = nconfFormatForFile(files);
     if (formater) nconf.file({file: files, format: formater});
@@ -220,7 +216,7 @@ const loadFiles = (nconf, options) => {
  */
 const loadDefaults = function loadDefaults(nconf, options) {
   const defaults = options.defaults;
-  nconf.defaults(Array.isArray(defaults) ? _.defaults({}, ...defaults) : defaults);
+  nconf.defaults(Array.isArray(defaults) ? _.defaultsAll(defaults) : defaults);
   return promiseIfNeeded(options);
 };
 

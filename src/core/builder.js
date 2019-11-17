@@ -1,4 +1,5 @@
-const _ = require('lodash');
+// eslint-disable-next-line lodash-fp/use-fp
+const _ = require('lodash'); // keep vanilaa flavor for mutating assign and set
 
 const optionKeys = [
   'files',
