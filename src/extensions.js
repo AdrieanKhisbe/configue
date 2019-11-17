@@ -8,20 +8,26 @@ const rawHapiPlugin = function(configue, decorateName = 'configue') {
    * @param next - plugin continuation
    */
   return function plugin(server, options, next) {
-    if (!configue.resolved) {
-      try {
-        configue.resolve();
-      } catch (err) {
-        if (next) return next(err);
-        else throw err;
-      }
-    }
-    server.log(['plugin', 'info'], 'Registering the configue as decoration');
-    const configGetter = makeConfigGetter(configue);
-    server.decorate('server', decorateName, configGetter);
-    server.decorate('request', decorateName, configGetter);
+    const register = () => {
+      server.log(['plugin', 'info'], 'Registering the configue as decoration');
+      const configGetter = makeConfigGetter(configue);
+      server.decorate('server', decorateName, configGetter);
+      server.decorate('request', decorateName, configGetter);
 
-    if (next) next();
+      if (next) next();
+    };
+    if (configue.resolved) return register();
+
+    try {
+      const promiseMaybe = configue.resolve();
+      if (promiseMaybe && promiseMaybe.then) {
+        return promiseMaybe.then(register).catch(next);
+      }
+      return register();
+    } catch (err) {
+      if (next) return next(err);
+      else throw err;
+    }
   };
 };
 
