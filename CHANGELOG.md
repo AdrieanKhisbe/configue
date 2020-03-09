@@ -8,6 +8,11 @@ Up to version [0.7.1] project was know has `hapi-configue`.
 ## [Unreleased][unreleased]
 *Nothing So Far*
 
+## [1.3.9] - 2020-03-09
+Pull request [#19]
+### Changed
+- updated dependencies and fix vuln
+
 ## [1.3.1] - 2019-11-18
 Pull request [#17]
 ### Changed
@@ -186,9 +191,11 @@ Pull request [#16]
 ## [0.1.0] - 2015-12-01
 - Initial Release
 
+[#19]: https://github.com/AdrieanKhisbe/configue/pull/19
 [#17]: https://github.com/AdrieanKhisbe/configue/pull/17
 [#16]: https://github.com/AdrieanKhisbe/configue/pull/16
-[unreleased]: https://github.com/AdrieanKhisbe/configue/compare/v1.3.1...HEAD
+[unreleased]: https://github.com/AdrieanKhisbe/configue/compare/v1.3.2...HEAD
+[1.3.2]: https://github.com/AdrieanKhisbe/configue/compare/v1.3.1...v1.3.2
 [1.3.1]: https://github.com/AdrieanKhisbe/configue/compare/v1.3.0...v1.3.1
 [1.3.0]: https://github.com/AdrieanKhisbe/configue/compare/v1.2.0...v1.3.0
 [1.2.0]: https://github.com/AdrieanKhisbe/configue/compare/v1.1.2...v1.2.0
