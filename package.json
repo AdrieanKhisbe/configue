@@ -35,22 +35,22 @@
     "publish-coverage": "codecov"
   },
   "dependencies": {
-    "bluebird": "^3.7.1",
+    "bluebird": "^3.7.2",
     "joi": "^14.3.1",
     "json5": "^2.1.1",
     "lodash": "^4.17.15",
     "nconf": "^0.10.0",
-    "nconf-properties": "^0.2.3",
+    "nconf-properties": "^0.3.0",
     "nconf-yaml": "^1.0.2",
     "protocall": "^2.0.0",
-    "yargs": "^15.0.1"
+    "yargs": "^15.3.0"
   },
   "devDependencies": {
     "@-k/eslint-plugin": "^0.2.0",
     "ava": "^2.4.0",
-    "codecov": "^3.6.1",
-    "eslint": "^6.6.0",
-    "nyc": "^14.1.1"
+    "codecov": "^3.6.5",
+    "eslint": "^6.8.0",
+    "nyc": "^15.0.0"
   },
   "ava": {
     "files": [
