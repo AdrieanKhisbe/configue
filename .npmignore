@@ -1,9 +1,0 @@
-.travis.yml
-.coverage.sh
-coverage
-.eslintignore
-.eslintrc
-examples
-tmp
-private
-.nyc_output
