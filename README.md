@@ -77,7 +77,7 @@ many options in many files, and specify at launch with options you want to use.
 Just add `configue` has a dependency installing it with `npm`, or with `yarn`.
 
     npm install --save configue
-    
+
     yarn add configue
 
 
@@ -96,20 +96,22 @@ See the following examples for concrete presentation.
 #### Basic Configue[↥]
 ```js
 const Configue = require('configue');
+
 const configue = new Configue();
 
 const who = configue.get('who', 'World');
-console.log('Hello ' + who);
+console.log(`Hello ${who}`);
 ```
 
 #### Basic Async Configue[↥]
 ```js
 const Configue = require('configue');
+
 const configue = new Configue({async: true});
 configue.resolve().then(() => {
-    const who = configue.get('who', 'World');
-    console.log('Hello ' + who);
-})
+  const who = configue.get('who', 'World');
+  console.log(`Hello ${who}`);
+});
 ```
 
 Async resolve is necessary for some advanced features like async hooks and [shortstop] protocols.
@@ -140,22 +142,22 @@ use `:` or `.` to deep access to value, or you can an array of keys.
 It's also possible to specify a default value in case key is `undefined`.
 
 ```js
-configue.get('defined4sure')
-configue.get('some:nested:value')
-configue.get('some.other.nested.value')
-configue.get(['yet', 'another', 'nested','value'])
-configue.get('mightBeUndefined', 'default')
+configue.get('defined4sure');
+configue.get('some:nested:value');
+configue.get('some.other.nested.value');
+configue.get(['yet', 'another', 'nested', 'value']);
+configue.get('mightBeUndefined', 'default');
 ```
 
 You can also retrieve a list of value with `getAll`, or the first non undefined value from a list with `getFirst`
 
 ```js
-configue.getAll('defined4sure', 'some:nested:value')
-configue.getAll(['defined4sure', 'some:nested:value'])
-configue.getAll(['some.other.nested.value', ['yet', 'another', 'nested','value']])
+configue.getAll('defined4sure', 'some:nested:value');
+configue.getAll(['defined4sure', 'some:nested:value']);
+configue.getAll(['some.other.nested.value', ['yet', 'another', 'nested', 'value']]);
 
-configue.getFirst('defined4sure', 'some:nested:value')
-configue.getFirst(['defined4sure', 'some:nested:value'], optionalDefaultValue)
+configue.getFirst('defined4sure', 'some:nested:value');
+configue.getFirst(['defined4sure', 'some:nested:value'], optionalDefaultValue);
 ```
 
 #### Retrieving Specified Object[↥]
@@ -164,13 +166,16 @@ When you can to retrieve several values in the same time you can forge object so
 
 ##### Load and getObject for punctual retrieval[↥]
 The two main methods are `load` and `getObject`
-- `load` by default return the whole merged config as an object. But you can give him a model that would be used 
+- `load` by default return the whole merged config as an object. But you can give him a model that would be used
   to craft an object. The model is a object whose leaves are configue keys, or array of configue key:
     ex: `{serverConfig: {host: 'app:server:host', port: 'PORT'}, ...}`
 - `getObject` that takes a list of key, and return an object formed by key / values
 
 ```js
-const {serverConfig} = configue.load({serverConfig: {host: 'app:server:host', port: 'PORT'}, extraOptions: "..."});
+const {serverConfig} = configue.load({
+  serverConfig: {host: 'app:server:host', port: 'PORT'},
+  extraOptions: '...'
+});
 
 const {file, prefix} = configue.getObject('file', 'prefix');
 ```
@@ -181,11 +186,14 @@ To do that you can predefined *models* in the configuration. These would be popu
 and they would be made accessible under the `_` key.
 
 ```js
-const configue = new Configue({models: {
+const configue = new Configue({
+  models: {
     serverConfig: {host: 'app:server:host', port: 'PORT'},
-    otherModel:{a:'a', b:'...'}}});
+    otherModel: {a: 'a', b: '...'}
+  }
+});
 //...
-console.log(configue._.serverConfig) // => host: ..., port: ...
+console.log(configue._.serverConfig); // => host: ..., port: ...
 ```
 
 #### Template string[↥]
@@ -194,13 +202,15 @@ This is a template function you can prefix a template string. The interpolated v
 *configue* and then replaced by their value:
 
 ```js
-console.log(configue.t`I will say ${'salute'} to ${'who'}`); 
-// => I will say Hello to You     
+console.log(configue.t`I will say ${'salute'} to ${'who'}`);
+// => I will say Hello to You
 // (supposing called with --salute=Hello --who=You)
 ```
 You can defined default values by passing a default object to the `template` method:
 ```js
-console.log(configue.t({times: 2, who: 'World'})`I will say ${'salute'} to ${'who'} ${'times'} times`); 
+console.log(
+  configue.t({times: 2, who: 'World'})`I will say ${'salute'} to ${'who'} ${'times'} times`
+);
 // => I will say Hello to You 2 times
 ```
 
@@ -208,7 +218,7 @@ console.log(configue.t({times: 2, who: 'World'})`I will say ${'salute'} to ${'wh
 For ease of the the `argv` and `env` can be directly accessible from the *configue* instance:
 
 ```js
-console.log(configue.argv.host)
+console.log(configue.argv.host);
 console.log(configue.env.HOME);
 ```
 
@@ -228,15 +238,15 @@ Starting from 1.0 the formatter to use can be automatically deduced for standard
 const Configue = require('configue');
 
 const configueOptions = {
-    disable: {argv: true},
-    files: [
-        {file: './config.json'},
-        {
-            file: './config.yaml',
-            format: require('nconf-yaml')
-        },
-        'my-own.properties'
-    ]
+  disable: {argv: true},
+  files: [
+    {file: './config.json'},
+    {
+      file: './config.yaml',
+      format: require('nconf-yaml')
+    },
+    'my-own.properties'
+  ]
 };
 
 const configue = new Configue(configueOptions);
@@ -270,7 +280,7 @@ For an example of configuration refer to the [following examples](examples/async
 [this json file](examples/config-with-protocalls.json) as part of the config.
 
 #### Passing options to nconf to configure argv and env[↥]
-You can provide options arguments to `argv` (`yargs`underneath), and `env` in order to customize the behavior 
+You can provide options arguments to `argv` (`yargs`underneath), and `env` in order to customize the behavior
 around command line argument and environment variables.
 For more in depth readings see nconf options [here][nconf-options-argv-env]
 
@@ -278,15 +288,16 @@ For more in depth readings see nconf options [here][nconf-options-argv-env]
 const Configue = require('configue');
 
 const configueOptions = {
-    argv: { f: {
-                 alias: 'file',
-                 demandOption: true,
-                 default: '/etc/passwd',
-                 describe: 'x marks the spot',
-                 type: 'string'
-                 }},
-    env: ["HOME", "PWD"] // whitelist
-
+  argv: {
+    f: {
+      alias: 'file',
+      demandOption: true,
+      default: '/etc/passwd',
+      describe: 'x marks the spot',
+      type: 'string'
+    }
+  },
+  env: ['HOME', 'PWD'] // whitelist
 };
 
 const configue = new Configue(configueOptions);
@@ -320,7 +331,7 @@ This will happen after the ignore prefix, and before the case normalisation.
 The argv and env steps can be skipped using the `disable` object in `options`.
 
 ```js
-const configue = new Configue({disable: { argv: true }});
+const configue = new Configue({disable: {argv: true}});
 // ...
 ```
 
@@ -336,17 +347,17 @@ The special hooks `first` enables you to respectively apply a function on nconf 
 
 ```js
 const configue = new Configue({
-    postHooks: {
-        first: function first(nconf){
-            // Your code here
-        },
-        overrides: function postOverrides(nconf){
-            // Your code here
-        },
-        argv: function postArgv(nconf){
-            // Your code here
-        }
+  postHooks: {
+    first: function first(nconf) {
+      // Your code here
+    },
+    overrides: function postOverrides(nconf) {
+      // Your code here
+    },
+    argv: function postArgv(nconf) {
+      // Your code here
     }
+  }
 });
 // Your code here
 ```
@@ -358,9 +369,11 @@ simply by providing an object with the single key `customWorkflow`
 attached to a function taking the `nconf` object, and a `done` callback.
 
 ```js
-const configueOptions = { customWorkflow: function(nconf, done){
-  // my own config setting
-}};
+const configueOptions = {
+  customWorkflow(nconf, done) {
+    // my own config setting
+  }
+};
 
 const configue = new Configue(configueOptions);
 ```
@@ -384,15 +397,15 @@ const configue = new Configue({some: 'complex config with a model connexion'});
 
 const server = new Hapi.Server();
 server.connection(configue._.connexion); // note usage of the model connexion with port in it.
-server.register({register: configue.plugin()}, (err) => {
-      // starting the server or else
-       
-      // access to the config
-      const config = server.configue('some'); // => 'config'
-      const configGet = server.configue.get('some'); // => 'config'
-      // Any other call to server.configue.getAsync/getFirst/getAll/getObject/template/load
-      // ...
-})
+server.register({register: configue.plugin()}, err => {
+  // starting the server or else
+
+  // access to the config
+  const config = server.configue('some'); // => 'config'
+  const configGet = server.configue.get('some'); // => 'config'
+  // Any other call to server.configue.getAsync/getFirst/getAll/getObject/template/load
+  // ...
+});
 ```
 A more complete example is available in [`examples`](examples/hapi-server.js) folder.
 
@@ -445,19 +458,19 @@ Here is a simple example:
 
 ```js
 const configue = Configue.defaults({a: 1, b: '2'})
-            .parse(true)
-            .normalize('camelCase')
-            .get();
+  .parse(true)
+  .normalize('camelCase')
+  .get();
 ```
 You can provide a portion of option with the `withOption` method as you can see in this example using `resolve`:
 
 ```js
 Configue.defaults({a: 1, b: '2'})
-        .withOptions({parse: true, normalize: 'camelCase'})
-        .protocall(true)
-        .resolve(configue => {
-            // here goes your code
-        });
+  .withOptions({parse: true, normalize: 'camelCase'})
+  .protocall(true)
+  .resolve(configue => {
+    // here goes your code
+  });
 ```
 
 Here is the builder function list, the function name being the name of the key in he object config (except the postHooks function and `withOptions`):
