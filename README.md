@@ -5,7 +5,7 @@
 [![npm version][npm-badge]][npm-url]
 [![Build Status][travis-badge]][travis-url]
 [![Coverage Status][coverage-badge]][coverage-url]
-[![Dependency Status][david-badge]][david-url]
+[![License: MIT][license-badge]][license-url]
 
 [Configue] is a *node.js* config library to easily customize your app from argv, env, files and more.
 
@@ -491,9 +491,9 @@ and `firstHook`, `overridesHook`, `argvHook`, `envHook`, `filesHook`, `defaultsH
 
 [npm-badge]: https://img.shields.io/npm/v/configue.svg
 [npm-url]: https://npmjs.com/package/configue
-[travis-badge]: https://api.travis-ci.org/AdrieanKhisbe/configue.svg
+[travis-badge]: https://api.travis-ci.org/AdrieanKhisbe/configue.svg?branch=master
 [travis-url]: https://travis-ci.org/AdrieanKhisbe/configue
-[david-badge]: https://david-dm.org/AdrieanKhisbe/configue.svg
-[david-url]: https://david-dm.org/AdrieanKhisbe/configue
 [coverage-badge]: https://codecov.io/gh/AdrieanKhisbe/configue/branch/master/graph/badge.svg
 [coverage-url]: https://codecov.io/gh/AdrieanKhisbe/configue
+[license-badge]: https://img.shields.io/badge/License-MIT-blue.svg
+[license-url]: https://opensource.org/licenses/MIT
