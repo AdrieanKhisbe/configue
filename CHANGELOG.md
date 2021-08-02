@@ -8,6 +8,11 @@ Up to version [0.7.1] project was know has `hapi-configue`.
 ## [Unreleased][unreleased]
 *Nothing So Far*
 
+## [1.3.6] - 2021-08-02
+Pull request [#31]
+### Fixed
+- Address minor vulns running npm audit fix
+
 ## [1.3.5] - 2020-09-13
 ### Fixed
 - Address minor vulns running npm audit fix, and patching codecov
@@ -206,10 +211,12 @@ Pull request [#16]
 ## [0.1.0] - 2015-12-01
 - Initial Release
 
+[#31]: https://github.com/AdrieanKhisbe/configue/pull/31
 [#19]: https://github.com/AdrieanKhisbe/configue/pull/19
 [#17]: https://github.com/AdrieanKhisbe/configue/pull/17
 [#16]: https://github.com/AdrieanKhisbe/configue/pull/16
-[unreleased]: https://github.com/AdrieanKhisbe/configue/compare/v1.3.5...HEAD
+[unreleased]: https://github.com/AdrieanKhisbe/configue/compare/v1.3.6...HEAD
+[1.3.6]: https://github.com/AdrieanKhisbe/configue/compare/v1.3.5...v1.3.6
 [1.3.5]: https://github.com/AdrieanKhisbe/configue/compare/v1.3.4...v1.3.5
 [1.3.4]: https://github.com/AdrieanKhisbe/configue/compare/v1.3.3...v1.3.4
 [1.3.3]: https://github.com/AdrieanKhisbe/configue/compare/v1.3.2...v1.3.3
