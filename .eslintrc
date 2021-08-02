@@ -2,7 +2,8 @@
   "extends": ["plugin:@-k/base"],
   "rules": {
     "lodash-fp/use-fp": "warn",
-    "prefer-rest-params": "warn"
+    "prefer-rest-params": "warn",
+    "import/extensions": ["error", {"json": "always"}]
   },
   "overrides": [
     {
