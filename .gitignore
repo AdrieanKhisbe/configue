@@ -16,6 +16,7 @@ out
 test/coverage.html
 test/report.html
 .idea
+.vscode
 coverage
 /tmp
 .nyc_output
