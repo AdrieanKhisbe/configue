@@ -491,8 +491,8 @@ and `firstHook`, `overridesHook`, `argvHook`, `envHook`, `filesHook`, `defaultsH
 
 [npm-badge]: https://img.shields.io/npm/v/configue.svg
 [npm-url]: https://npmjs.com/package/configue
-[travis-badge]: https://api.travis-ci.org/AdrieanKhisbe/configue.svg?branch=master
-[travis-url]: https://travis-ci.org/AdrieanKhisbe/configue
+[travis-badge]: https://travis-ci.com/AdrieanKhisbe/configue.svg?branch=master
+[travis-url]: https://travis-ci.com/github/AdrieanKhisbe/configue
 [coverage-badge]: https://codecov.io/gh/AdrieanKhisbe/configue/branch/master/graph/badge.svg
 [coverage-url]: https://codecov.io/gh/AdrieanKhisbe/configue
 [license-badge]: https://img.shields.io/badge/License-MIT-blue.svg
