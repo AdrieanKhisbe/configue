@@ -40,9 +40,9 @@
   "dependencies": {
     "bluebird": "^3.7.2",
     "joi": "^14.3.1",
-    "json5": "^2.2.0",
+    "json5": "^2.2.3",
     "lodash": "^4.17.21",
-    "nconf": "^0.11.3",
+    "nconf": "^0.11.4",
     "nconf-properties": "^0.3.0",
     "nconf-yaml": "^1.0.2",
     "protocall": "^2.0.0",
