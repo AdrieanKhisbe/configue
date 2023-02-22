@@ -3,7 +3,7 @@
 > ***CONFIGUE ALL THE THINGS \o/***
 
 [![npm version][npm-badge]][npm-url]
-[![Build Status][travis-badge]][travis-url]
+[![Build Status][ci-badge]][ci-url]
 [![Coverage Status][coverage-badge]][coverage-url]
 [![License: MIT][license-badge]][license-url]
 
@@ -491,8 +491,8 @@ and `firstHook`, `overridesHook`, `argvHook`, `envHook`, `filesHook`, `defaultsH
 
 [npm-badge]: https://img.shields.io/npm/v/configue.svg
 [npm-url]: https://npmjs.com/package/configue
-[travis-badge]: https://travis-ci.com/AdrieanKhisbe/configue.svg?branch=master
-[travis-url]: https://travis-ci.com/github/AdrieanKhisbe/configue
+[ci-badge]: https://github.com/AdrieanKhisbe/configue/actions/workflows/ci.yml/badge.svg
+[ci-url]: https://github.com/AdrieanKhisbe/configue/actions
 [coverage-badge]: https://codecov.io/gh/AdrieanKhisbe/configue/branch/master/graph/badge.svg
 [coverage-url]: https://codecov.io/gh/AdrieanKhisbe/configue
 [license-badge]: https://img.shields.io/badge/License-MIT-blue.svg
