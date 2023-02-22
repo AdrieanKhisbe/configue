@@ -8,6 +8,11 @@ Up to version [0.7.1] project was know has `hapi-configue`.
 ## [Unreleased][unreleased]
 *Nothing So Far*
 
+## [1.3.7] - 2023-02-22
+Pull request [#41]
+### Fixed
+- Address minor vulns running npm audit fix
+
 ## [1.3.6] - 2021-08-02
 Pull request [#31]
 ### Fixed
